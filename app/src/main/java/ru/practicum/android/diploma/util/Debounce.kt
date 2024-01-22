@@ -9,7 +9,7 @@ class Debounce {
 
     private var job: Job? = null
 
-    fun <T> debounce(
+    fun <T> launch(
         delayMillis: Long,
         coroutineScope: CoroutineScope,
         useLastParam: Boolean,
@@ -32,4 +32,3 @@ class Debounce {
         job?.cancel()
     }
 }
-
