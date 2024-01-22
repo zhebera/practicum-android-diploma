@@ -38,7 +38,6 @@
         <item name="android:layout_marginHorizontal">17dp</item>
         <item name="android:gravity">center</item>
         <item name="android:clickable">true</item>
-
     </style>
     <style name="ButtonStyle.On">
         <item name="android:textColor">@color/white</item>
@@ -47,5 +46,18 @@
     <style name="ButtonStyle.Off">
         <item name="android:textColor">@color/red</item>
         <item name="android:background">@drawable/button_background_off</item>
+    </style>
+<!--    Card vacancy text styles-->
+    <style name="CardTextViewStyleTop" parent="YsDisplayMedium.Large">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="CardTextViewStyleBottom" parent="YsDisplayRegular.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
     </style>
 </resources>
