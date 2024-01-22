@@ -13,4 +13,10 @@
     <dimen name="card_margin_horizontal">16dp</dimen>
     <dimen name="card_padding_top">16dp</dimen>
     <dimen name="card_padding_bottom">19dp</dimen>
+
+    <dimen name="about_team_fragment_toolbar_height">64dp</dimen>
+    <dimen name="about_team_fragment_side_margin">16dp</dimen>
+    <dimen name="about_team_fragment_vertical_margin_large" >32dp</dimen>
+    <dimen name="about_team_fragment_vertical_margin_medium">24dp</dimen>
+
 </resources>
