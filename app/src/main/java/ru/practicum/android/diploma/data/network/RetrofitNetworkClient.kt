@@ -6,7 +6,7 @@ import android.net.NetworkCapabilities
 
 class RetrofitNetworkClient(private val context: Context) : NetworkClient {
 
-    private fun isConnected(): Boolean {
+    fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
