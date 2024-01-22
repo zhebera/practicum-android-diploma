@@ -7,4 +7,10 @@
     <dimen name="very_large_text_size">32sp</dimen>
 <!--    Buton height-->
     <dimen name="button_height">59dp</dimen>
+<!--    Card vacancy dimens-->
+    <dimen name="card_height">80dp</dimen>
+    <dimen name="card_image_size">48dp</dimen>
+    <dimen name="card_margin_horizontal">16dp</dimen>
+    <dimen name="card_padding_top">16dp</dimen>
+    <dimen name="card_padding_bottom">19dp</dimen>
 </resources>
