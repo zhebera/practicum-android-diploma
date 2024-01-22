@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    Text sizes-->
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="medium_text_size">16sp</dimen>
     <dimen name="large_text_size">22sp</dimen>
     <dimen name="very_large_text_size">32sp</dimen>
+<!--    Buton height-->
+    <dimen name="button_height">59dp</dimen>
 </resources>
