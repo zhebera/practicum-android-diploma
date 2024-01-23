@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.di
 
+import androidx.room.Room
 import org.koin.dsl.module
+import org.koin.android.ext.koin.androidContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.network.HeadHunterApi
@@ -8,8 +10,6 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.util.API_URL
 import ru.practicum.android.diploma.data.db.AppDatabase
-import androidx.room.Room
-import org.koin.android.ext.koin.androidContext
 
 val dataModule = module {
 
