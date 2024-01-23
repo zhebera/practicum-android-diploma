@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import ru.practicum.android.diploma.data.dto.Response
 
 class RetrofitNetworkClient(private val context: Context) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
