@@ -13,4 +13,14 @@
     <dimen name="card_margin_horizontal">16dp</dimen>
     <dimen name="card_padding_top">16dp</dimen>
     <dimen name="card_padding_bottom">19dp</dimen>
+    <!--    BottomNavigationView dimens-->
+    <dimen name="bottom_navigation_view_height">56dp</dimen>
+    <!--    EditText dimens-->
+    <dimen name="edit_text_height">56dp</dimen>
+    <dimen name="edit_text_corner_radius">12dp</dimen>
+    <dimen name="edit_text_padding_horizontal">12dp</dimen>
+    <!--    TextInputLayout dimens-->
+    <dimen name="box_corner_radius">12dp</dimen>
+    <!--    TextInputEditText dimens-->
+    <dimen name="text_input_edit_text_height">12dp</dimen>
 </resources>
