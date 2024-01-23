@@ -7,4 +7,9 @@
     <string name="about_team_fragment_header">Над приложением работали</string>
     <string name="about_team_fragment_team_list">Анна Архиповна Тестирование\n\nОльга Петровна Оценка\n\nВениамин Петрович Дизайн\n\nАнтон Андроидович</string>
 
+    <string name="main">Главная</string>
+    <string name="favourite">Избранное</string>
+    <string name="team">Команда</string>
+    <string name="input_hint">Text</string>
+
 </resources>
