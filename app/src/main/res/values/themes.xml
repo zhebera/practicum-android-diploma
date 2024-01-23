@@ -2,6 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorOnPrimary">@color/white_black</item>
+        <item name="colorOnSecondary">@color/light_grey</item>
+        <item name="colorPrimary">@color/grey</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
