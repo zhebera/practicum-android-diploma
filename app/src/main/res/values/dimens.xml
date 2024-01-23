@@ -14,7 +14,7 @@
     <dimen name="card_padding_top">16dp</dimen>
     <dimen name="card_padding_bottom">19dp</dimen>
     <!--    BottomNavigationView dimens-->
-    <dimen name="bottom_navigation_view_height">64dp</dimen>
+    <dimen name="bottom_navigation_view_height">56dp</dimen>
     <!--    EditText dimens-->
     <dimen name="edit_text_height">56dp</dimen>
     <dimen name="edit_text_corner_radius">12dp</dimen>
