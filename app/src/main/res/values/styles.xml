@@ -87,17 +87,16 @@
         <item name="android:background">@drawable/rounded_edit_text</item>
         <item name="android:inputType">text</item>
         <item name="android:maxLines">1</item>
-        <item name="android:drawableEnd">@drawable/search</item>
-        <item name="tint">@color/black</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="drawableTint">?attr/colorOnSecondary</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColorHint">?attr/colorPrimary</item>
         <item name="android:singleLine">true</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLength">60</item>
+        <item name="android:paddingHorizontal">@dimen/edit_text_padding_horizontal</item>
         <item name="android:hint">@string/input_hint</item>
         <item name="cornerRadius">@dimen/edit_text_corner_radius</item>
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
@@ -110,8 +109,8 @@
     </style>
     <!--    TextInputLayout Styles-->
     <style name="TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
-        <item name="android:textColorHint">@color/grey</item>
-        <item name="boxBackgroundColor">@color/light_grey</item>
+        <item name="android:textColorHint">?attr/colorPrimary</item>
+        <item name="boxBackgroundColor">?attr/colorOnSecondary</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="boxCornerRadiusTopStart">@dimen/box_corner_radius</item>
