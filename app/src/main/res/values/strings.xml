@@ -5,7 +5,7 @@
 
     <string name="about_team_fragment_toolbar_text">Команда</string>
     <string name="about_team_fragment_header">Над приложением работали</string>
-    <string name="about_team_fragment_team_list">Анна Архиповна Тестирование\n\nОльга Петровна Оценка\n\nВениамин Петрович Дизайн\n\nАнтон Андроидович</string>
+    <string name="about_team_fragment_team_list">Аверкиева Ксения\n\nШипицын Игорь\n\nПадчин Дмитрий\n\nБрусов Денис\n\nКомиссаров Андрей</string>
 
     <string name="main">Главная</string>
     <string name="favourite">Избранное</string>
