@@ -36,9 +36,9 @@ fun dpToPx(dp: Float, context: Context): Int {
 
 fun <T> debounce(
     delayMillis: Long,
-     coroutineScope: CoroutineScope,
-     useLastParam: Boolean,
-     action: (T) -> Unit
+    coroutineScope: CoroutineScope,
+    useLastParam: Boolean,
+    action: (T) -> Unit
 ): (T) -> Unit {
     var debounceJob: Job? = null
     return { param: T ->
