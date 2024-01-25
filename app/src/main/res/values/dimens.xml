@@ -29,5 +29,24 @@
     <dimen name="box_corner_radius">12dp</dimen>
     <!--    TextInputEditText dimens-->
     <dimen name="text_input_edit_text_height">12dp</dimen>
+    <!--    CardVacancyList dimens-->
+    <dimen name="card_vacancy_list_padding_vertical">8dp</dimen>
+    <dimen name="card_vacancy_list_weight_and_height">48dp</dimen>
+    <dimen name="card_vacancy_list_stroke_width">1dp</dimen>
+    <dimen name="card_vacancy_list_margin_start">12dp</dimen>
+    <dimen name="card_vacancy_list_width">0dp</dimen>
+    <!--    FragmentSearch dimens-->
+    <dimen name="fragment_search_width">0dp</dimen>
+    <dimen name="fragment_search_height">0dp</dimen>
+    <dimen name="fragment_search_margin_start">16dp</dimen>
+    <dimen name="fragment_search_padding_vertical_19dp">19dp</dimen>
+    <dimen name="fragment_search_padding_vertical_4dp">4dp</dimen>
+    <dimen name="fragment_search_padding_vertical_8dp">8dp</dimen>
+    <dimen name="fragment_search_filter_padding">4dp</dimen>
+    <dimen name="fragment_search_padding">16dp</dimen>
+    <dimen name="fragment_search_width_and_height_progress_bar">48dp</dimen>
+    <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
+    <dimen name="fragment_search_margin_end_image">20dp</dimen>
+    <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
 
 </resources>

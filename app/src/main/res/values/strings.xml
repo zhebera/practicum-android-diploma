@@ -10,6 +10,15 @@
     <string name="main">Главная</string>
     <string name="favourite">Избранное</string>
     <string name="team">Команда</string>
-    <string name="input_hint">Text</string>
+    <string name="input_hint">Введите запрос</string>
+
+    <string name="searching_vacancies">Поиск вакансий</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_vacancy">Не удалось получить список вакансий</string>
+    <string name="number_of_founded_vacancies">[найдено 286 вакансий]</string>
+
+    <string name="placeholder_job_title_and_city">Android-разрабочик, Москва</string>
+    <string name="placeholder_company">Еда</string>
+    <string name="placeholder_salary">От 100000 р</string>
 
 </resources>
