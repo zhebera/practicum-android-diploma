@@ -13,6 +13,12 @@
     <dimen name="card_margin_horizontal">16dp</dimen>
     <dimen name="card_padding_top">16dp</dimen>
     <dimen name="card_padding_bottom">19dp</dimen>
+
+    <dimen name="about_team_fragment_toolbar_height">64dp</dimen>
+    <dimen name="about_team_fragment_side_margin">16dp</dimen>
+    <dimen name="about_team_fragment_vertical_margin_large" >32dp</dimen>
+    <dimen name="about_team_fragment_vertical_margin_medium">24dp</dimen>
+
     <!--    BottomNavigationView dimens-->
     <dimen name="bottom_navigation_view_height">56dp</dimen>
     <!--    EditText dimens-->
@@ -23,4 +29,5 @@
     <dimen name="box_corner_radius">12dp</dimen>
     <!--    TextInputEditText dimens-->
     <dimen name="text_input_edit_text_height">12dp</dimen>
+
 </resources>
