@@ -20,12 +20,14 @@ class SearchRepositoryImpl(
             -1 -> {
                 emit(Resource.Error("Проверьте подключение к интернету"))
             }
+
             200 -> {
-                with(response as VacanciesResponse){
+                with(response as VacanciesResponse) {
                     val data = vacanciesConverter.convert(response)
                     emit(Resource.Success(data))
                 }
             }
+
             else -> emit(Resource.Error("Ошибка сервера"))
         }
     }

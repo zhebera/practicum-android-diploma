@@ -6,7 +6,7 @@ class VacanciesResponse(
     val page: Int,
     val pages: Int,
     val per_page: Int,
-): Response()
+) : Response()
 
 class VacancyResponse(
     val id: String,
@@ -47,7 +47,7 @@ class LogoUrlsResponse(
     val original: String
 )
 
-class DepartmentResponse (
+class DepartmentResponse(
     val id: String,
     val name: String
 )

@@ -81,10 +81,10 @@ class VacanciesConverter {
     private fun convertSalary(salary: SalaryResponse?): Salary? {
         return salary?.let {
             Salary(
-            currency = salary.currency,
-            from = salary.from,
-            gross = salary.gross,
-            to = salary.to
+                currency = salary.currency,
+                from = salary.from,
+                gross = salary.gross,
+                to = salary.to
             )
         }
     }
