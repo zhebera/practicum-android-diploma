@@ -24,7 +24,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textView.text = getString(R.string.main)
+        binding.tvTitle.text = getString(R.string.main)
     }
 
     override fun onDestroy() {
