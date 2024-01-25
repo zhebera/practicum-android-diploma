@@ -3,14 +3,40 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import ru.practicum.android.diploma.data.dto.Response
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.practicum.android.diploma.BuildConfig
+import ru.practicum.android.diploma.data.request.SearchRequest
+import ru.practicum.android.diploma.data.response.Response
 
-class RetrofitNetworkClient(private val context: Context) : NetworkClient {
+class RetrofitNetworkClient(
+    private val hhApi: HeadHunterApi,
+    private val context: Context
+) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        TODO("Not yet implemented")
+        if (!isConnected()) {
+            return Response().apply { resultCode = -1 }
+        }
+        if ((dto !is SearchRequest))
+            return Response().apply { resultCode = 400 }
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = when(dto){
+                    is SearchRequest -> hhApi.getVacancies(/*accessToken = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}",*/ vacancy = dto.vacancy)
+                    else -> return@withContext Response().apply { resultCode = 500 }
+                }
+                response.apply { resultCode = 200 }
+            }catch (e: Throwable) {
+                if(e.message == "HTTP 403")
+
+                Log.e("SPISOK", e.cause.toString())
+                Response().apply { resultCode = 500 }
+            }
+        }
     }
 
-    fun isConnected(): Boolean {
+    private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
