@@ -28,9 +28,7 @@ class RetrofitNetworkClient(
                     else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
-            } catch (e: Throwable) {
-                when (e) {
-                    is HttpException -> {
+            } catch (e: HttpException) {
                         when (e.code()) {
                             ResponseCode.NOT_FOUND -> Response().apply { resultCode = ResponseCode.NOT_FOUND }
                             ResponseCode.BAD_AUTHORIZATION -> Response().apply {
@@ -38,11 +36,9 @@ class RetrofitNetworkClient(
                             }
 
                             else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
-                        }
-                    }
-
-                    else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
+            } catch (e: Exception){
+                Response().apply { resultCode = ResponseCode.SERVER_FAILED }
             }
         }
     }
