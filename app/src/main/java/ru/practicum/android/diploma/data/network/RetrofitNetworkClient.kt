@@ -3,8 +3,6 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
 
 class RetrofitNetworkClient(private val context: Context) : NetworkClient {
     fun isConnected(): Boolean {
