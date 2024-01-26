@@ -29,15 +29,15 @@ class RetrofitNetworkClient(
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
             } catch (e: HttpException) {
-                        when (e.code()) {
-                            ResponseCode.NOT_FOUND -> Response().apply { resultCode = ResponseCode.NOT_FOUND }
-                            ResponseCode.BAD_AUTHORIZATION -> Response().apply {
-                                resultCode = ResponseCode.BAD_AUTHORIZATION
-                            }
+                when (e.code()) {
+                    ResponseCode.NOT_FOUND -> Response().apply { resultCode = ResponseCode.NOT_FOUND }
+                    ResponseCode.BAD_AUTHORIZATION -> Response().apply {
+                        resultCode = ResponseCode.BAD_AUTHORIZATION
+                    }
 
-                            else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                    else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
-            } catch (e: Exception){
+            } catch (e: RuntimeException) {
                 Response().apply { resultCode = ResponseCode.SERVER_FAILED }
             }
         }
