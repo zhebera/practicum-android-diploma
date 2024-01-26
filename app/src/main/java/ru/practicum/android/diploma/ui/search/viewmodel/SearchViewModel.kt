@@ -17,7 +17,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         _searchState.postValue(SearchState.Loading)
 
         viewModelScope.launch {
-            searchInteractor.searchMovies(vacancy).collect { pair ->
+            searchInteractor.searchVacancies(vacancy).collect { pair ->
                 processResult(pair.first, pair.second)
             }
         }
