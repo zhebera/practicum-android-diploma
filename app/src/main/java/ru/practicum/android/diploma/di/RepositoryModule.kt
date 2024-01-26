@@ -9,7 +9,7 @@ val repositoryModule = module {
 
     factory { VacanciesConverter() }
 
-    single<SearchRepository>{
+    single<SearchRepository> {
         SearchRepositoryImpl(get(), get())
     }
 }

@@ -1,7 +1,22 @@
 package ru.practicum.android.diploma.data.converters
 
-import ru.practicum.android.diploma.data.response.*
-import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.data.response.VacanciesResponse
+import ru.practicum.android.diploma.data.response.VacancyResponse
+import ru.practicum.android.diploma.data.response.AreaResponse
+import ru.practicum.android.diploma.data.response.AddressResponse
+import ru.practicum.android.diploma.data.response.EmployerResponse
+import ru.practicum.android.diploma.data.response.LogoUrlsResponse
+import ru.practicum.android.diploma.data.response.DepartmentResponse
+import ru.practicum.android.diploma.data.response.SalaryResponse
+import ru.practicum.android.diploma.domain.models.Address
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Vacancies
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Department
+import ru.practicum.android.diploma.domain.models.Salary
+
 
 class VacanciesConverter {
 
@@ -12,7 +27,7 @@ class VacanciesConverter {
                 items = convertItems(this.items),
                 page = this.page,
                 pages = this.pages,
-                per_page = this.per_page
+                perPage = this.perPage
             )
         }
     }
@@ -54,10 +69,10 @@ class VacanciesConverter {
 
     private fun convertEmployer(employer: EmployerResponse): Employer {
         return Employer(
-            alternate_url = employer.alternate_url,
+            alternateUrl = employer.alternateUrl,
             blacklisted = employer.blacklisted,
             id = employer.id,
-            logo_urls = convertLogoUrls(employer.logo_urls),
+            logoUrls = convertLogoUrls(employer.logoUrls),
             name = employer.name,
             trusted = employer.trusted,
             url = employer.url
@@ -67,7 +82,6 @@ class VacanciesConverter {
     private fun convertLogoUrls(logoUrls: LogoUrlsResponse?): LogoUrls? {
         return logoUrls?.let { LogoUrls(it.original) }
     }
-
 
     private fun convertDepartment(department: DepartmentResponse?): Department? {
         return department?.let {

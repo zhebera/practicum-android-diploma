@@ -7,5 +7,5 @@ data class Vacancies(
     @SerializedName("item") val items: List<Vacancy>,
     @SerializedName("page")val page: Int,
     @SerializedName("pages")val pages: Int,
-    @SerializedName("per_page")val per_page: Int,
+    @SerializedName("per_page")val perPage: Int,
 )

@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.ui.search.view_model.SearchViewModel
 
 val viewModelModule = module {
 
-    viewModel{
+    viewModel {
         SearchViewModel(get())
     }
 }

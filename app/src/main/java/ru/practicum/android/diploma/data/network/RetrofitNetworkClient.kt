@@ -17,22 +17,17 @@ class RetrofitNetworkClient(
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
         }
-        if ((dto !is SearchRequest))
+        if (dto !is SearchRequest) {
             return Response().apply { resultCode = 400 }
+        }
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is SearchRequest -> hhApi.getVacancies(/*accessToken = "Bearer ${BuildConfig.HH_ACCESS_TOKEN}",*/
-                        vacancy = dto.vacancy
-                    )
-
-                    else -> return@withContext Response().apply { resultCode = 500 }
+                    is SearchRequest -> hhApi.getVacancies( vacancy = dto.vacancy)
+                    else -> Response().apply { resultCode = 500 }
                 }
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
-                if (e.message == "HTTP 403")
-
-                    Log.e("SPISOK", e.cause.toString())
                 Response().apply { resultCode = 500 }
             }
         }

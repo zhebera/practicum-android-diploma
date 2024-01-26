@@ -8,12 +8,12 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancies
 
-class SearchViewModel(private val searchInteractor: SearchInteractor): ViewModel() {
+class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
 
-    fun getVacancies(vacancy: String){
+    fun getVacancies(vacancy: String) {
         _searchState.postValue(SearchState.Loading)
 
         viewModelScope.launch {
@@ -23,18 +23,18 @@ class SearchViewModel(private val searchInteractor: SearchInteractor): ViewModel
         }
     }
 
-    private fun processResult(data: Vacancies?, message: String?){
-        if(data != null){
+    private fun processResult(data: Vacancies?, message: String?) {
+        if (data != null) {
             setData(data)
-        }else{
+        } else {
             _searchState.postValue(SearchState.Error(message ?: "Unknown error"))
         }
     }
 
     private fun setData(data: Vacancies) {
-        if(data.found == 0)
+        if (data.found == 0)
             _searchState.postValue(SearchState.Empty("Ничего нет"))
-        if(data.found != 0 && data.items.isNotEmpty()){
+        if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
         }
     }

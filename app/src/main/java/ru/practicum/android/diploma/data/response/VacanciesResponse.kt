@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.data.response
 
+import com.google.gson.annotations.SerializedName
+
 class VacanciesResponse(
     val found: Int,
     val items: List<VacancyResponse>,
     val page: Int,
     val pages: Int,
-    val per_page: Int,
+    @SerializedName("per_page") val perPage: Int,
 ) : Response()
 
 class VacancyResponse(
@@ -34,10 +36,10 @@ class AddressResponse(
 )
 
 class EmployerResponse(
-    val alternate_url: String,
+    @SerializedName("alternate_url") val alternateUrl: String,
     val blacklisted: Boolean,
     val id: String,
-    val logo_urls: LogoUrlsResponse,
+    @SerializedName("logo_urls") val logoUrls: LogoUrlsResponse,
     val name: String,
     val trusted: Boolean,
     val url: String
