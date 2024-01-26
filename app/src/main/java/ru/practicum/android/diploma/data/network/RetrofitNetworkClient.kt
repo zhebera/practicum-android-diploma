@@ -5,9 +5,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.request.SearchRequest
-import ru.practicum.android.diploma.data.response.Response
+import ru.practicum.android.diploma.data.dto.Response
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -27,7 +28,7 @@ class RetrofitNetworkClient(
                     else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = ResponseCode.SERVER_FAILED }
             }
         }
