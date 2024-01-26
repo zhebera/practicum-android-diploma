@@ -28,7 +28,6 @@ class SearchRepositoryImpl(
         val response = networkClient.doRequest(SearchRequest(vacancy))
         when (response.resultCode) {
             ResponseCode.NETWORK_FAILED -> {
-
                 emit(Resource.Error(badConnection))
             }
 
