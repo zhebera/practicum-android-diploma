@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.domain.models
 
-data class Department (
+data class Department(
     val id: String,
     val name: String
 )

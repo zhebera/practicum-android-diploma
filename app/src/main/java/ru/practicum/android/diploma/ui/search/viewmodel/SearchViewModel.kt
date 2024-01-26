@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search.view_model
+package ru.practicum.android.diploma.ui.search.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,8 +32,9 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     private fun setData(data: Vacancies) {
-        if (data.found == 0)
+        if (data.found == 0) {
             _searchState.postValue(SearchState.Empty("Ничего нет"))
+        }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
         }
