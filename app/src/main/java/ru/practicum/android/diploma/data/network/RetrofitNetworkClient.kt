@@ -24,8 +24,7 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
-                    else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                    else -> hhApi.getVacancies(vacancy = dto.vacancy)
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
             } catch (e: HttpException) {
@@ -37,8 +36,6 @@ class RetrofitNetworkClient(
 
                     else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
-            } catch (e: RuntimeException) {
-                Response().apply { resultCode = ResponseCode.SERVER_FAILED }
             }
         }
     }
