@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
@@ -10,6 +11,6 @@ val repositoryModule = module {
     factory { VacanciesConverter() }
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get(), get())
+        SearchRepositoryImpl(get(), get(), androidContext())
     }
 }
