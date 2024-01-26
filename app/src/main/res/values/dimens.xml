@@ -30,4 +30,21 @@
     <!--    TextInputEditText dimens-->
     <dimen name="text_input_edit_text_height">12dp</dimen>
 
+    <!--    TopNavigation dimens-->
+    <dimen name="top_navigation_bar_height">64dp</dimen>
+    <dimen name="top_navigation_bar_icon_padding">12dp</dimen>
+    <!--    Details dimens-->
+    <dimen name="details_guideline">16dp</dimen>
+    <dimen name="details_vacancy_container_margin_top">16dp</dimen>
+    <dimen name="details_title_margin_top">8dp</dimen>
+    <dimen name="details_between_lines_margin_top">4dp</dimen>
+    <dimen name="details_description_margin_top">16dp</dimen>
+    <dimen name="details_subtitle_margin_top">24dp</dimen>
+
+
+
+
+
+
+
 </resources>
