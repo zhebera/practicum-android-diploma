@@ -6,9 +6,9 @@ import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.request.SearchRequest
-import ru.practicum.android.diploma.data.dto.Response
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -29,7 +29,20 @@ class RetrofitNetworkClient(
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
             } catch (e: Throwable) {
-                Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                when (e) {
+                    is HttpException -> {
+                        when (e.code()) {
+                            ResponseCode.NOT_FOUND -> Response().apply { resultCode = ResponseCode.NOT_FOUND }
+                            ResponseCode.BAD_AUTHORIZATION -> Response().apply {
+                                resultCode = ResponseCode.BAD_AUTHORIZATION
+                            }
+
+                            else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                        }
+                    }
+
+                    else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                }
             }
         }
     }
