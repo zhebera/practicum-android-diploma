@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftBorder"
@@ -35,27 +36,27 @@
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_back"
             android:padding="@dimen/top_navigation_bar_icon_padding"
-            android:layout_marginHorizontal="8dp"/>
+            android:layout_marginHorizontal="@dimen/details_backButton_marginHorizontal"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/TopNavigationHeader"
-            android:text="@string/vacancy"/>
+            android:text="@string/details_top_nav_header"/>
         <ImageView
             android:id="@+id/shareButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sharing"
             android:padding="@dimen/top_navigation_bar_icon_padding"
-            android:layout_marginHorizontal="4dp"/>
+            android:layout_marginHorizontal="@dimen/details_shareButton_marginHorizontal"/>
         <ImageView
             android:id="@+id/favouriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/favourites_off"
             android:padding="@dimen/top_navigation_bar_icon_padding"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginEnd="@dimen/details_favouriteButton_marginEnd"/>
     </LinearLayout>
 
     <ScrollView
@@ -78,7 +79,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Android разработчик"
+                tools:text="@string/placeholder_details_title"
                 style="@style/DetailsTitle"
                 android:layout_marginTop="@dimen/details_title_margin_top"/>
 
@@ -86,7 +87,7 @@
                 android:id="@+id/salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="от 100 000 руб."
+                tools:text="@string/placeholder_details_salary"
 
                 style="@style/DetailsSalary"
                 android:layout_marginTop="@dimen/details_between_lines_margin_top"/>
@@ -97,7 +98,7 @@
                 android:layout_height="@dimen/card_height"
                 android:background="@drawable/card_vacancy_background"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="@dimen/details_employer_card_marginTop">
 
                 <ImageView
                     android:id="@+id/employer_logo"
@@ -116,26 +117,26 @@
                     <TextView
                         android:id="@+id/employer_name"
                         style="@style/CardTextViewStyleTop"
-                        android:text="Еда"/>
+                        tools:text="@string/placeholder_details_company"/>
                     <TextView
                         android:id="@+id/employer_address"
                         style="@style/CardTextViewStyleBottom"
-                        android:text="Москва"/>
+                        tools:text="@string/placeholder_details_address"/>
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Требуемый опыт"
+                android:layout_marginTop="@dimen/details_experience_container_marginTop"
+                android:text="@string/details_experience_title"
                 style="@style/DetailsSubtitleSmall"/>
 
             <TextView
                 android:id="@+id/experience"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="От 1 до 3 лет"
+                tools:text="@string/placeholder_details_experience"
                 android:layout_marginTop="@dimen/details_between_lines_margin_top"
                 style="@style/DetailsRegularText"/>
 
@@ -143,22 +144,22 @@
                 android:id="@+id/conditions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Полная занятость, удаленная работа"
-                android:layout_marginTop="8dp"
+                tools:text="@string/placeholder_details_conditions"
+                android:layout_marginTop="@dimen/details_conditions_marginTop"
                 style="@style/DetailsRegularText"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Описание вакансии"
-                android:layout_marginTop="32dp"
+                android:text="@string/details_description_title"
+                android:layout_marginTop="@dimen/details_description_container_marginTop"
                 style="@style/DetailsSubtitle"/>
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Условия, обязанности, требования"
+                tools:text="@string/placeholder_details_description"
                 android:layout_marginTop="@dimen/details_description_margin_top"
                 style="@style/DetailsRegularText"/>
 
@@ -172,14 +173,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ключевые навыки"
+                    android:text="@string/details_skills_header"
                     style="@style/DetailsSubtitle"/>
 
                 <TextView
                     android:id="@+id/key_skills"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Знания, умения и т.д."
+                    tools:text="@string/placeholder_details_skills"
                     android:layout_marginTop="@dimen/details_description_margin_top"
                     style="@style/DetailsRegularText"/>
 
@@ -190,13 +191,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/details_subtitle_margin_top"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/details_contacts_container_marginBottom"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Контакты"
+                    android:text="@string/details_contacts_header"
                     style="@style/DetailsSubtitle"/>
 
                 <LinearLayout
@@ -208,7 +209,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Контактное лицо"
+                        android:text="@string/details_contacts_name_subtitle"
                         android:layout_marginTop="@dimen/details_description_margin_top"
                         style="@style/DetailsSubtitleSmall"/>
 
@@ -216,7 +217,7 @@
                         android:id="@+id/contact_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ирина"
+                        tools:text="@string/placeholder_details_contacts_name"
                         android:layout_marginTop="@dimen/details_between_lines_margin_top"
                         style="@style/DetailsRegularText"/>
 
@@ -231,7 +232,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="E-mail"
+                        android:text="@string/details_contacts_email_subtitle"
                         android:layout_marginTop="@dimen/details_description_margin_top"
                         style="@style/DetailsSubtitleSmall"/>
 
@@ -239,7 +240,7 @@
                         android:id="@+id/contact_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ирина@mail.ru"
+                        tools:text="@string/placeholder_details_contacts_email"
                         android:layout_marginTop="@dimen/details_between_lines_margin_top"
                         style="@style/DetailsLinkedRegularText"/>
 
@@ -254,7 +255,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Телефон"
+                        android:text="@string/details_contacts_phone_subtitle"
                         android:layout_marginTop="@dimen/details_description_margin_top"
                         style="@style/DetailsSubtitleSmall"/>
 
@@ -262,7 +263,7 @@
                         android:id="@+id/contact_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+79119993333"
+                        tools:text="@string/placeholder_details_contacts_phone"
                         android:layout_marginTop="@dimen/details_between_lines_margin_top"
                         style="@style/DetailsLinkedRegularText"/>
 
@@ -278,14 +279,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Комментарий"
+                        android:text="@string/details_contacts_comment_subtitle"
                         style="@style/DetailsSubtitleSmall"/>
 
                     <TextView
                         android:id="@+id/comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Заполнить анкету можно на нашем сайте"
+                        tools:text="@string/placeholder_details_contacts_comment"
                         android:layout_marginTop="@dimen/details_between_lines_margin_top"
                         style="@style/DetailsRegularText"/>
 
@@ -296,8 +297,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/details_progressBar_size"
+        android:layout_height="@dimen/details_progressBar_size"
         android:layout_gravity="center"
         android:indeterminateTint="@color/blue"
         android:visibility="gone"
@@ -323,7 +324,7 @@
         <ImageView
             android:id="@+id/placeholder_image"
             android:layout_width="wrap_content"
-            android:layout_height="223dp"
+            android:layout_height="@dimen/details_error_image_height"
             android:src="@drawable/placeholder_details_server_error"
             android:scaleType="fitCenter"/>
 
@@ -331,7 +332,7 @@
             android:id="@+id/placeholder_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ошибка сервера"
+            tools:text="@string/placeholder_details_error_message"
             style="@style/DetailsPlaceholderMessage"/>
     </LinearLayout>
 

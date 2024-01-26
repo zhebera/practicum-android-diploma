@@ -40,11 +40,15 @@
     <dimen name="details_between_lines_margin_top">4dp</dimen>
     <dimen name="details_description_margin_top">16dp</dimen>
     <dimen name="details_subtitle_margin_top">24dp</dimen>
-
-
-
-
-
-
+    <dimen name="details_backButton_marginHorizontal">8dp</dimen>
+    <dimen name="details_shareButton_marginHorizontal">4dp</dimen>
+    <dimen name="details_favouriteButton_marginEnd">8dp</dimen>
+    <dimen name="details_employer_card_marginTop">16dp</dimen>
+    <dimen name="details_experience_container_marginTop">24dp</dimen>
+    <dimen name="details_conditions_marginTop">8dp</dimen>
+    <dimen name="details_description_container_marginTop">32dp</dimen>
+    <dimen name="details_contacts_container_marginBottom">24dp</dimen>
+    <dimen name="details_progressBar_size">36dp</dimen>
+    <dimen name="details_error_image_height">223dp</dimen>
 
 </resources>
