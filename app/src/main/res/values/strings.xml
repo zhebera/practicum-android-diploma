@@ -10,6 +10,7 @@
     <string name="main">Главная</string>
     <string name="favourite">Избранное</string>
     <string name="team">Команда</string>
+    <string name="vacancy">Вакансия</string>
     <string name="input_hint">Text</string>
 
 </resources>
