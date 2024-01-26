@@ -8,16 +8,15 @@
 
     <TextView
         android:id="@+id/tv_title"
+        style="@style/YsDisplayMedium.Large"
         android:layout_width="@dimen/fragment_search_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/fragment_search_margin_start"
         android:layout_weight="1"
-        android:fontFamily="@font/ys_display_medium"
         android:paddingVertical="@dimen/fragment_search_padding_vertical_19dp"
         android:text="@string/searching_vacancies"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="@dimen/large_text_size"
+        android:textColor="@color/black_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +45,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/fragment_search_padding"
-        android:paddingVertical="@dimen/fragment_search_padding_vertical_8dp"
         android:src="@drawable/search"
         app:layout_constraintBottom_toBottomOf="@id/et_search"
         app:layout_constraintEnd_toEndOf="@id/et_search"
@@ -57,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,32 +64,12 @@
         <ImageView
             android:id="@+id/iv_no_internet"
             style="@style/ImageViewPlaceholderSearch"
-            android:visibility="gone"
             tools:src="@drawable/placeholder_no_internet" />
 
         <TextView
             android:id="@+id/tv_no_internet"
             style="@style/TextViewPlaceholderSearch"
-            android:visibility="gone"
             tools:text="@string/no_internet" />
-
-        <ImageView
-            android:id="@+id/iv_no_vacancy"
-            style="@style/ImageViewPlaceholderSearch"
-            android:visibility="gone"
-            tools:src="@drawable/placeholder_no_vacancy_and_region" />
-
-        <TextView
-            android:id="@+id/tv_no_vacancy"
-            style="@style/TextViewPlaceholderSearch"
-            android:visibility="gone"
-            tools:text="@string/no_vacancy" />
-
-        <ImageView
-            android:id="@+id/iv_before_search"
-            style="@style/ImageViewPlaceholderSearch"
-            android:visibility="gone"
-            tools:src="@drawable/placeholder_before_search" />
 
     </LinearLayout>
 
@@ -113,12 +92,6 @@
             tools:itemCount="4"
             tools:listitem="@layout/card_vacancy_list" />
 
-        <include
-            android:id="@+id/vacancy_list"
-            layout="@layout/card_vacancy"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
 
     <TextView
@@ -126,11 +99,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/vacancy_background"
-        android:fontFamily="@font/ys_display_regular"
         android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
         android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
+        android:visibility="gone"
         android:textColor="@color/white"
-        android:textSize="@dimen/medium_text_size"
+        style = "@style/YsDisplayRegular.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ll_content"
@@ -140,6 +113,7 @@
         android:id="@+id/central_progress_bar"
         android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
         android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
+        android:visibility="gone"
         android:indeterminateTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
