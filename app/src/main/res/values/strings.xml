@@ -12,4 +12,7 @@
     <string name="team">Команда</string>
     <string name="input_hint">Text</string>
 
+    <string name="bad_connection">Проверьте подключение к интернету</string>
+    <string name="server_error">Ошибка сервера</string>
+
 </resources>

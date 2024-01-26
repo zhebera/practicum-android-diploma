@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.Vacancies
 import ru.practicum.android.diploma.util.Resource
 
 class SearchInteractorImpl(private val searchRepository: SearchRepository) : SearchInteractor {
-    override fun searchMovies(vacancy: String): Flow<Pair<Vacancies?, String?>> {
+    override fun searchVacancies(vacancy: String): Flow<Pair<Vacancies?, String?>> {
         return searchRepository.searchVacancies(vacancy).map { result ->
             when (result) {
                 is Resource.Success -> {

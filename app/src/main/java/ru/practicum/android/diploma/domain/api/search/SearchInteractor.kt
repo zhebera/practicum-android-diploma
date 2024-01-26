@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.Vacancies
 
 interface SearchInteractor {
-    fun searchMovies(vacancy: String): Flow<Pair<Vacancies?, String?>>
+    fun searchVacancies(vacancy: String): Flow<Pair<Vacancies?, String?>>
 }
