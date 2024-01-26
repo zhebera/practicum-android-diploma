@@ -53,11 +53,9 @@ class VacanciesConverter {
     private fun convertEmployer(employer: EmployerResponse): Employer {
         return Employer(
             alternateUrl = employer.alternateUrl,
-            blacklisted = employer.blacklisted,
             id = employer.id,
             logoUrls = convertLogoUrls(employer.logoUrls),
             name = employer.name,
-            trusted = employer.trusted,
             url = employer.url
         )
     }

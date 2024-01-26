@@ -28,11 +28,9 @@ class AreaResponse(
 
 class EmployerResponse(
     @SerializedName("alternate_url") val alternateUrl: String,
-    val blacklisted: Boolean,
     val id: String,
     @SerializedName("logo_urls") val logoUrls: LogoUrlsResponse,
     val name: String,
-    val trusted: Boolean,
     val url: String
 )
 

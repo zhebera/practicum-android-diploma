@@ -28,7 +28,7 @@ class RetrofitNetworkClient(
                     else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
-            } catch (e: HttpException) {
+            } catch (e: Throwable) {
                 Response().apply { resultCode = ResponseCode.SERVER_FAILED }
             }
         }
