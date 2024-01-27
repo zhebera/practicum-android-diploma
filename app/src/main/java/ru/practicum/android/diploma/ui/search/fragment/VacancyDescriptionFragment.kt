@@ -29,7 +29,7 @@ class VacancyDescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getVacancyDescription("89601562")
+        viewModel.getVacancyDescription("88114733")
         viewModel.vacancyDescriptionState.observe(viewLifecycleOwner) {
             renderState(it)
         }
@@ -53,7 +53,7 @@ class VacancyDescriptionFragment : Fragment() {
     }
 
     private fun showContent(data: VacancyDescription) {
-        binding.textView.text = data.name
+        binding.textView.text = data.description
     }
 
     override fun onDestroyView() {
