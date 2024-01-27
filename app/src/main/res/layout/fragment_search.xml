@@ -7,12 +7,127 @@
     tools:context=".ui.search.fragment.SearchFragment">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_title"
+        style="@style/YsDisplayMedium.Large"
+        android:layout_width="@dimen/fragment_search_width"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/fragment_search_margin_start"
+        android:layout_weight="1"
+        android:paddingVertical="@dimen/fragment_search_padding_vertical_19dp"
+        android:text="@string/searching_vacancies"
+        android:textColor="@color/black_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/fragment_search_margin_end_image"
+        android:padding="@dimen/fragment_search_filter_padding"
+        android:src="@drawable/filter_off"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintTop_toTopOf="@id/tv_title" />
+
+    <EditText
+        android:id="@+id/et_search"
+        style="@style/EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <ImageView
+        android:id="@+id/iv_search_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_search_padding"
+        android:src="@drawable/search"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <LinearLayout
+        android:id="@+id/ll_problem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_search">
+
+        <ImageView
+            android:id="@+id/iv_no_internet"
+            style="@style/ImageViewPlaceholderSearch"
+            tools:src="@drawable/placeholder_no_internet" />
+
+        <TextView
+            android:id="@+id/tv_no_internet"
+            style="@style/TextViewPlaceholderSearch"
+            tools:text="@string/no_internet" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_search_height"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_search">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rw_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/card_vacancy_list" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_vacancy_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vacancy_background"
+        android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
+        android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        style = "@style/YsDisplayRegular.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_content"
+        tools:text="@string/number_of_founded_vacancies" />
+
+    <ProgressBar
+        android:id="@+id/central_progress_bar"
+        android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
+        android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
+        android:visibility="gone"
+        android:indeterminateTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <ProgressBar
+        android:id="@+id/pb_bottom_progress_bar"
+        android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
+        android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
+        android:indeterminateTint="@color/blue"
+        android:paddingBottom="@dimen/fragment_search_padding_bottom_progress_bar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
