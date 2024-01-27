@@ -3,11 +3,12 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
+import ru.practicum.android.diploma.util.RESULT_CODE_200
+import ru.practicum.android.diploma.util.RESULT_CODE_MINUS
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -15,17 +16,17 @@ class RetrofitNetworkClient(
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
-            return Response().apply { resultCode = -1 }
+            return Response().apply { resultCode = RESULT_CODE_MINUS }
         }
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
-                    else -> return@withContext Response().apply { resultCode = 500 }
+                    else -> Response().apply { resultCode = RESULT_CODE_200 }
                 }
-                response.apply { resultCode = 200 }
+                response.apply { resultCode = RESULT_CODE_200 }
             } catch (e: Throwable) {
-                Response().apply { resultCode = 500 }
+                Response().apply { resultCode = RESULT_CODE_200 }
             }
         }
     }

@@ -9,6 +9,8 @@ import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.domain.api.SearchRepository
 import ru.practicum.android.diploma.domain.models.VacancyDescription
+import ru.practicum.android.diploma.util.RESULT_CODE_200
+import ru.practicum.android.diploma.util.RESULT_CODE_MINUS
 import ru.practicum.android.diploma.util.Resource
 
 class SearchRepositoryImpl(
@@ -18,10 +20,10 @@ class SearchRepositoryImpl(
     override fun getVacancyDescription(vacancyId: String): Flow<Resource<VacancyDescription>> = flow {
          val response = networkClient.doRequest(VacancyDescriptionRequest(vacancyId))
          when (response.resultCode) {
-             -1 -> {
+             RESULT_CODE_MINUS -> {
                  emit(Resource.Error(message = "Проверьте подключение к интернету"))
              }
-             200 -> {
+             RESULT_CODE_200 -> {
                  with(response as VacancyDescriptionResponse) {
                      val data = vacanciesConverter.convertVacancyDescription(response)
                      emit(Resource.Success(data))
