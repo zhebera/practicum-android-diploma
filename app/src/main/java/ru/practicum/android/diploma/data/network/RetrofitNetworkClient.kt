@@ -11,7 +11,8 @@ import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 
 class RetrofitNetworkClient(
-    private val hhApi: HeadHunterApi, private val context: Context
+    private val hhApi: HeadHunterApi,
+    private val context: Context
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
