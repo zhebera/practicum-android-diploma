@@ -24,6 +24,7 @@ class SearchRepositoryImpl(
     private val serverError by lazy {
         context.getString(R.string.server_error)
     }
+
     override fun searchVacancies(vacancy: String): Flow<Resource<Vacancies>> = flow {
         val response = networkClient.doRequest(SearchRequest(vacancy))
         when (response.resultCode) {

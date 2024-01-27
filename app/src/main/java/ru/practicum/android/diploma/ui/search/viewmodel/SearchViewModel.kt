@@ -27,13 +27,13 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         if (data != null) {
             setData(data)
         } else {
-            _searchState.postValue(SearchState.Error(message ?: "Unknown error"))
+            _searchState.postValue(SearchState.Error(message.toString()))
         }
     }
 
     private fun setData(data: Vacancies) {
         if (data.found == 0) {
-            _searchState.postValue(SearchState.Empty("Ничего нет"))
+            _searchState.postValue(SearchState.Empty)
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))

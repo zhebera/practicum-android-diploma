@@ -6,16 +6,13 @@ sealed interface SearchState {
 
     object Loading : SearchState
 
+    object Empty : SearchState
+
     data class Content(
         val data: Vacancies
-    ) : SearchState
-
-    data class Empty(
-        val message: String
     ) : SearchState
 
     data class Error(
         val message: String
     ) : SearchState
-
 }

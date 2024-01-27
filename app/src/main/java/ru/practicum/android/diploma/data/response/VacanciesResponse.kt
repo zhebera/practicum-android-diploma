@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.data.response
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.Response
 
-class VacanciesResponse(
+data class VacanciesResponse(
     val found: Int,
     val items: List<VacancyResponse>,
     val page: Int,
@@ -11,7 +11,7 @@ class VacanciesResponse(
     @SerializedName("per_page") val perPage: Int,
 ) : Response()
 
-class VacancyResponse(
+data class VacancyResponse(
     val id: String,
     val name: String,
     val area: AreaResponse,
@@ -20,30 +20,30 @@ class VacancyResponse(
     val salary: SalaryResponse?
 )
 
-class AreaResponse(
+data class AreaResponse(
     val id: String,
     val name: String,
     val url: String
 )
 
-class EmployerResponse(
-    @SerializedName("alternate_url") val alternateUrl: String,
-    val id: String,
-    @SerializedName("logo_urls") val logoUrls: LogoUrlsResponse,
-    val name: String,
-    val url: String
+data class EmployerResponse(
+    @SerializedName("alternate_url") val alternateUrl: String?,
+    val id: String?,
+    @SerializedName("logo_urls") val logoUrls: LogoUrlsResponse?,
+    val name: String?,
+    val url: String?
 )
 
-class LogoUrlsResponse(
+data class LogoUrlsResponse(
     val original: String
 )
 
-class DepartmentResponse(
+data class DepartmentResponse(
     val id: String,
     val name: String
 )
 
-class SalaryResponse(
+data class SalaryResponse(
     val currency: String?,
     val from: Int?,
     val gross: Boolean?,
