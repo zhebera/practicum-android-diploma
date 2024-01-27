@@ -11,8 +11,7 @@ import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 
 class RetrofitNetworkClient(
-    private val hhApi: HeadHunterApi,
-    private val context: Context
+    private val hhApi: HeadHunterApi, private val context: Context
 ) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
@@ -42,13 +41,12 @@ class RetrofitNetworkClient(
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(
+                    NetworkCapabilities.TRANSPORT_WIFI
+                ) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
             }
         }
         return false

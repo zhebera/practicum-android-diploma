@@ -38,7 +38,7 @@ class VacanciesConverter {
             experience = convertExperienceResponse(response.experience),
             employment = convertEmploymentResponse(response.employment),
             schedule = convertScheduleResponse(response.schedule),
-            key_skills = response.key_skills.map { convertKeySkillResponse(it) },
+            keySkills = response.keySkills.map { convertKeySkillResponse(it) },
             contacts = convertContactsResponse(response.contacts),
             description = response.description
         )
@@ -60,10 +60,10 @@ class VacanciesConverter {
     fun convertEmployerResponse(response: EmployerResponse?): Employer? {
         return if (response != null) {
             Employer(
-                alternate_url = response.alternate_url,
+                alternateUrl = response.alternateUrl,
                 blacklisted = response.blacklisted,
                 id = response.id,
-                logo_urls = convertLogoUrlsResponse(response.logo_urls),
+                logoUrls = convertLogoUrlsResponse(response.logoUrls),
                 name = response.name,
                 trusted = response.trusted,
                 url = response.url

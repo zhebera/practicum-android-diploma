@@ -1,13 +1,15 @@
 package ru.practicum.android.diploma.data.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class EmployerResponse(
-    val accredited_it_employer: Boolean,
-    val alternate_url: String?,
+    @SerializedName("accredited_it_employer") val accreditedItEmployer: Boolean,
+    @SerializedName("alternate_url") val alternateUrl: String?,
     val id: String?,
-    val logo_urls: LogoUrlsResponse?,
+    @SerializedName("logo_urls") val logoUrls: LogoUrlsResponse?,
     val name: String,
     val trusted: Boolean,
     val url: String?,
-    val vacancies_url: String?,
+    @SerializedName("vacancies_url") val vacanciesUrl: String?,
     val blacklisted: Boolean,
 )

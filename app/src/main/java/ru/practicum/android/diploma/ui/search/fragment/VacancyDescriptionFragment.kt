@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentVacancyDescriptionBinding
 import ru.practicum.android.diploma.domain.models.VacancyDescription
-import ru.practicum.android.diploma.ui.search.view_model.VacancyDescriptionState
-import ru.practicum.android.diploma.ui.search.view_model.VacancyDescriptionViewModel
+import ru.practicum.android.diploma.ui.search.viewmodel.VacancyDescriptionState
+import ru.practicum.android.diploma.ui.search.viewmodel.VacancyDescriptionViewModel
 
 class VacancyDescriptionFragment : Fragment() {
 

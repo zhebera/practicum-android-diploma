@@ -26,21 +26,21 @@ class SearchRepositoryImpl(
     }
 
     override fun getVacancyDescription(vacancyId: String): Flow<Resource<VacancyDescription>> = flow {
-         val response = networkClient.doRequest(VacancyDescriptionRequest(vacancyId))
-         when (response.resultCode) {
-             ResponseCode.NETWORK_FAILED -> {
-                 emit(Resource.Error(message = badConnection))
-             }
+        val response = networkClient.doRequest(VacancyDescriptionRequest(vacancyId))
+        when (response.resultCode) {
+            ResponseCode.NETWORK_FAILED -> {
+                emit(Resource.Error(message = badConnection))
+            }
 
-             ResponseCode.SUCCESS -> {
-                 with(response as VacancyDescriptionResponse) {
-                     val data = vacanciesConverter.convertVacancyDescription(response)
-                     emit(Resource.Success(data))
-                 }
-             }
+            ResponseCode.SUCCESS -> {
+                with(response as VacancyDescriptionResponse) {
+                    val data = vacanciesConverter.convertVacancyDescription(response)
+                    emit(Resource.Success(data))
+                }
+            }
 
-             else -> emit(Resource.Error(message = serverError))
-         }
+            else -> emit(Resource.Error(message = serverError))
+        }
     }
 
 }

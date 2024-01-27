@@ -10,7 +10,7 @@ data class VacancyDescription(
     val experience: Experience?,
     val employment: Employment?,
     val schedule: Schedule?,
-    val key_skills: List<KeySkill>,
+    val keySkills: List<KeySkill>,
     val contacts: Contacts?,
     val description: String,
 )
