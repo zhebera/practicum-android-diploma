@@ -27,7 +27,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDescription
 
 class VacanciesConverter {
 
-    fun convertVacancyDescription(response: VacancyDescriptionResponse) : VacancyDescription {
+    fun convertVacancyDescription(response: VacancyDescriptionResponse): VacancyDescription {
         return VacancyDescription(
             id = response.id,
             name = response.name,
@@ -44,7 +44,7 @@ class VacanciesConverter {
         )
     }
 
-    fun convertSalaryResponse(response: SalaryResponse?) : Salary? {
+    fun convertSalaryResponse(response: SalaryResponse?): Salary? {
         return if (response != null) {
             Salary(
                 currency = response.currency,
@@ -57,7 +57,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertEmployerResponse(response: EmployerResponse?) : Employer? {
+    fun convertEmployerResponse(response: EmployerResponse?): Employer? {
         return if (response != null) {
             Employer(
                 alternate_url = response.alternate_url,
@@ -73,7 +73,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertLogoUrlsResponse(response: LogoUrlsResponse?) : LogoUrls? {
+    fun convertLogoUrlsResponse(response: LogoUrlsResponse?): LogoUrls? {
         return if (response != null) {
             LogoUrls(
                 original = response.original
@@ -83,7 +83,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertAreaResponse(response: AreaResponse?) : Area? {
+    fun convertAreaResponse(response: AreaResponse?): Area? {
         return if (response != null) {
             Area(
                 id = response.id,
@@ -95,7 +95,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertAddressResponse(response: AddressResponse?) : Address? {
+    fun convertAddressResponse(response: AddressResponse?): Address? {
         return if (response != null) {
             Address(
                 building = response.building,
@@ -110,7 +110,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertExperienceResponse(response: ExperienceResponse?) : Experience? {
+    fun convertExperienceResponse(response: ExperienceResponse?): Experience? {
         return if (response != null) {
             Experience(
                 id = response.id,
@@ -121,7 +121,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertEmploymentResponse(response: EmploymentResponse?) : Employment? {
+    fun convertEmploymentResponse(response: EmploymentResponse?): Employment? {
         return if (response != null) {
             Employment(
                 id = response.id,
@@ -132,7 +132,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertScheduleResponse(response: ScheduleResponse?) : Schedule? {
+    fun convertScheduleResponse(response: ScheduleResponse?): Schedule? {
         return if (response != null) {
             Schedule(
                 id = response.id,
@@ -143,13 +143,13 @@ class VacanciesConverter {
         }
     }
 
-    fun convertKeySkillResponse(response: KeySkillResponse) : KeySkill {
+    fun convertKeySkillResponse(response: KeySkillResponse): KeySkill {
         return KeySkill(
             name = response.name
         )
     }
 
-    fun convertContactsResponse(response: ContactsResponse?) : Contacts? {
+    fun convertContactsResponse(response: ContactsResponse?): Contacts? {
         return if (response != null) {
             Contacts(
                 email = response.email,
@@ -161,7 +161,7 @@ class VacanciesConverter {
         }
     }
 
-    fun convertPhoneResponse(response: PhoneResponse) : Phone {
+    fun convertPhoneResponse(response: PhoneResponse): Phone {
         return Phone(
             city = response.city,
             comment = response.comment,
