@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.details.fragment
 
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

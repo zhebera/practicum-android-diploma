@@ -52,20 +52,19 @@ class SearchRepositoryImpl(
 
     override fun add(newIt: Vacancy) {
         val json = savedSearchHistory.getString(SEARCH_SHARED_PREFERENCE, "")
-        if (json != null && json.isNotEmpty() && vacancies.isEmpty() && savedSearchHistory.contains(
-                SEARCH_SHARED_PREFERENCE
-            )
-        ) {
-            val type = object : TypeToken<ArrayList<Vacancy>>() {}.type
-            vacancies = gson.fromJson(json, type)
+        if (json != null && json.isNotEmpty()) {
+            if (vacancies.isEmpty() && savedSearchHistory.contains(SEARCH_SHARED_PREFERENCE)) {
+                val type = object : TypeToken<ArrayList<Vacancy>>() {}.type
+                vacancies = gson.fromJson(json, type)
+            }
         }
         if (vacancies.contains(newIt)) {
             vacancies.remove(newIt)
             vacancies.add(number_0, newIt)
         } else {
-            if (vacancies.size < number_10)
+            if (vacancies.size < number_10) {
                 vacancies.add(number_0, newIt)
-            else {
+            } else {
                 vacancies.removeAt(number_9)
                 vacancies.add(number_0, newIt)
             }

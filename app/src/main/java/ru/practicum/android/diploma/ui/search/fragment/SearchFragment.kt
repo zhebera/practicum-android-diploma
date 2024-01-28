@@ -49,8 +49,9 @@ class SearchFragment : Fragment() {
 
         vacancyAdapter = VacancyAdapter(
             clickListener = {
-                if (isClickAllowed)
+                if (isClickAllowed) {
                     clicker(it)
+                }
             }
         )
 
@@ -85,10 +86,11 @@ class SearchFragment : Fragment() {
 
                 binding.ivSearchImage.visibility = clearButtonVisibility(s)
 
-                if (!s.isNullOrEmpty())
+                if (!s.isNullOrEmpty()) {
                     searchViewModel.searchDebounce(
                         changedText = s.toString()
                     )
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}

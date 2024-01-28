@@ -39,12 +39,10 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     fun searchDebounce(changedText: String) {
-        if (latestSearchTrack == changedText)
-            return
+        if (latestSearchTrack == changedText) return
         searchingDebounce(changedText)
         latestSearchTrack = changedText
     }
-
 
     private fun processResult(data: Vacancies?, message: String?) {
         if (data != null) {
