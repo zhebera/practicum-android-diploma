@@ -140,6 +140,21 @@
         <item name="hintTextAppearance">@style/TextHint</item>
         <item name="hintEnabled">false</item>
     </style>
+    <!--    ImageViewPlaceholderSearch Styles-->
+    <style name="ImageViewPlaceholderSearch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <!--    TextViewPlaceholderSearch Styles-->
+    <style name="TextViewPlaceholderSearch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 
     <!--    TopNavigation Styles-->
     <style name="TopNavigationHeader">
