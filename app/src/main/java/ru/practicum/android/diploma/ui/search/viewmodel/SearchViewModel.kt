@@ -7,13 +7,20 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.models.Vacancies
+import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.util.debounce
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
+    private var latestSearchTrack: String? = null
 
-    fun getVacancies(vacancy: String) {
+    init {
+        _searchState.postValue(SearchState.Empty)
+    }
+
+    private fun getVacancies(vacancy: String) {
         _searchState.postValue(SearchState.Loading)
 
         viewModelScope.launch {
@@ -22,6 +29,22 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             }
         }
     }
+
+    private val searchingDebounce = debounce<String>(
+        SEARCH_DEBOUNCE_DELAY,
+        viewModelScope,
+        true
+    ) { changedtext ->
+        getVacancies(changedtext)
+    }
+
+    fun searchDebounce(changedText: String) {
+        if (latestSearchTrack == changedText)
+            return
+        searchingDebounce(changedText)
+        latestSearchTrack = changedText
+    }
+
 
     private fun processResult(data: Vacancies?, message: String?) {
         if (data != null) {
@@ -38,5 +61,13 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
         }
+    }
+
+    fun add(it: Vacancy) {
+        searchInteractor.add(it)
+    }
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_DELAY = 1000L
     }
 }

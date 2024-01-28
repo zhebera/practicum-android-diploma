@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
 import ru.practicum.android.diploma.domain.models.Vacancies
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class SearchInteractorImpl(private val searchRepository: SearchRepository) : SearchInteractor {
@@ -20,5 +21,9 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
                 }
             }
         }
+    }
+
+    override fun add(it: Vacancy) {
+        searchRepository.add(it)
     }
 }

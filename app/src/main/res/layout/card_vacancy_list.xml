@@ -8,7 +8,7 @@
     android:layout_marginEnd="@dimen/card_vacancy_list_margin_end_16dp"
     android:paddingVertical="@dimen/card_vacancy_list_padding_vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/image_company"
         android:layout_width="@dimen/card_vacancy_list_weight_and_height"
         android:layout_height="@dimen/card_vacancy_list_weight_and_height"

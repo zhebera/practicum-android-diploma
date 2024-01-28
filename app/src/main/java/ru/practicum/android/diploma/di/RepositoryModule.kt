@@ -11,6 +11,6 @@ val repositoryModule = module {
     factory { VacanciesConverter() }
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get(), get(), androidContext())
+        SearchRepositoryImpl(get(), get(), androidContext(), get(), get())
     }
 }

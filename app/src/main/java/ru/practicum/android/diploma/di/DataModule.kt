@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.di
 
+import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
@@ -10,6 +11,7 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.network.HeadHunterApi
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.search.SearchRepositoryImpl.Companion.SEARCH_SHARED_PREFERENCE
 import ru.practicum.android.diploma.util.API_URL
 
 val dataModule = module {
@@ -32,5 +34,10 @@ val dataModule = module {
     single<AppDatabase> {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
             .build()
+    }
+
+    single {
+        androidContext()
+            .getSharedPreferences(SEARCH_SHARED_PREFERENCE, Context.MODE_PRIVATE)
     }
 }

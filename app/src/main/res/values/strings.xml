@@ -47,4 +47,12 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="unknown_error">Неизвестная ошибка</string>
 
+    <string name="salary_from">от %s %s</string>
+    <string name="salary_to">до %s %s</string>
+    <string name="salary_from_to">от %s до %s %s</string>
+    <string name="salary_not_specified">Зарплата не указана</string>
+
+    <string name="cant_get_list">Не удалось получить список</string>
+    <string name="no_such_region">Такого региона нет</string>
+
 </resources>
