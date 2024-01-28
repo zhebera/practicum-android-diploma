@@ -62,12 +62,12 @@
         app:layout_constraintTop_toBottomOf="@id/et_search">
 
         <ImageView
-            android:id="@+id/iv_no_internet"
+            android:id="@+id/iv_placeholders"
             style="@style/ImageViewPlaceholderSearch"
             tools:src="@drawable/placeholder_no_internet" />
 
         <TextView
-            android:id="@+id/tv_no_internet"
+            android:id="@+id/tv_placeholders"
             style="@style/TextViewPlaceholderSearch"
             tools:text="@string/no_internet" />
 
