@@ -27,7 +27,13 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var vacancyAdapter: VacancyAdapter
+    private var vacancyAdapter = VacancyAdapter(
+        clickListener = {
+            if (isClickAllowed) {
+                clicker(it)
+            }
+        }
+    )
     private var isClickAllowed = true
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
@@ -46,14 +52,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvTitle.text = getString(R.string.main)
-
-        vacancyAdapter = VacancyAdapter(
-            clickListener = {
-                if (isClickAllowed) {
-                    clicker(it)
-                }
-            }
-        )
 
         binding.ivSearchImage.setOnClickListener {
             if (binding.etSearch.toString().isNotEmpty()) {

@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.details.fragment
+package ru.practicum.android.diploma.ui.details
 
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import android.os.Bundle

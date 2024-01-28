@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_team" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="ru.practicum.android.diploma.ui.details.fragment.DetailsFragment"
+        android:name="ru.practicum.android.diploma.ui.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
 </navigation>
