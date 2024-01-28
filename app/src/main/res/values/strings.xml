@@ -36,4 +36,8 @@
     <string name="placeholder_details_contacts_comment">Заполнить анкету можно на нашем сайте</string>
     <string name="placeholder_details_error_message">Ошибка сервера</string>
 
+    <string name="bad_connection">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+
 </resources>

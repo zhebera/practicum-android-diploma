@@ -3,14 +3,44 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
+import ru.practicum.android.diploma.data.dto.ResponseCode
+import ru.practicum.android.diploma.data.request.SearchRequest
 
-class RetrofitNetworkClient(private val context: Context) : NetworkClient {
+class RetrofitNetworkClient(
+    private val hhApi: HeadHunterApi,
+    private val context: Context
+) : NetworkClient {
     override suspend fun doRequest(dto: Any): Response {
-        TODO("Not yet implemented")
+        if (!isConnected()) {
+            return Response().apply { resultCode = ResponseCode.NETWORK_FAILED }
+        }
+        if (dto !is SearchRequest) {
+            return Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
+        }
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = when (dto) {
+                    else -> hhApi.getVacancies(vacancy = dto.vacancy)
+                }
+                response.apply { resultCode = ResponseCode.SUCCESS }
+            } catch (e: HttpException) {
+                when (e.code()) {
+                    ResponseCode.NOT_FOUND -> Response().apply { resultCode = ResponseCode.NOT_FOUND }
+                    ResponseCode.BAD_AUTHORIZATION -> Response().apply {
+                        resultCode = ResponseCode.BAD_AUTHORIZATION
+                    }
+
+                    else -> Response().apply { resultCode = ResponseCode.SERVER_FAILED }
+                }
+            }
+        }
     }
 
-    fun isConnected(): Boolean {
+    private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
