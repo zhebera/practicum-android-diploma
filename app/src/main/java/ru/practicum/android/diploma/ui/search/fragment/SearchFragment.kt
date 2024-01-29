@@ -25,7 +25,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textView.text = getString(R.string.main)
+        binding.tvTitle.text = getString(R.string.main)
         binding.testButton.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDescriptionFragment)
         }

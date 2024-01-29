@@ -8,6 +8,8 @@ import ru.practicum.android.diploma.domain.api.SearchRepository
 
 val repositoryModule = module {
 
+    factory { VacanciesConverter() }
+
     factory { VacanciesDescriptionConverter() }
 
     single<SearchRepository> {

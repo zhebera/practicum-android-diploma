@@ -9,6 +9,7 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
+import ru.practicum.android.diploma.data.request.SearchRequest
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -21,8 +22,9 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
+                    is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
-                    else -> Response().apply { resultCode = ResponseCode.SUCCESS }
+                    else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
             } catch (e: HttpException) {
@@ -42,12 +44,13 @@ class RetrofitNetworkClient(
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(
-                    NetworkCapabilities.TRANSPORT_WIFI
-                ) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
             }
         }
         return false

@@ -10,7 +10,42 @@
     <string name="main">Главная</string>
     <string name="favourite">Избранное</string>
     <string name="team">Команда</string>
-    <string name="input_hint">Text</string>
+    <string name="input_hint">Введите запрос</string>
+    <string name="searching_vacancies">Поиск вакансий</string>
+    <string name="no_internet">Нет интернета</string>
+    <string name="no_vacancy">Не удалось получить список вакансий</string>
+    <string name="number_of_founded_vacancies">[найдено 286 вакансий]</string>
+    <string name="placeholder_job_title_and_city">Android-разрабочик, Москва</string>
+    <string name="placeholder_company">Еда</string>
+    <string name="placeholder_salary">От 100000 р</string>
+
+    <string name="details_top_nav_header">Вакансия</string>
+    <string name="details_experience_title">Требуемый опыт</string>
+    <string name="details_description_title">Описание вакансии</string>
+    <string name="details_skills_header">Ключевые навыки</string>
+    <string name="details_contacts_header">Контакты</string>
+    <string name="details_contacts_name_subtitle">Контактное лицо</string>
+    <string name="details_contacts_email_subtitle">E-mail</string>
+    <string name="details_contacts_phone_subtitle">Телефон</string>
+    <string name="details_contacts_comment_subtitle">Комментарий</string>
+
+    <string name="placeholder_details_title">Android разработчик</string>
+    <string name="placeholder_details_salary">от 100 000 руб.</string>
+    <string name="placeholder_details_company">Еда</string>
+    <string name="placeholder_details_address">Москва</string>
+    <string name="placeholder_details_experience">От 1 до 3 лет</string>
+    <string name="placeholder_details_conditions">Полная занятость, удаленная работа</string>
+    <string name="placeholder_details_description">Условия, обязанности, требования</string>
+    <string name="placeholder_details_skills">Знания, умения и т.д.</string>
+    <string name="placeholder_details_contacts_name">Ирина</string>
+    <string name="placeholder_details_contacts_email">Ирина@mail.ru</string>
+    <string name="placeholder_details_contacts_phone">+79119993333</string>
+    <string name="placeholder_details_contacts_comment">Заполнить анкету можно на нашем сайте</string>
+    <string name="placeholder_details_error_message">Ошибка сервера</string>
+
+    <string name="bad_connection">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 
     <string name="bad_connection">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
