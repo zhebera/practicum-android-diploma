@@ -13,15 +13,12 @@ import ru.practicum.android.diploma.data.request.SearchRequest
 import ru.practicum.android.diploma.data.response.VacanciesResponse
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
 import ru.practicum.android.diploma.domain.models.Vacancies
-import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.Resource
 
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
     private val vacanciesConverter: VacanciesConverter,
-    context: Context,
-    private val savedSearchHistory: SharedPreferences,
-    private val gson: Gson
+    context: Context
 ) : SearchRepository {
     private val badConnection by lazy {
         context.getString(R.string.bad_connection)
@@ -29,7 +26,6 @@ class SearchRepositoryImpl(
     private val serverError by lazy {
         context.getString(R.string.server_error)
     }
-    private var vacancies = ArrayList<Vacancy>()
 
     override fun searchVacancies(vacancy: String): Flow<Resource<Vacancies>> = flow {
         val response = networkClient.doRequest(SearchRequest(vacancy))
@@ -47,12 +43,5 @@ class SearchRepositoryImpl(
 
             else -> emit(Resource.Error(serverError))
         }
-    }
-
-    companion object {
-        const val SEARCH_SHARED_PREFERENCE = "search"
-        const val number_10 = 10
-        const val number_9 = 9
-        const val number_0 = 0
     }
 }
