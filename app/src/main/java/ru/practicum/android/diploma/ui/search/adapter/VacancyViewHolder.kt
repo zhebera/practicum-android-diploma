@@ -13,14 +13,12 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
-class VacancyViewHolder(parent: ViewGroup,
-                        private val clickListener: VacancyAdapter.VacancyClickListener) :
-    RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_vacancy_list, parent, false)
-    )  {
+class VacancyViewHolder(
+    parent: ViewGroup,
+    private val clickListener: VacancyAdapter.VacancyClickListener
+) :
+    RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_vacancy_list, parent, false)) {
     private val radius = itemView.resources.getDimensionPixelSize(R.dimen.card_vacancy_list_margin_start_12dp)
-
     private val vacancyTitle = itemView.findViewById<TextView>(R.id.vacancy_title)
     private val companyTitle = itemView.findViewById<TextView>(R.id.company_title)
     private val vacancySalary = itemView.findViewById<TextView>(R.id.vacancy_salary)
