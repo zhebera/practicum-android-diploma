@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.VACANCY
+import ru.practicum.android.diploma.util.getNumberString
 
 class SearchFragment : Fragment() {
 
@@ -145,9 +146,14 @@ class SearchFragment : Fragment() {
     private fun showContent(vacancies: List<Vacancy>) {
         with(binding) {
             llProblem.visibility = View.GONE
+            tvVacancyNumber.visibility = View.VISIBLE
             pbCentralProgressBar.visibility = View.GONE
             vacancyAdapter.setData(vacancies)
             closeKeyboard()
+            tvVacancyNumber.apply {
+                text = vacancies.count().getNumberString(requireContext())
+                measure(0, 0)
+            }
         }
     }
 
@@ -188,6 +194,7 @@ class SearchFragment : Fragment() {
         binding.etSearch.clearFocus()
         binding.etSearch.text.clear()
         vacancyAdapter.clear()
+        binding.tvVacancyNumber.visibility = View.GONE
         closeKeyboard()
     }
 

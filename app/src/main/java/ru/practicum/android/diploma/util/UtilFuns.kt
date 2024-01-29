@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.util
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.util.TypedValue
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -10,6 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import java.util.Locale
 
 fun glide(
     context: Context,
@@ -52,4 +55,15 @@ fun <T> debounce(
             }
         }
     }
+}
+
+fun Int.getNumberString(context: Context): String {
+    val configuration = Configuration(context.resources.configuration)
+    configuration.setLocale(Locale("ru"))
+    val localizedResources: Resources = context.createConfigurationContext(configuration).resources
+    return localizedResources.getQuantityString(
+        R.plurals.founded_vacancies,
+        this,
+        this
+    )
 }
