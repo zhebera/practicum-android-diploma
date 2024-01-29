@@ -53,7 +53,7 @@ class VacancyDescriptionFragment : Fragment() {
     }
 
     private fun showContent(data: VacancyDescription) {
-        binding.textView.text = data.description
+        binding.textView.text = data.employment?.name
     }
 
     override fun onDestroyView() {
