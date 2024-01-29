@@ -61,11 +61,9 @@ class VacanciesDescriptionConverter {
         return if (response != null) {
             Employer(
                 alternateUrl = response.alternateUrl,
-                blacklisted = response.blacklisted,
                 id = response.id,
                 logoUrls = convertLogoUrlsResponse(response.logoUrls),
                 name = response.name,
-                trusted = response.trusted,
                 url = response.url
             )
         } else {

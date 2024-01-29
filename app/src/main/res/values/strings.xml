@@ -47,8 +47,4 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="unknown_error">Неизвестная ошибка</string>
 
-    <string name="bad_connection">Нет интернета</string>
-    <string name="server_error">Ошибка сервера</string>
-    <string name="unknown_error">Неизвестная ошибка</string>
-
 </resources>
