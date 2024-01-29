@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -41,7 +40,6 @@ class SearchFragment : Fragment() {
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
     private var savedSearchEditText: String? = null
-    private lateinit var bottomNavigator: BottomNavigationView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,8 +52,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvTitle.text = getString(R.string.main)
-
-        bottomNavigator = requireActivity().findViewById(R.id.bottomNavigationView)
 
         binding.ivSearchImage.setOnClickListener {
             if (binding.etSearch.toString().isNotEmpty()) {
