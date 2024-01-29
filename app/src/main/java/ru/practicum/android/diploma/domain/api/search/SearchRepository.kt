@@ -8,6 +8,4 @@ import ru.practicum.android.diploma.util.Resource
 interface SearchRepository {
 
     fun searchVacancies(vacancy: String): Flow<Resource<Vacancies>>
-
-    fun add(newIt: Vacancy)
 }

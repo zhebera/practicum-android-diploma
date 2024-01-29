@@ -94,12 +94,6 @@
             tools:itemCount="4"
             tools:listitem="@layout/card_vacancy_list" />
 
-        <include
-            android:id="@+id/vacancy_list"
-            layout="@layout/card_vacancy"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
     <TextView
         android:id="@+id/tv_vacancy_number"

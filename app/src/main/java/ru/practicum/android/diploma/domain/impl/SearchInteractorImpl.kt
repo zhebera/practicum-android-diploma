@@ -22,8 +22,4 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
             }
         }
     }
-
-    override fun add(it: Vacancy) {
-        searchRepository.add(it)
-    }
 }

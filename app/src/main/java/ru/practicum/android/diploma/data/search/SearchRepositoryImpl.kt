@@ -50,37 +50,6 @@ class SearchRepositoryImpl(
         }
     }
 
-    override fun add(newIt: Vacancy) {
-        val json = savedSearchHistory.getString(SEARCH_SHARED_PREFERENCE, "")
-        if (json != null && json.isNotEmpty()) {
-            if (vacancies.isEmpty() && savedSearchHistory.contains(SEARCH_SHARED_PREFERENCE)) {
-                val type = object : TypeToken<ArrayList<Vacancy>>() {}.type
-                vacancies = gson.fromJson(json, type)
-            }
-        }
-        if (vacancies.contains(newIt)) {
-            vacancies.remove(newIt)
-            vacancies.add(number_0, newIt)
-        } else {
-            if (vacancies.size < number_10) {
-                vacancies.add(number_0, newIt)
-            } else {
-                vacancies.removeAt(number_9)
-                vacancies.add(number_0, newIt)
-            }
-        }
-        save()
-    }
-
-    private fun save() {
-        var json = ""
-        json = gson.toJson(vacancies)
-        savedSearchHistory.edit()
-            .clear()
-            .putString(SEARCH_SHARED_PREFERENCE, json)
-            .apply()
-    }
-
     companion object {
         const val SEARCH_SHARED_PREFERENCE = "search"
         const val number_10 = 10

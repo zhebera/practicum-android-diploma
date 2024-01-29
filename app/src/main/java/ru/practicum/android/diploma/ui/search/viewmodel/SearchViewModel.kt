@@ -61,11 +61,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-    fun add(it: Vacancy) {
-        searchInteractor.add(it)
-    }
-
     companion object {
-        private const val SEARCH_DEBOUNCE_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

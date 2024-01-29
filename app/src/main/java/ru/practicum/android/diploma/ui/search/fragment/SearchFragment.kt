@@ -22,11 +22,13 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.util.VACANCY
 
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
-    private lateinit var recyclerView: RecyclerView
+    private val binding get() = _binding!!
+    private var recyclerView: RecyclerView? = null
     private var vacancyAdapter = VacancyAdapter(
         clickListener = {
             if (isClickAllowed) {
@@ -38,7 +40,6 @@ class SearchFragment : Fragment() {
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
     private var savedSearchEditText: String? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,8 +64,8 @@ class SearchFragment : Fragment() {
         }
 
         recyclerView = binding.rwResult
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = vacancyAdapter
+        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView?.adapter = vacancyAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchState.observe(viewLifecycleOwner) { state ->
@@ -72,8 +73,12 @@ class SearchFragment : Fragment() {
             }
         }
 
+        binding.ivSearchImage.setOnClickListener {
+            clearAll()
+        }
+
         textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 savedSearchEditText = binding.etSearch.text.toString()
                 if (binding.etSearch.toString().isNotEmpty()) {
@@ -91,15 +96,14 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) = Unit
         }
         binding.etSearch.addTextChangedListener(textWatcher)
 
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && !binding.etSearch.text.toString().isNullOrEmpty()) {
                 searchViewModel.searchDebounce(binding.etSearch.text.toString())
-                val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-                inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
+                closeKeyboard()
                 binding.etSearch.clearFocus()
                 true
             } else {
@@ -115,8 +119,7 @@ class SearchFragment : Fragment() {
 
     private fun clicker(vacancy: Vacancy) {
         val bundle = Bundle()
-        bundle.putParcelable("vacancy", vacancy)
-        searchViewModel.add(vacancy)
+        bundle.putParcelable(VACANCY, vacancy)
         val navController = findNavController()
         navController.navigate(R.id.searchFragment_to_vacancyFragment, bundle)
     }
@@ -145,14 +148,12 @@ class SearchFragment : Fragment() {
         with(binding) {
             llProblem.visibility = View.GONE
             pbCentralProgressBar.visibility = View.GONE
-            vacancyList.root.visibility = View.VISIBLE
             vacancyAdapter.setData(vacancies)
         }
     }
 
     private fun showEmpty() {
         with(binding) {
-            vacancyList.root.visibility = View.GONE
             pbCentralProgressBar.visibility = View.GONE
             llProblem.visibility = View.VISIBLE
             ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
@@ -163,7 +164,6 @@ class SearchFragment : Fragment() {
     // todo
     private fun showError() {
         with(binding) {
-            vacancyList.root.visibility = View.GONE
             pbCentralProgressBar.visibility = View.GONE
             llProblem.visibility = View.VISIBLE
             tvPlaceholders.visibility = View.VISIBLE
@@ -173,7 +173,6 @@ class SearchFragment : Fragment() {
     private fun showLoading() {
         with(binding) {
             llProblem.visibility = View.GONE
-            vacancyList.root.visibility = View.GONE
             pbCentralProgressBar.visibility = View.VISIBLE
         }
     }
@@ -184,6 +183,18 @@ class SearchFragment : Fragment() {
         } else {
             View.VISIBLE
         }
+    }
+
+    private fun clearAll() {
+        binding.etSearch.clearFocus()
+        binding.etSearch.text.clear()
+        vacancyAdapter.clear()
+        closeKeyboard()
+    }
+
+    private fun closeKeyboard() {
+        val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
 }
