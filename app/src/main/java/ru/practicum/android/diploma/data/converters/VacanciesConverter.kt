@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancies
 import ru.practicum.android.diploma.domain.models.Vacancy
 
-object VacanciesConverter {
+class VacanciesConverter {
 
     fun convert(response: VacanciesResponse): Vacancies {
         return with(response) {

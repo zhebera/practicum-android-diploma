@@ -26,8 +26,7 @@ import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Schedule
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 
-object VacancyDbConverter {
-
+class VacancyDbConverter {
     @TypeConverter
     fun convert(vacancyEntity: VacancyDescriptionEntity): VacancyDescription {
         return VacancyDescription(
