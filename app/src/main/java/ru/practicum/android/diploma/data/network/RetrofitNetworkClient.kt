@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
+import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
 
 class RetrofitNetworkClient(
@@ -18,13 +19,12 @@ class RetrofitNetworkClient(
         if (!isConnected()) {
             return Response().apply { resultCode = ResponseCode.NETWORK_FAILED }
         }
-        if (dto !is SearchRequest) {
-            return Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
-        }
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    else -> hhApi.getVacancies(vacancy = dto.vacancy)
+                    is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
+                    is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
+                    else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
             } catch (e: HttpException) {
