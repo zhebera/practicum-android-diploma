@@ -36,6 +36,8 @@
     <EditText
         android:id="@+id/et_search"
         style="@style/EditText"
+        android:layout_marginStart="@dimen/fragment_search_margin_start"
+        android:layout_marginEnd="@dimen/fragment_search_margin_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -109,7 +111,7 @@
         tools:text="@string/number_of_founded_vacancies" />
 
     <ProgressBar
-        android:id="@+id/central_progress_bar"
+        android:id="@+id/pb_central_progress_bar"
         android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
         android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
         android:visibility="gone"
@@ -129,15 +131,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Проверить экран вакансии"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
