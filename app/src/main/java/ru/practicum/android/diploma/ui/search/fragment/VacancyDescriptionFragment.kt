@@ -55,9 +55,13 @@ class VacancyDescriptionFragment : Fragment() {
             is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
         }
     }
-    private fun showLoading() {}
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
 
-    private fun showError(message: String) {}
+    private fun showError(message: String) {
+        binding.placeholderMessage.text = message
+    }
 
     private fun showContent(vacancyDescription: VacancyDescription) {
         val contacts = vacancyDescription.contacts
