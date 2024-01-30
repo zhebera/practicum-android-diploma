@@ -70,7 +70,6 @@ class SearchFragment : Fragment() {
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
                 installSearchCancelButton(s)
 
                 if (!s.isNullOrEmpty()) {
@@ -179,7 +178,7 @@ class SearchFragment : Fragment() {
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
-    private fun installSearchCancelButton(s: CharSequence?){
+    private fun installSearchCancelButton(s: CharSequence?) {
         if (s?.isNotEmpty() == true) {
             binding.ivSearchImage.setImageResource(R.drawable.close)
         } else {
