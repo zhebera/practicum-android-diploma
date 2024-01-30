@@ -7,9 +7,11 @@ import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteRepository
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 
-class FavouriteRepositoryImpl(private val appDatabase: AppDatabase,
-    private val vacancyDbConverter: VacancyDbConverter): FavouriteRepository {
-    override fun getAllVacancies(): Flow<List<VacancyDescription>> = flow{
+class FavouriteRepositoryImpl(
+    private val appDatabase: AppDatabase,
+    private val vacancyDbConverter: VacancyDbConverter
+) : FavouriteRepository {
+    override fun getAllVacancies(): Flow<List<VacancyDescription>> = flow {
         val vacancies = appDatabase.vacancyDao().getAllVacancies()
         emit(vacancyDbConverter.convert(vacancies))
     }
@@ -20,7 +22,7 @@ class FavouriteRepositoryImpl(private val appDatabase: AppDatabase,
 
     override suspend fun removeVacancy(vacancy: VacancyDescription) {
         val vacanciesId = appDatabase.vacancyDao().getAllVacancies().map { it.id }
-        if(vacanciesId.contains(vacancy.id))
+        if (vacanciesId.contains(vacancy.id))
             appDatabase.vacancyDao().removeVacancy(vacancy.id)
     }
 }

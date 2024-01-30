@@ -2,10 +2,8 @@ package ru.practicum.android.diploma.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import ru.practicum.android.diploma.data.converters.*
-import ru.practicum.android.diploma.domain.models.*
 
 @Entity(tableName = "vacancy_table")
 @TypeConverters(VacancyDbConverter::class)
@@ -32,6 +30,7 @@ data class SalaryEntity(
     val gross: Boolean?,
     val to: Int?
 )
+
 @TypeConverters(AreaDbConverter::class)
 data class AreaEntity(
     val id: String,

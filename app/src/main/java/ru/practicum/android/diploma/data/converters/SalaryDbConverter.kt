@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.domain.models.Salary
 object SalaryDbConverter {
     @TypeConverter
     fun fromSalaryEntity(data: String?): Salary? {
-       return Gson().fromJson(data, Salary::class.java)
+        return Gson().fromJson(data, Salary::class.java)
     }
 
     @TypeConverter

@@ -23,6 +23,7 @@ class VacancyDbConverter {
             description = vacancyEntity.description
         )
     }
+
     @TypeConverter
     fun convert(vacancy: VacancyDescription): VacancyDescriptionEntity {
         return VacancyDescriptionEntity(
@@ -40,12 +41,14 @@ class VacancyDbConverter {
             description = vacancy.description
         )
     }
+
     @TypeConverter
     fun convert(listVacancyEntity: List<VacancyDescriptionEntity>): List<VacancyDescription> {
         return listVacancyEntity.map { vacancyEntity ->
             convert(vacancyEntity)
         }
     }
+
     @TypeConverter
     fun convertSalary(salaryEntity: SalaryEntity?): Salary? {
         return Salary(
@@ -55,6 +58,7 @@ class VacancyDbConverter {
             salaryEntity?.to
         )
     }
+
     @TypeConverter
     fun convertSalary(salary: Salary?): SalaryEntity? {
         return SalaryEntity(
@@ -64,6 +68,7 @@ class VacancyDbConverter {
             salary?.to
         )
     }
+
     @TypeConverter
     fun convertArea(areaEntity: AreaEntity?): Area? {
         return if (areaEntity != null) {
@@ -76,6 +81,7 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
     fun convertArea(area: Area?): AreaEntity? {
         return if (area != null) {
@@ -88,6 +94,7 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
     fun convertEmployer(employerEntity: EmployerEntity?): Employer? {
         return Employer(
@@ -98,6 +105,7 @@ class VacancyDbConverter {
             employerEntity?.url
         )
     }
+
     @TypeConverter
     fun convertEmployer(employer: Employer?): EmployerEntity? {
         return EmployerEntity(
@@ -108,22 +116,25 @@ class VacancyDbConverter {
             employer?.url
         )
     }
+
     @TypeConverter
-   fun convertLogoUrls(logoUrls: LogoUrls?): LogoUrlsEntity?{
+    fun convertLogoUrls(logoUrls: LogoUrls?): LogoUrlsEntity? {
         return logoUrls?.original?.let {
             LogoUrlsEntity(
                 it
             )
         }
     }
+
     @TypeConverter
-    fun convertLogoUrls(logoUrlsEntity: LogoUrlsEntity?): LogoUrls?{
+    fun convertLogoUrls(logoUrlsEntity: LogoUrlsEntity?): LogoUrls? {
         return logoUrlsEntity?.let {
             LogoUrls(
                 it.original
             )
         }
     }
+
     @TypeConverter
     fun convertAddress(addressEntity: AddressEntity?): Address? {
         return Address(
@@ -135,6 +146,7 @@ class VacancyDbConverter {
             addressEntity?.street
         )
     }
+
     @TypeConverter
     fun convertAddress(address: Address?): AddressEntity? {
         return AddressEntity(
@@ -146,6 +158,7 @@ class VacancyDbConverter {
             address?.street
         )
     }
+
     @TypeConverter
     fun convertExperience(experienceEntity: ExperienceEntity?): Experience? {
         return if (experienceEntity != null) {
@@ -153,13 +166,14 @@ class VacancyDbConverter {
                 experienceEntity.id,
                 experienceEntity.name
             )
-        }else{
+        } else {
             null
         }
     }
+
     @TypeConverter
-  fun convertExperience(experience: Experience?): ExperienceEntity? {
-       return if (experience != null) {
+    fun convertExperience(experience: Experience?): ExperienceEntity? {
+        return if (experience != null) {
             ExperienceEntity(
                 experience.id,
                 experience.name
@@ -168,9 +182,10 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
-   fun convertEmployment(employmentEntity: EmploymentEntity?): Employment? {
-       return if (employmentEntity != null) {
+    fun convertEmployment(employmentEntity: EmploymentEntity?): Employment? {
+        return if (employmentEntity != null) {
             return Employment(
                 employmentEntity.id,
                 employmentEntity.name
@@ -179,6 +194,7 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
     fun convertEmployment(employment: Employment?): EmploymentEntity? {
         return if (employment != null) {
@@ -190,17 +206,19 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
     fun convertSchedule(scheduleEntity: ScheduleEntity?): Schedule? {
-       return if (scheduleEntity != null) {
+        return if (scheduleEntity != null) {
             Schedule(
                 scheduleEntity.id,
                 scheduleEntity.name
             )
         } else {
-           null
+            null
         }
     }
+
     @TypeConverter
     fun convertSchedule(schedule: Schedule?): ScheduleEntity? {
         return if (schedule != null) {
@@ -212,22 +230,27 @@ class VacancyDbConverter {
             null
         }
     }
+
     @TypeConverter
     fun convertKeySkillsFromEntity(listKeySkillsEntity: List<KeySkillEntity>): List<KeySkill> {
         return listKeySkillsEntity.map { keySkillEntity ->
             convertKeySkill(keySkillEntity)
         }
     }
+
     @TypeConverter
     fun convertKeySkillsToEntity(listKeySkills: List<KeySkill>): List<KeySkillEntity> {
         return listKeySkills.map { keySkill ->
             convertKeySkill(keySkill)
         }
     }
+
     @TypeConverter
     fun convertKeySkill(keySkillEntity: KeySkillEntity) = KeySkill(keySkillEntity.name)
+
     @TypeConverter
     fun convertKeySkill(keySkill: KeySkill) = KeySkillEntity(keySkill.name)
+
     @TypeConverter
     fun convertContacts(contactsEntity: ContactsEntity?): Contacts? {
         return Contacts(
@@ -238,6 +261,7 @@ class VacancyDbConverter {
             }
         )
     }
+
     @TypeConverter
     fun convertContacts(contacts: Contacts?): ContactsEntity? {
         return ContactsEntity(
@@ -248,8 +272,9 @@ class VacancyDbConverter {
             }
         )
     }
+
     @TypeConverter
-    fun convertPhone(phone: Phone): PhoneEntity{
+    fun convertPhone(phone: Phone): PhoneEntity {
         return PhoneEntity(
             phone.city,
             phone.comment,
@@ -257,8 +282,9 @@ class VacancyDbConverter {
             phone.number
         )
     }
+
     @TypeConverter
-    fun convertPhone(phoneEntity: PhoneEntity): Phone{
+    fun convertPhone(phoneEntity: PhoneEntity): Phone {
         return Phone(
             phoneEntity.city,
             phoneEntity.comment,

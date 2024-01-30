@@ -16,7 +16,7 @@ val repositoryModule = module {
 
     factory { VacanciesDescriptionConverter() }
 
-    factory{ VacancyDbConverter() }
+    factory { VacancyDbConverter() }
 
     single<SearchRepository> {
         SearchRepositoryImpl(

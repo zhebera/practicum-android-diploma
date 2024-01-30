@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import ru.practicum.android.diploma.data.db.entity.KeySkillEntity
 import ru.practicum.android.diploma.domain.models.KeySkill
 
 object KeySkillDbConverter {

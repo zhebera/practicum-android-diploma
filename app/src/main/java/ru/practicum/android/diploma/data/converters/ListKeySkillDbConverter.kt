@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import ru.practicum.android.diploma.data.converters.KeySkillDbConverter.fromKeySkillEntity
 import ru.practicum.android.diploma.data.converters.KeySkillDbConverter.toKeySkillEntity
 import ru.practicum.android.diploma.domain.models.KeySkill
-import java.lang.StringBuilder
 
 object ListKeySkillDbConverter {
 

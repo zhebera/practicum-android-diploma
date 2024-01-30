@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.models.Employer
 
-object EmployerDbConverter{
+object EmployerDbConverter {
 
     @TypeConverter
     fun fromEmployerEntity(data: String?): Employer? {
@@ -13,6 +13,6 @@ object EmployerDbConverter{
 
     @TypeConverter
     fun toEmployerEntity(employer: Employer?): String {
-       return Gson().toJson(employer)
+        return Gson().toJson(employer)
     }
 }

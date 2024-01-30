@@ -2,13 +2,12 @@ package ru.practicum.android.diploma.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import ru.practicum.android.diploma.data.db.entity.LogoUrlsEntity
 import ru.practicum.android.diploma.domain.models.LogoUrls
 
-object LogoUrlsDbConverter{
+object LogoUrlsDbConverter {
 
     @TypeConverter
-    fun toLogoUrlsEntity(logoUrls: LogoUrls?): String{
+    fun toLogoUrlsEntity(logoUrls: LogoUrls?): String {
         return Gson().toJson(logoUrls)
     }
 

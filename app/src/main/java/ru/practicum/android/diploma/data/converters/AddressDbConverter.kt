@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import ru.practicum.android.diploma.data.db.entity.AddressEntity
 import ru.practicum.android.diploma.domain.models.Address
 
 object AddressDbConverter {

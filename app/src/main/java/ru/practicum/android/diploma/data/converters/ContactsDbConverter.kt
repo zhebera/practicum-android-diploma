@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.models.Contacts
 
 
-object ContactsDbConverter{
+object ContactsDbConverter {
     @TypeConverter
     fun fromContactsEntity(data: String): Contacts? {
         return Gson().fromJson(data, Contacts::class.java)
