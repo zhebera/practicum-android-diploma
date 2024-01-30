@@ -6,7 +6,6 @@ import ru.practicum.android.diploma.domain.models.Schedule
 
 object ScheduleDbConverter {
 
-
     @TypeConverter
     fun fromScheduleEntity(data: String): Schedule? {
         return Gson().fromJson(data, Schedule::class.java)

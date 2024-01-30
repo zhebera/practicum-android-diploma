@@ -1,7 +1,22 @@
 package ru.practicum.android.diploma.data.db.dao
 
-import androidx.room.*
-import ru.practicum.android.diploma.data.converters.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.TypeConverters
+import ru.practicum.android.diploma.data.converters.AddressDbConverter
+import ru.practicum.android.diploma.data.converters.AreaDbConverter
+import ru.practicum.android.diploma.data.converters.ContactsDbConverter
+import ru.practicum.android.diploma.data.converters.EmployerDbConverter
+import ru.practicum.android.diploma.data.converters.EmploymentDbConverter
+import ru.practicum.android.diploma.data.converters.ExperienceDbConverter
+import ru.practicum.android.diploma.data.converters.KeySkillDbConverter
+import ru.practicum.android.diploma.data.converters.ListKeySkillDbConverter
+import ru.practicum.android.diploma.data.converters.LogoUrlsDbConverter
+import ru.practicum.android.diploma.data.converters.SalaryDbConverter
+import ru.practicum.android.diploma.data.converters.ScheduleDbConverter
+import ru.practicum.android.diploma.data.converters.VacancyDbConverter
 import ru.practicum.android.diploma.data.db.entity.VacancyDescriptionEntity
 
 @Dao

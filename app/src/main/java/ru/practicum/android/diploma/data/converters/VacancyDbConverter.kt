@@ -1,10 +1,32 @@
 package ru.practicum.android.diploma.data.converters
 
 import androidx.room.TypeConverter
-import ru.practicum.android.diploma.data.db.entity.*
-import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.data.db.entity.AddressEntity
+import ru.practicum.android.diploma.data.db.entity.AreaEntity
+import ru.practicum.android.diploma.data.db.entity.ContactsEntity
+import ru.practicum.android.diploma.data.db.entity.EmployerEntity
+import ru.practicum.android.diploma.data.db.entity.EmploymentEntity
+import ru.practicum.android.diploma.data.db.entity.ExperienceEntity
+import ru.practicum.android.diploma.data.db.entity.KeySkillEntity
+import ru.practicum.android.diploma.data.db.entity.LogoUrlsEntity
+import ru.practicum.android.diploma.data.db.entity.PhoneEntity
+import ru.practicum.android.diploma.data.db.entity.SalaryEntity
+import ru.practicum.android.diploma.data.db.entity.ScheduleEntity
+import ru.practicum.android.diploma.data.db.entity.VacancyDescriptionEntity
+import ru.practicum.android.diploma.domain.models.Address
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Contacts
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Employment
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.KeySkill
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Phone
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.VacancyDescription
 
-class VacancyDbConverter {
+object VacancyDbConverter {
 
     @TypeConverter
     fun convert(vacancyEntity: VacancyDescriptionEntity): VacancyDescription {

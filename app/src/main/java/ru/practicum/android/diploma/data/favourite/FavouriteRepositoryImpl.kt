@@ -22,7 +22,8 @@ class FavouriteRepositoryImpl(
 
     override suspend fun removeVacancy(vacancy: VacancyDescription) {
         val vacanciesId = appDatabase.vacancyDao().getAllVacancies().map { it.id }
-        if (vacanciesId.contains(vacancy.id))
+        if (vacanciesId.contains(vacancy.id)) {
             appDatabase.vacancyDao().removeVacancy(vacancy.id)
+        }
     }
 }

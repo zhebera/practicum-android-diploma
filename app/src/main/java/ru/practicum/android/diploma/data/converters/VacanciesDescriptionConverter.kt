@@ -1,7 +1,29 @@
 package ru.practicum.android.diploma.data.converters
 
-import ru.practicum.android.diploma.data.dto.*
-import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.data.dto.AddressResponse
+import ru.practicum.android.diploma.data.dto.AreaResponse
+import ru.practicum.android.diploma.data.dto.ContactsResponse
+import ru.practicum.android.diploma.data.dto.EmployerResponse
+import ru.practicum.android.diploma.data.dto.EmploymentResponse
+import ru.practicum.android.diploma.data.dto.ExperienceResponse
+import ru.practicum.android.diploma.data.dto.KeySkillResponse
+import ru.practicum.android.diploma.data.dto.LogoUrlsResponse
+import ru.practicum.android.diploma.data.dto.PhoneResponse
+import ru.practicum.android.diploma.data.dto.SalaryResponse
+import ru.practicum.android.diploma.data.dto.ScheduleResponse
+import ru.practicum.android.diploma.data.dto.VacancyDescriptionResponse
+import ru.practicum.android.diploma.domain.models.Address
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Contacts
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Employment
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.KeySkill
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Phone
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Schedule
+import ru.practicum.android.diploma.domain.models.VacancyDescription
 
 class VacanciesDescriptionConverter {
 

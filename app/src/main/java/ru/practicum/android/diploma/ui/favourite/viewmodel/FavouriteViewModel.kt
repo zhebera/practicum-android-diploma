@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDescription
+import java.lang.NullPointerException
 
 class FavouriteViewModel(private val favouriteInteractor: FavouriteInteractor) : ViewModel() {
 
@@ -20,12 +21,12 @@ class FavouriteViewModel(private val favouriteInteractor: FavouriteInteractor) :
 
     private fun renderState(favouriteVacancies: List<VacancyDescription>) {
         try {
-            if (favouriteVacancies.isNullOrEmpty()) {
+            if (favouriteVacancies.isEmpty()) {
                 _favouriteVacancies.postValue(FavouriteState.Empty)
             } else {
                 _favouriteVacancies.postValue(FavouriteState.Content(favouriteVacancies))
             }
-        } catch (e: Throwable) {
+        } catch (e: NullPointerException) {
             _favouriteVacancies.postValue(FavouriteState.Error)
         }
     }

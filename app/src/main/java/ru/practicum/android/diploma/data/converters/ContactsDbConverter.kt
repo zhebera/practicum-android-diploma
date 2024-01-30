@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.models.Contacts
 
-
 object ContactsDbConverter {
     @TypeConverter
     fun fromContactsEntity(data: String): Contacts? {

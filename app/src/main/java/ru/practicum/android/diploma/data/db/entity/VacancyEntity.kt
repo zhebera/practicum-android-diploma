@@ -3,7 +3,16 @@ package ru.practicum.android.diploma.data.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import ru.practicum.android.diploma.data.converters.*
+import ru.practicum.android.diploma.data.converters.AddressDbConverter
+import ru.practicum.android.diploma.data.converters.AreaDbConverter
+import ru.practicum.android.diploma.data.converters.ContactsDbConverter
+import ru.practicum.android.diploma.data.converters.EmploymentDbConverter
+import ru.practicum.android.diploma.data.converters.ExperienceDbConverter
+import ru.practicum.android.diploma.data.converters.KeySkillDbConverter
+import ru.practicum.android.diploma.data.converters.LogoUrlsDbConverter
+import ru.practicum.android.diploma.data.converters.SalaryDbConverter
+import ru.practicum.android.diploma.data.converters.ScheduleDbConverter
+import ru.practicum.android.diploma.data.converters.VacancyDbConverter
 
 @Entity(tableName = "vacancy_table")
 @TypeConverters(VacancyDbConverter::class)

@@ -1,9 +1,21 @@
 package ru.practicum.android.diploma.data.converters
 
-import ru.practicum.android.diploma.data.response.*
-import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.data.response.AreaResponse
+import ru.practicum.android.diploma.data.response.DepartmentResponse
+import ru.practicum.android.diploma.data.response.EmployerResponse
+import ru.practicum.android.diploma.data.response.LogoUrlsResponse
+import ru.practicum.android.diploma.data.response.SalaryResponse
+import ru.practicum.android.diploma.data.response.VacanciesResponse
+import ru.practicum.android.diploma.data.response.VacancyResponse
+import ru.practicum.android.diploma.domain.models.Area
+import ru.practicum.android.diploma.domain.models.Department
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.LogoUrls
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.Vacancies
+import ru.practicum.android.diploma.domain.models.Vacancy
 
-class VacanciesConverter {
+object VacanciesConverter {
 
     fun convert(response: VacanciesResponse): Vacancies {
         return with(response) {
