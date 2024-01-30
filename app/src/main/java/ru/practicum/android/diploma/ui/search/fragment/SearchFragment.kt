@@ -103,7 +103,7 @@ class SearchFragment : Fragment() {
     private fun clicker(vacancy: Vacancy) {
         val bundle = Bundle()
         bundle.putParcelable(VACANCY, vacancy)
-        findNavController().navigate(R.id.searchFragment_to_vacancyFragment, bundle)
+        findNavController().navigate(R.id.action_searchFragment_to_vacancyDescriptionFragment, bundle)
     }
 
     private fun render(state: SearchState) {
