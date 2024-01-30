@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.di
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
+import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
 import ru.practicum.android.diploma.data.converters.VacancyDbConverter
 import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
@@ -13,10 +14,17 @@ val repositoryModule = module {
 
     factory { VacanciesConverter() }
 
+    factory { VacanciesDescriptionConverter() }
+
     factory{ VacancyDbConverter() }
 
     single<SearchRepository> {
-        SearchRepositoryImpl(get(), get(), androidContext())
+        SearchRepositoryImpl(
+            networkClient = get(),
+            vacanciesConverter = get(),
+            vacanciesDescriptionConverter = get(),
+            context = androidContext()
+        )
     }
 
     single<FavouriteRepository> {
