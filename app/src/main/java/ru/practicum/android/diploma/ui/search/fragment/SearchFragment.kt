@@ -40,7 +40,6 @@ class SearchFragment : Fragment() {
     private var isClickAllowed = true
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
-    private var savedSearchEditText: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,15 +52,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvTitle.text = getString(R.string.main)
-
-        binding.ivSearchImage.setOnClickListener {
-            if (binding.etSearch.toString().isNotEmpty()) {
-                binding.ivSearchImage.setImageResource(R.drawable.close)
-                vacancyAdapter.clear()
-            } else {
-                binding.ivSearchImage.setImageResource(R.drawable.search)
-            }
-        }
 
         recyclerView = binding.rwResult
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
@@ -80,14 +70,8 @@ class SearchFragment : Fragment() {
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                savedSearchEditText = binding.etSearch.text.toString()
-                if (binding.etSearch.toString().isNotEmpty()) {
-                    binding.ivSearchImage.setImageResource(R.drawable.close)
-                } else {
-                    binding.ivSearchImage.setImageResource(R.drawable.search)
-                }
 
-                binding.ivSearchImage.visibility = clearButtonVisibility(s)
+                installSearchCancelButton(s)
 
                 if (!s.isNullOrEmpty()) {
                     searchViewModel.searchDebounce(
@@ -182,14 +166,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
-
     private fun clearAll() {
         binding.etSearch.clearFocus()
         binding.etSearch.text.clear()
@@ -201,6 +177,14 @@ class SearchFragment : Fragment() {
     private fun closeKeyboard() {
         val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
+    }
+
+    private fun installSearchCancelButton(s: CharSequence?){
+        if (s?.isNotEmpty() == true) {
+            binding.ivSearchImage.setImageResource(R.drawable.close)
+        } else {
+            binding.ivSearchImage.setImageResource(R.drawable.search)
+        }
     }
 
 }
