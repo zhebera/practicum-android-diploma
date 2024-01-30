@@ -8,6 +8,7 @@ data class VacancyDescriptionResponse(
     val salary: SalaryResponse?,
     val employer: EmployerResponse?,
     val area: AreaResponse?,
+    @SerializedName("alternate_url") val url: String,
     val address: AddressResponse?,
     val experience: ExperienceResponse?,
     val employment: EmploymentResponse?,

@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
+import ru.practicum.android.diploma.domain.api.search.details.SharingInteractor
+import ru.practicum.android.diploma.domain.impl.details.SharingInteractorImpl
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 
 class VacancyDescriptionViewModel(
-    private val interactor: SearchInteractor
+    private val interactor: SearchInteractor,
+    private val sharingInteractor: SharingInteractor
 ) : ViewModel() {
 
     private var _vacancyDescriptionState = MutableLiveData<VacancyDescriptionState>()
@@ -34,5 +37,17 @@ class VacancyDescriptionViewModel(
             _vacancyDescriptionState.postValue(VacancyDescriptionState.Content(data))
         }
 
+    }
+
+    fun shareLink(link: String) {
+        sharingInteractor.shareLink(link)
+    }
+
+    fun openEmail(email: String) {
+        sharingInteractor.openEmail(email)
+    }
+
+    fun doCall(phone: String) {
+        sharingInteractor.doCall(phone)
     }
 }

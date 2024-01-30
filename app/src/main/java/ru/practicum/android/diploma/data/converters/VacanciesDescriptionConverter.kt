@@ -34,6 +34,7 @@ class VacanciesDescriptionConverter {
             salary = convertSalaryResponse(response.salary),
             employer = convertEmployerResponse(response.employer),
             area = convertAreaResponse(response.area),
+            url = response.url,
             address = convertAddressResponse(response.address),
             experience = convertExperienceResponse(response.experience),
             employment = convertEmploymentResponse(response.employment),
