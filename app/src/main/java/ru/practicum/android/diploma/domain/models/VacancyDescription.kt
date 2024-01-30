@@ -1,17 +1,16 @@
 package ru.practicum.android.diploma.domain.models
 
 data class VacancyDescription(
-    val id: String,                     //id
-    val name: String,                   //название
-    val salary: Salary,                 //оплата
-    val employer: Employer,             //работодатель
-    val area: Area,                     //место
-    val address: Address,               //адрес
-    val experience: Experience,         //опыт
-    val employment: Employment,         //полная/частичная занятость
-    val schedule: Schedule,             //офис/удаленка
-    val branded_description: String,    //описании вакансии
-    val key_skills: List<KeySkill>,     //ключевые навыки
-    val contacts: Contacts,             //контакты
-    val description: String,            //комментарий
+    val id: String,
+    val name: String,
+    val salary: Salary?,
+    val employer: Employer?,
+    val area: Area?,
+    val address: Address?,
+    val experience: Experience?,
+    val employment: Employment?,
+    val schedule: Schedule?,
+    val keySkills: List<KeySkill>,
+    val contacts: Contacts?,
+    val description: String,
 )
