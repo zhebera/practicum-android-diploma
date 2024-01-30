@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
 import ru.practicum.android.diploma.domain.models.VacancyDescription
-import ru.practicum.android.diploma.ui.search.detailsAdapter.PhoneAdapter
+import ru.practicum.android.diploma.ui.search.adapter.details.PhoneAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.search.viewmodel.VacancyDescriptionViewModel
 
@@ -56,16 +55,11 @@ class VacancyDescriptionFragment : Fragment() {
             is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
         }
     }
-    private fun showLoading() {
-        // TODO()
-    }
+    private fun showLoading() {}
 
-    private fun showError(message: String) {
-        // TODO()
-    }
+    private fun showError(message: String) {}
 
     private fun showContent(vacancyDescription: VacancyDescription) {
-
         val contacts = vacancyDescription.contacts
         val phones = vacancyDescription.contacts?.phones
         val email = vacancyDescription.contacts?.email
@@ -87,7 +81,7 @@ class VacancyDescriptionFragment : Fragment() {
             }
         }
 
-        binding.shareButton.setOnClickListener{
+        binding.shareButton.setOnClickListener {
             vacancyDescription.url.let { viewModel.shareLink(it) }
         }
     }

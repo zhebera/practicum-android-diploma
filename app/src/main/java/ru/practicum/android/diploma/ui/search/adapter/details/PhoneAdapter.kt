@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search.detailsAdapter
+package ru.practicum.android.diploma.ui.search.adapter.details
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
