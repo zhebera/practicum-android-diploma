@@ -38,6 +38,7 @@
             android:padding="@dimen/top_navigation_bar_icon_padding"
             android:layout_marginHorizontal="@dimen/details_backButton_marginHorizontal"/>
         <TextView
+            android:id="@+id/tv_vacancy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
