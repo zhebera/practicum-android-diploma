@@ -10,9 +10,6 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.util.glide
 import ru.practicum.android.diploma.util.parseSalary
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.*
 
 class VacancyViewHolder(
     parent: ViewGroup,
