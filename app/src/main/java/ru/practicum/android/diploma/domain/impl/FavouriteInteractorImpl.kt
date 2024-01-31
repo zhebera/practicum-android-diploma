@@ -17,4 +17,8 @@ class FavouriteInteractorImpl(private val favouriteRepository: FavouriteReposito
     override suspend fun removeVacancy(vacancy: VacancyDescription) {
         favouriteRepository.removeVacancy(vacancy)
     }
+
+    override fun checkVacancy(id: String): Flow<Boolean> {
+        return favouriteRepository.checkVacancy(id)
+    }
 }

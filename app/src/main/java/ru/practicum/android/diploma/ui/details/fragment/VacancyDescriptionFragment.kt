@@ -80,8 +80,19 @@ class VacancyDescriptionFragment : Fragment() {
             renderState(it, viewModel)
         }
 
+        binding.favouriteButton.setOnClickListener {
+            viewModel.changeFavourite()
+        }
+
+        viewModel.isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
+
         setViews()
         setListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkFavorite()
     }
 
     private fun renderState(vacancyDescriptionState: VacancyDescriptionState, viewModel: VacancyDescriptionViewModel) {
@@ -93,6 +104,13 @@ class VacancyDescriptionFragment : Fragment() {
     }
     private fun showLoading() {
         progressBar?.visibility = View.VISIBLE
+    }
+
+    private fun renderFavorite(favorite: Boolean) {
+        if (favorite)
+            binding.favouriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.favourites_on))
+        else
+            binding.favouriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.favourites_off))
     }
 
     private fun showError(message: String) {

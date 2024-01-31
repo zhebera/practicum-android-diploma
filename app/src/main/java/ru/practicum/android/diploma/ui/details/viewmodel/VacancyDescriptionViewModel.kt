@@ -7,15 +7,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
+import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
+import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 
 class VacancyDescriptionViewModel(
     private val interactor: SearchInteractor,
     private val detailsInteractor: DetailsInteractor,
+    private val favouriteInteractor: FavouriteInteractor
 ) : ViewModel() {
+
+    private var vacancy: VacancyDescription? = null
 
     private var _vacancyDescriptionState = MutableLiveData<VacancyDescriptionState>()
     val vacancyDescriptionState: LiveData<VacancyDescriptionState> get() = _vacancyDescriptionState
+
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
     fun getVacancyDescription(vacancyId: String) {
         _vacancyDescriptionState.postValue(VacancyDescriptionState.Loading)
@@ -28,11 +36,39 @@ class VacancyDescriptionViewModel(
         }
     }
 
+    private fun renderFavorite(favorite: Boolean) {
+        _isFavorite.postValue(favorite)
+    }
+
+    fun changeFavourite() {
+        viewModelScope.launch {
+            val favorite = _isFavorite.value ?: false
+            if(vacancy != null){
+                if (favorite)
+                    favouriteInteractor.removeVacancy(vacancy!!)
+                else
+                    favouriteInteractor.addVacancy(vacancy!!)
+                renderFavorite(!favorite)
+            }
+        }
+    }
+
+    fun checkFavorite() {
+        viewModelScope.launch {
+            if(vacancy != null){
+                favouriteInteractor.checkVacancy(vacancy!!.id).collect {
+                    renderFavorite(it)
+                }
+            }
+        }
+    }
+
     private fun processResult(data: VacancyDescription?, message: String?) {
         if (data == null) {
             _vacancyDescriptionState.postValue(VacancyDescriptionState.Error(message = message ?: "Неизвестная ошибка"))
         } else {
             _vacancyDescriptionState.postValue(VacancyDescriptionState.Content(data))
+            vacancy = data
         }
     }
 
