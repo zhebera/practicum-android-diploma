@@ -1,7 +1,7 @@
 package ru.practicum.android.diploma.domain.impl.details
 
-import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
+import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
 class DetailsInteractorImpl(private val detailsRepository: DetailsRepository) : DetailsInteractor {
 
