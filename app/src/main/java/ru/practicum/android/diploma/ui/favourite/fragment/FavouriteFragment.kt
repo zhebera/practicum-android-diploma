@@ -11,19 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragment
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY
-import ru.practicum.android.diploma.util.VACANCY
 import ru.practicum.android.diploma.util.debounce
 
 class FavouriteFragment : Fragment() {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var onVacancyClickDebounce: (Vacancy) -> Unit
-    private val adapter = VacancyAdapter{
-        onVacancyClickDebounce(it)
+    private var onVacancyClickDebounce: ((Vacancy) -> Unit)? = null
+    private val adapter = VacancyAdapter { vacancy ->
+        onVacancyClickDebounce?.invoke(vacancy)
     }
 
     override fun onCreateView(
@@ -39,9 +38,10 @@ class FavouriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onVacancyClickDebounce = debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, true) { vacancy ->
-            val bundle = Bundle()
-            bundle.putParcelable(VACANCY, vacancy)
-            findNavController().navigate(R.id.action_favouriteFragment_to_detailsFragment, bundle)
+            findNavController().navigate(
+                R.id.action_favouriteFragment_to_vacancyDescriptionFragment,
+                VacancyDescriptionFragment.createArgs(vacancy.id)
+            )
         }
 
         binding.rvFavourite.layoutManager = LinearLayoutManager(requireContext())
