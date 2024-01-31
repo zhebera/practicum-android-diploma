@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavouriteBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.models.VacancyDescription
 import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragment
+import ru.practicum.android.diploma.ui.favourite.viewmodel.FavouriteState
+import ru.practicum.android.diploma.ui.favourite.viewmodel.FavouriteViewModel
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.util.CLICK_DEBOUNCE_DELAY
 import ru.practicum.android.diploma.util.debounce
@@ -24,6 +29,7 @@ class FavouriteFragment : Fragment() {
     private val adapter = VacancyAdapter { vacancy ->
         onVacancyClickDebounce?.invoke(vacancy)
     }
+    private val viewModel by viewModel<FavouriteViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +52,47 @@ class FavouriteFragment : Fragment() {
 
         binding.rvFavourite.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavourite.adapter = adapter
+
+        viewModel.favouriteVacancies.observe(viewLifecycleOwner, ::renderState)
+    }
+
+    private fun renderState(state: FavouriteState) {
+        when (state) {
+            is FavouriteState.Content -> showFavourites(state.data)
+            is FavouriteState.Empty -> showEmpty()
+        }
+    }
+
+    private fun showFavourites(listFavourites: List<VacancyDescription>) {
+        binding.apply {
+            llPlaceholder.isVisible = false
+            rvFavourite.isVisible = true
+        }
+
+        adapter.setData(
+            listFavourites.map {
+                Vacancy(
+                    it.id,
+                    it.name,
+                    it.area,
+                    it.employer,
+                    it.employment,
+                    it.salary
+                )
+            }
+        )
+    }
+
+    private fun showEmpty() {
+        binding.apply {
+            llPlaceholder.isVisible = true
+            rvFavourite.isVisible = false
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getVacancies()
     }
 
     override fun onDestroy() {

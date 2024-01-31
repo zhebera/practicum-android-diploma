@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.response.VacancyResponse
 import ru.practicum.android.diploma.domain.models.Area
 import ru.practicum.android.diploma.domain.models.Department
 import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Employment
 import ru.practicum.android.diploma.domain.models.LogoUrls
 import ru.practicum.android.diploma.domain.models.Salary
 import ru.practicum.android.diploma.domain.models.Vacancies
@@ -64,9 +65,9 @@ class VacanciesConverter {
         return logoUrls?.let { LogoUrls(it.original) }
     }
 
-    private fun convertDepartment(department: DepartmentResponse?): Department? {
+    private fun convertDepartment(department: DepartmentResponse?): Employment? {
         return department?.let {
-            Department(
+            Employment(
                 id = it.id,
                 name = department.name
             )
