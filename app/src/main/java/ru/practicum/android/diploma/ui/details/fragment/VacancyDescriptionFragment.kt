@@ -112,7 +112,7 @@ class VacancyDescriptionFragment : Fragment() {
 
         vacancyDescription.salary?.let { setSalaryBlock(it) }
 
-        vacancyDescription.employer?.let {setEmployerBlock(it) }
+        vacancyDescription.employer?.let { setEmployerBlock(it) }
 
         setAddressBlock(vacancyDescription)
 
@@ -246,7 +246,7 @@ class VacancyDescriptionFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.backButton.setOnClickListener{
+        binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
     }
