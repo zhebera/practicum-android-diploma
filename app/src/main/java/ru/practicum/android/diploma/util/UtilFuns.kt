@@ -17,7 +17,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
-fun glide(
+fun loadImageIntoView(
     context: Context,
     source: String,
     view: ImageView,
