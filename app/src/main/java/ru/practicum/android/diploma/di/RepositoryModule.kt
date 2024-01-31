@@ -4,8 +4,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
+import ru.practicum.android.diploma.data.converters.VacancyDbConverter
+import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
 import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
+import ru.practicum.android.diploma.domain.api.favourite.FavouriteRepository
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
@@ -14,6 +17,8 @@ val repositoryModule = module {
     factory { VacanciesConverter() }
 
     factory { VacanciesDescriptionConverter() }
+
+    factory { VacancyDbConverter() }
 
     single<SearchRepository> {
         SearchRepositoryImpl(
@@ -26,5 +31,9 @@ val repositoryModule = module {
 
     single<DetailsRepository> {
         DetailsRepositoryImpl(androidContext())
+    }
+
+    single<FavouriteRepository> {
+        FavouriteRepositoryImpl(get(), get())
     }
 }
