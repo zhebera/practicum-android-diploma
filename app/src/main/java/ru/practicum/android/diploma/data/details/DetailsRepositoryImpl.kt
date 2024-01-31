@@ -1,11 +1,11 @@
-package ru.practicum.android.diploma.data.search.details
+package ru.practicum.android.diploma.data.details
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import ru.practicum.android.diploma.domain.api.search.details.ExternalNavigator
+import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
-class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
+class DetailsRepositoryImpl(private val context: Context) : DetailsRepository {
 
     override fun shareLink(link: String) {
         val shareIntent = Intent().apply {

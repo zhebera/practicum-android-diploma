@@ -1,6 +1,6 @@
-package ru.practicum.android.diploma.domain.api.search.details
+package ru.practicum.android.diploma.domain.api.details
 
-interface SharingInteractor {
+interface DetailsInteractor {
 
     fun shareLink(link: String)
 
