@@ -5,7 +5,6 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.ui.favourite.viewmodel.FavouriteViewModel
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
-import ru.practicum.android.diploma.ui.search.viewmodel.VacancyDescriptionViewModel
 
 val viewModelModule = module {
 
