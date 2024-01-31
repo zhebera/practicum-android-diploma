@@ -17,7 +17,7 @@ class FavouriteRepositoryImpl(
     }
 
     override suspend fun addVacancy(vacancy: VacancyDescription) {
-        appDatabase.vacancyDao().addVacancy(vacancyDbConverter.convert(vacancy))
+        appDatabase.vacancyDao().addVacancy(vacancyDbConverter.convertToEntity(vacancy))
     }
 
     override suspend fun removeVacancy(vacancy: VacancyDescription) {
