@@ -12,17 +12,18 @@ class FavouriteViewModel(private val favouriteInteractor: FavouriteInteractor) :
 
     private val _favouriteVacancies = MutableLiveData<FavouriteState>()
     val favouriteVacancies: LiveData<FavouriteState> = _favouriteVacancies
-    fun getAllFavouriteVacancies() {
+
+    fun getVacancies() {
         viewModelScope.launch {
             favouriteInteractor.getAllVacancies().collect(::renderState)
         }
     }
 
-    private fun renderState(favouriteVacancies: List<VacancyDescription>) {
-        if (favouriteVacancies.isEmpty()) {
+    private fun renderState(playlists: List<VacancyDescription>) {
+        if (playlists.isNullOrEmpty()) {
             _favouriteVacancies.postValue(FavouriteState.Empty)
         } else {
-            _favouriteVacancies.postValue(FavouriteState.Content(favouriteVacancies))
+            _favouriteVacancies.postValue(FavouriteState.Content(playlists))
         }
     }
 }
