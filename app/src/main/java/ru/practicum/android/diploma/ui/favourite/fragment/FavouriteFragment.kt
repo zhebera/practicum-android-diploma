@@ -19,9 +19,9 @@ class FavouriteFragment : Fragment() {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
-    private lateinit var onVacancyClickDebounce: (Vacancy) -> Unit
-    private val adapter = VacancyAdapter{vacancy ->
-        onVacancyClickDebounce(vacancy)
+    private var onVacancyClickDebounce: ((Vacancy) -> Unit)? = null
+    private val adapter = VacancyAdapter { vacancy ->
+        onVacancyClickDebounce?.invoke(vacancy)
     }
 
     override fun onCreateView(
@@ -38,8 +38,10 @@ class FavouriteFragment : Fragment() {
         binding.textView.text = getString(R.string.favourite)
 
         onVacancyClickDebounce = debounce(CLICK_DEBOUNCE_DELAY, viewLifecycleOwner.lifecycleScope, true) { vacancy ->
-            findNavController().navigate(R.id.action_favouriteFragment_to_vacancyDescriptionFragment,
-                VacancyDescriptionFragment.createArgs(vacancy.id))
+            findNavController().navigate(
+                R.id.action_favouriteFragment_to_vacancyDescriptionFragment,
+                VacancyDescriptionFragment.createArgs(vacancy.id)
+            )
         }
     }
 

@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
-import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 
 class VacancyDescriptionViewModel(
@@ -43,11 +42,13 @@ class VacancyDescriptionViewModel(
     fun changeFavourite() {
         viewModelScope.launch {
             val favorite = _isFavorite.value ?: false
-            if(vacancy != null){
-                if (favorite)
+            if (vacancy != null) {
+                if (favorite) {
                     favouriteInteractor.removeVacancy(vacancy!!)
-                else
+                }
+                else{
                     favouriteInteractor.addVacancy(vacancy!!)
+                }
                 renderFavorite(!favorite)
             }
         }
@@ -55,7 +56,7 @@ class VacancyDescriptionViewModel(
 
     fun checkFavorite() {
         viewModelScope.launch {
-            if(vacancy != null){
+            if (vacancy != null) {
                 favouriteInteractor.checkVacancy(vacancy!!.id).collect {
                     renderFavorite(it)
                 }

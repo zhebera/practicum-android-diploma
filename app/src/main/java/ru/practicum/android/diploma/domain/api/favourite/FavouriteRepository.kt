@@ -8,5 +8,5 @@ interface FavouriteRepository {
     fun getAllVacancies(): Flow<List<VacancyDescription>>
     suspend fun addVacancy(vacancy: VacancyDescription)
     suspend fun removeVacancy(vacancy: VacancyDescription)
-    fun checkVacancy(id: String):Flow<Boolean>
+    fun checkVacancy(id: String): Flow<Boolean>
 }

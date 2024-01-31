@@ -102,15 +102,17 @@ class VacancyDescriptionFragment : Fragment() {
             is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data, viewModel)
         }
     }
+
     private fun showLoading() {
         progressBar?.visibility = View.VISIBLE
     }
 
     private fun renderFavorite(favorite: Boolean) {
-        if (favorite)
+        if (favorite) {
             binding.favouriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.favourites_on))
-        else
+        } else {
             binding.favouriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.favourites_off))
+        }
     }
 
     private fun showError(message: String) {
@@ -186,9 +188,9 @@ class VacancyDescriptionFragment : Fragment() {
             val street = vacancyDescription.address.street
             val building = vacancyDescription.address.building
 
-            val fullAddress = "${city?.let {city}}" +
-                "${street?.let {", $street"}}" +
-                "${building?.let {", $building"}}"
+            val fullAddress = "${city?.let { city }}" +
+                "${street?.let { ", $street" }}" +
+                "${building?.let { ", $building" }}"
 
             employerAddress?.text = fullAddress
         } else {
