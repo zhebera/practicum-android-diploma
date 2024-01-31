@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/vacancyDescriptionFragment"
-        android:name="ru.practicum.android.diploma.ui.search.fragment.VacancyDescriptionFragment"
+        android:name="ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragment"
         android:label="fragment_vacancy_description"
         tools:layout="@layout/fragment_details" >
     </fragment>

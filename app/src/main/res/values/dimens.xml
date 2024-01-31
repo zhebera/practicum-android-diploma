@@ -39,6 +39,7 @@
     <dimen name="details_title_margin_top">8dp</dimen>
     <dimen name="details_between_lines_margin_top">4dp</dimen>
     <dimen name="details_description_margin_top">16dp</dimen>
+    <dimen name="details_description_padding_bottom">48dp</dimen>
     <dimen name="details_subtitle_margin_top">24dp</dimen>
     <dimen name="details_backButton_marginHorizontal">8dp</dimen>
     <dimen name="details_shareButton_marginHorizontal">4dp</dimen>

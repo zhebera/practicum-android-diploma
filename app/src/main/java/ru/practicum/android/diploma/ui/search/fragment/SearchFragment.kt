@@ -19,10 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.Vacancy
+import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragment
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
-import ru.practicum.android.diploma.util.VACANCY
 import ru.practicum.android.diploma.util.getNumberString
 
 class SearchFragment : Fragment() {
@@ -101,9 +101,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun clicker(vacancy: Vacancy) {
-        val bundle = Bundle()
-        bundle.putParcelable(VACANCY, vacancy)
-        findNavController().navigate(R.id.action_searchFragment_to_vacancyDescriptionFragment, bundle)
+        findNavController().navigate(
+            R.id.action_searchFragment_to_vacancyDescriptionFragment,
+            VacancyDescriptionFragment.createArgs(vacancy.id)
+        )
     }
 
     private fun render(state: SearchState) {

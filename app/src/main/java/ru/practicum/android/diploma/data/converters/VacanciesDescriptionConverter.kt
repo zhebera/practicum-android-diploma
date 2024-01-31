@@ -82,16 +82,12 @@ class VacanciesDescriptionConverter {
         }
     }
 
-    fun convertAreaResponse(response: AreaResponse?): Area? {
-        return if (response != null) {
-            Area(
+    fun convertAreaResponse(response: AreaResponse): Area {
+        return Area(
                 id = response.id,
                 name = response.name,
                 url = response.url
             )
-        } else {
-            null
-        }
     }
 
     fun convertAddressResponse(response: AddressResponse?): Address? {

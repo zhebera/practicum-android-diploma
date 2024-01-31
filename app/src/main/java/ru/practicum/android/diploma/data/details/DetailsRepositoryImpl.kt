@@ -5,7 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
-class DetailsRepositoryImpl(private val context: Context) : DetailsRepository {
+class DetailsRepositoryImpl(context: Context) : DetailsRepository {
+
+    private val androidContext by lazy { context }
 
     override fun shareLink(link: String) {
         val shareIntent = Intent().apply {
@@ -15,7 +17,7 @@ class DetailsRepositoryImpl(private val context: Context) : DetailsRepository {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
-        context.startActivity(shareIntent)
+        androidContext.startActivity(shareIntent)
     }
 
     override fun openEmail(email: String) {
@@ -26,7 +28,7 @@ class DetailsRepositoryImpl(private val context: Context) : DetailsRepository {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
-        context.startActivity(emailIntent)
+        androidContext.startActivity(emailIntent)
     }
 
     override fun openPhone(phone: String) {
@@ -36,6 +38,6 @@ class DetailsRepositoryImpl(private val context: Context) : DetailsRepository {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
-        context.startActivity(callIntent)
+        androidContext.startActivity(callIntent)
     }
 }
