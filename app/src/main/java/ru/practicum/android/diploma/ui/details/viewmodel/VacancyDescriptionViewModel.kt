@@ -45,8 +45,7 @@ class VacancyDescriptionViewModel(
             if (vacancy != null) {
                 if (favorite) {
                     favouriteInteractor.removeVacancy(vacancy!!)
-                }
-                else{
+                } else {
                     favouriteInteractor.addVacancy(vacancy!!)
                 }
                 renderFavorite(!favorite)
