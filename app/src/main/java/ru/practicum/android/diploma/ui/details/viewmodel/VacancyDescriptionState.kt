@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.ui.search.viewmodel
+package ru.practicum.android.diploma.ui.details.viewmodel
 
 import ru.practicum.android.diploma.domain.models.VacancyDescription
 

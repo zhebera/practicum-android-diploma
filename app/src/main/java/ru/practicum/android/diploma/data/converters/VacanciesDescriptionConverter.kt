@@ -34,6 +34,7 @@ class VacanciesDescriptionConverter {
             salary = convertSalaryResponse(response.salary),
             employer = convertEmployerResponse(response.employer),
             area = convertAreaResponse(response.area),
+            url = response.url,
             address = convertAddressResponse(response.address),
             experience = convertExperienceResponse(response.experience),
             employment = convertEmploymentResponse(response.employment),
@@ -81,16 +82,12 @@ class VacanciesDescriptionConverter {
         }
     }
 
-    fun convertAreaResponse(response: AreaResponse?): Area? {
-        return if (response != null) {
-            Area(
+    fun convertAreaResponse(response: AreaResponse): Area {
+        return Area(
                 id = response.id,
                 name = response.name,
                 url = response.url
             )
-        } else {
-            null
-        }
     }
 
     fun convertAddressResponse(response: AddressResponse?): Address? {
