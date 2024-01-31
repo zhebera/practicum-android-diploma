@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.ui.search.fragment
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.practicum.android.diploma.R
@@ -72,14 +70,13 @@ class VacancyDescriptionFragment : Fragment() {
 
         val vacancyId = requireArguments().getSerializable(ARGS_VACANCY) as String
 
-
         val viewModel by viewModel<VacancyDescriptionViewModel> { parametersOf(vacancyId) }
 
         viewModel.vacancyDescriptionState.observe(viewLifecycleOwner) {
             renderState(it)
 
-            openEmail = {mail -> viewModel.openEmail(mail)}
-            shareLink = {link -> viewModel.shareLink(link)}
+            openEmail = { mail -> viewModel.openEmail(mail) }
+            shareLink = { link -> viewModel.shareLink(link) }
         }
 
         phoneAdapter = PhoneAdapter(
@@ -135,11 +132,9 @@ class VacancyDescriptionFragment : Fragment() {
     }
 
     private fun showContent(vacancyDescription: VacancyDescription) {
-        Log.d("EPIC2", vacancyDescription.keySkills.toString())
         progressBar?.visibility = View.GONE
         contentContainer?.visibility = View.VISIBLE
 
-        val contacts = vacancyDescription.contacts
         val phones = vacancyDescription.contacts?.phones
         val email = vacancyDescription.contacts?.email
         var conditionsFullString = ""
@@ -153,9 +148,9 @@ class VacancyDescriptionFragment : Fragment() {
             requireView()
         ) }
         vacancyDescription.employer?.logoUrls?.original?.let {
-            glide(requireContext(), it, employerLogo!!, RoundedCorners(12))
+            glide(requireContext(), it, employerLogo!!, RoundedCorners(roundedCorners))
         }
-        vacancyDescription.employer?.name?.let { employerName?.text = vacancyDescription.employer.name}
+        vacancyDescription.employer?.name?.let { employerName?.text = vacancyDescription.employer.name }
 
         if (vacancyDescription.address != null) {
             val city = vacancyDescription.address.city
@@ -171,7 +166,6 @@ class VacancyDescriptionFragment : Fragment() {
             employerAddress?.text = vacancyDescription.area.name
         }
 
-
         vacancyDescription.experience?.let { experience?.text = vacancyDescription.experience.name }
         vacancyDescription.schedule?.let {
             conditionsFullString += vacancyDescription.schedule.name
@@ -186,15 +180,11 @@ class VacancyDescriptionFragment : Fragment() {
         if (vacancyDescription.keySkills.isNotEmpty()) {
             keySkillsContainer?.visibility = View.VISIBLE
 
-            vacancyDescription.keySkills.forEach { skill ->
-                keySkillsFullString += " •  ${skill.name}\n"
-            }
+            vacancyDescription.keySkills.forEach { skill -> keySkillsFullString += " •  ${skill.name}\n" }
             keySkills?.text = keySkillsFullString
         }
 
-
-
-        contacts?.let {
+        vacancyDescription.contacts?.let {
             contactContainer?.visibility = View.VISIBLE
 
             phones?.let {
@@ -205,16 +195,11 @@ class VacancyDescriptionFragment : Fragment() {
             email?.let {
                 contactEmail?.text = email
                 contactEmailContainer?.visibility = View.VISIBLE
-                contactEmail?.setOnClickListener {
-                    openEmail(email)
-                }
+                contactEmail?.setOnClickListener { openEmail(email) }
             }
         }
 
-
-        binding.shareButton.setOnClickListener {
-            shareLink(vacancyDescription.url)
-        }
+        binding.shareButton.setOnClickListener { shareLink(vacancyDescription.url) }
     }
 
     override fun onDestroyView() {
@@ -223,6 +208,7 @@ class VacancyDescriptionFragment : Fragment() {
     }
 
     companion object {
+        private const val roundedCorners = 12
         const val ARGS_VACANCY = "vacancy"
         fun createArgs(vacancyId: String): Bundle = bundleOf(ARGS_VACANCY to vacancyId)
     }
