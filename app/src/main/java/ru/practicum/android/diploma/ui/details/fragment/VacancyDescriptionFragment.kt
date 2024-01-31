@@ -103,7 +103,8 @@ class VacancyDescriptionFragment : Fragment() {
         placeholderText?.text = message
         when (message) {
             getString(R.string.no_internet) -> placeholderImage?.setImageResource(R.drawable.placeholder_no_internet)
-            getString(R.string.placeholder_details_error_message) -> placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
+            getString(R.string.placeholder_details_error_message) ->
+                placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
         }
     }
 
