@@ -59,6 +59,7 @@
     <style name="CardTextViewStyleTop" parent="YsDisplayMedium.Large">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingEnd">@dimen/card_margin_horizontal</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
@@ -66,6 +67,7 @@
     <style name="CardTextViewStyleBottom" parent="YsDisplayRegular.Medium">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingEnd">@dimen/card_margin_horizontal</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
