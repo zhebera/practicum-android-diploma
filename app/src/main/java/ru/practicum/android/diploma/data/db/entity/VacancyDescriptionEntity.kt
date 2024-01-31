@@ -19,7 +19,6 @@ data class VacancyDescriptionEntity(
     val experience: String,
     val employment: String,
     val schedule: String,
-    val keySkills: String,
     val contacts: String,
     val description: String,
 )
