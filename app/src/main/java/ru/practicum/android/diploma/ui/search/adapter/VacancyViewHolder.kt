@@ -33,7 +33,9 @@ class VacancyViewHolder(
             itemView
         )
 
-        vacancy.employer.logoUrls?.original?.let { loadImageIntoView(itemView.context, it, imageCompany, RoundedCorners(radius)) }
+        vacancy.employer.logoUrls?.original?.let {
+            loadImageIntoView(itemView.context, it, imageCompany, RoundedCorners(radius))
+        }
 
         itemView.setOnClickListener {
             clickListener.onClick(vacancy)
