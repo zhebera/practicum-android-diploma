@@ -7,12 +7,12 @@ import ru.practicum.android.diploma.domain.models.Area
 object AreaDbConverter {
 
     @TypeConverter
-    fun fromAreaEntity(data: String?): Area? {
+    fun fromAreaEntity(data: String): Area {
         return Gson().fromJson(data, Area::class.java)
     }
 
     @TypeConverter
-    fun toAreaEntity(area: Area?): String {
+    fun toAreaEntity(area: Area): String {
         return Gson().toJson(area)
     }
 }

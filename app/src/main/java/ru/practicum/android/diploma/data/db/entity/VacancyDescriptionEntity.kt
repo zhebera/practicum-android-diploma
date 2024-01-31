@@ -14,6 +14,7 @@ data class VacancyDescriptionEntity(
     val salary: String,
     val employer: String,
     val area: String,
+    val url: String,
     val address: String,
     val experience: String,
     val employment: String,
