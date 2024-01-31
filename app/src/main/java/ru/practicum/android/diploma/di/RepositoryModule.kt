@@ -5,7 +5,9 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
+import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
+import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
 val repositoryModule = module {
 
@@ -20,5 +22,9 @@ val repositoryModule = module {
             vacanciesDescriptionConverter = get(),
             context = androidContext()
         )
+    }
+
+    single<DetailsRepository> {
+        DetailsRepositoryImpl(androidContext())
     }
 }
