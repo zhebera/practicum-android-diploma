@@ -25,7 +25,7 @@ class VacancyViewHolder(
         val cityName = vacancy.area.name
         val vacancyTitleText = "${vacancy.name}, $cityName"
         vacancyTitle.text = vacancyTitleText
-        companyTitle.text = vacancy.employer.name
+        companyTitle.text = vacancy.employer?.name
         vacancySalary.text = parseSalary(
             vacancy.salary?.from,
             vacancy.salary?.to,
