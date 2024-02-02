@@ -73,6 +73,13 @@
     <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
     <dimen name="fragment_search_margin_end_image">8dp</dimen>
     <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
+
+    <!--    CardPlacesList dimens   -->
+    <dimen name="card_place_height">60dp</dimen>
+    <dimen name="card_place_padding_vertical">6dp</dimen>
+    <dimen name="card_place_padding_end">4dp</dimen>
+    <dimen name="card_place_padding_start">16dp</dimen>
+    <dimen name="card_place_button_paddings">12dp</dimen>
     <!--    FragmentFilter dimens-->
     <dimen name="layout_constraintGuide_begin">16dp</dimen>
     <dimen name="fragment_filter_margin_start">16dp</dimen>
