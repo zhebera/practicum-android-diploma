@@ -73,4 +73,14 @@
     <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
     <dimen name="fragment_search_margin_end_image">8dp</dimen>
     <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
+
+    <!--    FragmentFilterRegion dimens-->
+    <dimen name="top_bar_padding">8dp</dimen>
+    <dimen name="top_bar_headline_margin">8dp</dimen>
+    <dimen name="top_bar_leading_icon_padding">12dp</dimen>
+
+    <!--    CardRegion dimens-->
+    <dimen name="card_region_padding">8dp</dimen>
+    <dimen name="card_region_tv_padding">8dp</dimen>
+    <dimen name="card_region_icon_padding">12dp</dimen>
 </resources>
