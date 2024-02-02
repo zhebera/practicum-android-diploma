@@ -17,6 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/card_place_button_paddings"
-        tool:src="@drawable/radio_button"/>
+        tool:src="@drawable/arrow_forward"/>
 
 </LinearLayout>
