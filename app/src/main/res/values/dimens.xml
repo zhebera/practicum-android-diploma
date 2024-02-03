@@ -91,5 +91,6 @@
     <dimen name="fragment_filter_margin_top_44dp">44dp</dimen>
     <dimen name="fragment_filter_height_60dp">60dp</dimen>
     <dimen name="fragment_filter_layout_margin_bottom">8dp</dimen>
+    <dimen name="fragment_filter_layout_margin_start_4dp">4dp</dimen>
     <dimen name="fragment_filter_layout_margin_bottom_24dp">24dp</dimen>
 </resources>
