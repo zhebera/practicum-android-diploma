@@ -73,6 +73,19 @@
     <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
     <dimen name="fragment_search_margin_end_image">8dp</dimen>
     <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
+    <!--    FragmentFilterCountry dimens-->
+    <dimen name="fragment_filter_country_constraintGuide">16dp</dimen>
+    <dimen name="fragment_filter_country_margin_start">16dp</dimen>
+    <dimen name="fragment_filter_country_margin_top">16dp</dimen>
+    <dimen name="fragment_filter_country_width">0dp</dimen>
+    <dimen name="fragment_filter_country_height">0dp</dimen>
+    <dimen name="fragment_filter_country_padding_vertical">8dp</dimen>
+    <dimen name="fragment_filter_country_padding">8dp</dimen>
+    <dimen name="fragment_filter_country_padding_start">4dp</dimen>
+    <dimen name="fragment_filter_country_padding_end">8dp</dimen>
+    <dimen name="fragment_filter_country_margin_top_8dp">8dp</dimen>
+    <dimen name="fragment_filter_country_layout_constraintHeight_max">223dp</dimen>
+    <dimen name="fragment_filter_country_width_and_height">44dp</dimen>
     <!--    FragmentFilterPlaceOfWork dimens-->
     <dimen name="fragment_filter_place_of_work_constraintGuide_begin">16dp</dimen>
     <dimen name="fragment_filter_place_of_work_margin_start">16dp</dimen>
