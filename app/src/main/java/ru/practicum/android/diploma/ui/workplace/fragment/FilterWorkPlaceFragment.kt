@@ -22,6 +22,10 @@ class FilterWorkPlaceFragment : Fragment() {
         binding.etRegion.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
         }
+
+        binding.etRegion.setOnClickListener {
+            findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment)
+        }
     }
 
     override fun onDestroy() {
