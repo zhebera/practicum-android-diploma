@@ -73,6 +73,19 @@
     <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
     <dimen name="fragment_search_margin_end_image">8dp</dimen>
     <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
+    <!--    FragmentFilterPlaceOfWork dimens-->
+    <dimen name="fragment_filter_place_of_work_constraintGuide_begin">16dp</dimen>
+    <dimen name="fragment_filter_place_of_work_margin_start">16dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_vertical">12dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding">8dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_start">4dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_end">8dp</dimen>
+    <dimen name="fragment_filter_place_of_work_width">0dp</dimen>
+    <dimen name="fragment_filter_place_of_work_height">60dp</dimen>
+    <dimen name="fragment_filter_place_of_work_margin_top">35dp</dimen>
+    <dimen name="fragment_filter_place_of_work_box_stroke_width">0dp</dimen>
+    <dimen name="fragment_filter_place_of_work_margin_start_60dp">60dp</dimen>
+    <dimen name="fragment_filter_place_of_work_margin_bottom">24dp</dimen>
     <!--    FragmentFilter dimens-->
     <dimen name="layout_constraintGuide_begin">16dp</dimen>
     <dimen name="fragment_filter_margin_start">16dp</dimen>
@@ -105,5 +118,4 @@
     <dimen name="top_bar_padding">8dp</dimen>
     <dimen name="top_bar_headline_margin">8dp</dimen>
     <dimen name="top_bar_leading_icon_padding">12dp</dimen>
-
 </resources>
