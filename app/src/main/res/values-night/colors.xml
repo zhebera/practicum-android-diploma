@@ -3,4 +3,5 @@
     <color name="black_white">@color/white</color>
     <color name="white_black">@color/black</color>
     <color name="light_grey_grey">@color/grey</color>
+    <color name="grey_white">@color/white</color>
 </resources>
