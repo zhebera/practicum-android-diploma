@@ -28,6 +28,10 @@ class FilterWorkPlaceFragment : Fragment() {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
         }
 
+        binding.etCountry.setOnClickListener {
+            findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment)
+        }
+
         binding.ivFilterPlaceOfWorkBackButton.setOnClickListener {
             findNavController().popBackStack()
         }
