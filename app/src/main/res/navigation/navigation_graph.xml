@@ -51,5 +51,14 @@
         android:id="@+id/filterWorkPlaceFragment"
         android:name="ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment"
         android:label="fragment_filter_place_of_work"
-        tools:layout="@layout/fragment_filter_place_of_work" />
+        tools:layout="@layout/fragment_filter_place_of_work" >
+        <action
+            android:id="@+id/action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment"
+            app:destination="@id/regionsWorkPlaceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/regionsWorkPlaceFragment"
+        android:name="ru.practicum.android.diploma.ui.regions.fragment.RegionsWorkPlaceFragment"
+        android:label="fragment_filter_region"
+        tools:layout="@layout/fragment_filter_region" />
 </navigation>
