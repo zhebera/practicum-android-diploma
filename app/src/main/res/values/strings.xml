@@ -58,4 +58,17 @@
     <string name="select_region">Выбор региона</string>
     <string name="hint_text_select_region">Введите регион</string>
 
+    <string name="setting_of_filter">Настройки фильтрации</string>
+    <string name="place_of_work">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="placeholder_place_of_work">Россия, Москва</string>
+    <string name="placeholder_industry">Автошкола</string>
+    <string name="write_sum">Введите сумму</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="stop_show_without_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
+
+
+
 </resources>
