@@ -65,9 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
-        tools:itemCount="4"
-        tools:listitem="@layout/card_region" />
+        app:layout_constraintTop_toBottomOf="@id/et_search"/>
 
     <ProgressBar
         android:id="@+id/pb_central_progress_bar"
