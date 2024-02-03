@@ -2,21 +2,21 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    style="@style/CardPlaceRwItem">
+    style="@style/CardFilterRwItem">
 
     <TextView
-        android:id="@+id/place_name"
+        android:id="@+id/sector_name"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        style="@style/CardPlaceText"
+        style="@style/CardFilterText"
         tool:text="Москва"/>
 
     <ImageView
-        android:id="@+id/place_choose_button"
+        android:id="@+id/sector_choose_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/card_place_button_paddings"
+        android:padding="@dimen/card_filter_button_paddings"
         tool:src="@drawable/radio_button"/>
 
 </LinearLayout>
