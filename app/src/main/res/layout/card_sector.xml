@@ -4,19 +4,13 @@
     xmlns:tool="http://schemas.android.com/tools"
     style="@style/CardFilterRwItem">
 
-    <TextView
-        android:id="@+id/sector_name"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <RadioButton
+        android:id="@+id/sector_radio_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:button="@drawable/radio_button"
+        android:layoutDirection="rtl"
         style="@style/CardFilterText"
-        tool:text="Москва"/>
-
-    <ImageView
-        android:id="@+id/sector_choose_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/card_filter_button_paddings"
-        tool:src="@drawable/radio_button"/>
+        tool:text="@string/placeholder_details_title"/>
 
 </LinearLayout>
