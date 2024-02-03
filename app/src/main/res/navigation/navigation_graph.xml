@@ -46,10 +46,18 @@
         <action
             android:id="@+id/action_filterFragment_to_filterWorkPlaceFragment"
             app:destination="@id/filterWorkPlaceFragment" />
+        <action
+            android:id="@+id/action_filterFragment_to_filterIndustryFragment"
+            app:destination="@id/filterIndustryFragment" />
     </fragment>
     <fragment
         android:id="@+id/filterWorkPlaceFragment"
         android:name="ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment"
         android:label="fragment_filter_place_of_work"
         tools:layout="@layout/fragment_filter_place_of_work" />
+    <fragment
+        android:id="@+id/filterIndustryFragment"
+        android:name="ru.practicum.android.diploma.ui.industry.fragment.FilterIndustryFragment"
+        android:label="fragment_filter_industry"
+        tools:layout="@layout/fragment_filter_industry" />
 </navigation>
