@@ -100,4 +100,11 @@
     <dimen name="fragment_filter_layout_margin_bottom">8dp</dimen>
     <dimen name="fragment_filter_layout_margin_start_4dp">4dp</dimen>
     <dimen name="fragment_filter_layout_margin_bottom_24dp">24dp</dimen>
+
+    <!--    CardPlacesList dimens   -->
+    <dimen name="card_place_height">60dp</dimen>
+    <dimen name="card_place_padding_vertical">6dp</dimen>
+    <dimen name="card_place_padding_end">4dp</dimen>
+    <dimen name="card_place_padding_start">16dp</dimen>
+    <dimen name="card_place_button_paddings">12dp</dimen>
 </resources>
