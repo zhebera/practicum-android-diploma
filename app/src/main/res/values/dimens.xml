@@ -86,6 +86,26 @@
     <dimen name="fragment_filter_place_of_work_box_stroke_width">0dp</dimen>
     <dimen name="fragment_filter_place_of_work_margin_start_60dp">60dp</dimen>
     <dimen name="fragment_filter_place_of_work_margin_bottom">24dp</dimen>
+    <!--    FragmentFilter dimens-->
+    <dimen name="layout_constraintGuide_begin">16dp</dimen>
+    <dimen name="fragment_filter_margin_start">16dp</dimen>
+    <dimen name="fragment_filter_padding_vartical">8dp</dimen>
+    <dimen name="fragment_filter_padding">12dp</dimen>
+    <dimen name="fragment_filter_padding_start">0dp</dimen>
+    <dimen name="fragment_filter_layout_width">0dp</dimen>
+    <dimen name="fragment_filter_margin_top">16dp</dimen>
+    <dimen name="fragment_filter_broke_stroke_width">0dp</dimen>
+    <dimen name="fragment_filter_height_buttons">60dp</dimen>
+    <dimen name="fragment_filter_padding_start_20dp">20dp</dimen>
+    <dimen name="fragment_filter_margin_top_24dp">24dp</dimen>
+    <dimen name="fragment_filter_height">51dp</dimen>
+    <dimen name="fragment_filter_margin_top_32dp">32dp</dimen>
+    <dimen name="fragment_filter_margin_end">12dp</dimen>
+    <dimen name="fragment_filter_margin_top_44dp">44dp</dimen>
+    <dimen name="fragment_filter_height_60dp">60dp</dimen>
+    <dimen name="fragment_filter_layout_margin_bottom">8dp</dimen>
+    <dimen name="fragment_filter_layout_margin_start_4dp">4dp</dimen>
+    <dimen name="fragment_filter_layout_margin_bottom_24dp">24dp</dimen>
 
     <!--    CardPlacesList dimens   -->
     <dimen name="card_place_height">60dp</dimen>
