@@ -27,7 +27,6 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.tvFilterMainText.text = getString(R.string.setting_of_filter)
 
         var country = "Россия"
@@ -52,6 +51,10 @@ class FilterFragment : Fragment() {
 
         binding.etPlaceOfWork.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+        }
+
+        binding.etIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->

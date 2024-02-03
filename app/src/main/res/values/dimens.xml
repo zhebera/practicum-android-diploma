@@ -121,13 +121,6 @@
     <dimen name="fragment_filter_layout_margin_bottom_24dp">24dp</dimen>
     <dimen name="workplace_edittext_top_padding">23dp</dimen>
 
-    <!--    CardPlacesList dimens   -->
-    <dimen name="card_place_height">60dp</dimen>
-    <dimen name="card_place_padding_vertical">6dp</dimen>
-    <dimen name="card_place_padding_end">4dp</dimen>
-    <dimen name="card_place_padding_start">16dp</dimen>
-    <dimen name="card_place_button_paddings">12dp</dimen>
-
     <!--    FragmentFilterRegion dimens-->
     <dimen name="top_bar_padding">8dp</dimen>
     <dimen name="top_bar_headline_margin">8dp</dimen>
@@ -137,4 +130,11 @@
     <dimen name="industry_button_select_on_margin_bottom">24dp</dimen>
     <dimen name="industry_layout_height">59dp</dimen>
     <dimen name="industry_backButton_marginHorizontal">4dp</dimen>
+
+    <!--    Card Places and Sectors List dimens   -->
+    <dimen name="card_filter_height">60dp</dimen>
+    <dimen name="card_filter_padding_vertical">6dp</dimen>
+    <dimen name="card_filter_padding_end">4dp</dimen>
+    <dimen name="card_filter_padding_start">16dp</dimen>
+    <dimen name="card_filter_button_paddings">12dp</dimen>
 </resources>
