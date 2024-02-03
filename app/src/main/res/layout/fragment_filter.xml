@@ -104,60 +104,48 @@
             android:textColorHint="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/iv_edit_text_background"
-        android:layout_width="@dimen/fragment_filter_layout_width"
-        android:layout_height="@dimen/fragment_filter_height"
-        android:layout_marginTop="@dimen/fragment_filter_margin_top_24dp"
-        android:background="@drawable/rounded_edit_text"
-        app:layout_constraintEnd_toEndOf="@id/right_guideline"
-        app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/industry" />
-
-    <EditText
-        android:id="@+id/et_salary"
-        style="@style/YsDisplayRegular.Medium"
-        android:layout_width="@dimen/fragment_filter_layout_width"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_filter_margin_top_24dp"
-        android:background="@drawable/rounded_edit_text"
-        android:hint="@string/write_sum"
-        android:inputType="number"
-        android:maxLines="1"
-        android:paddingStart="@dimen/fragment_filter_margin_start"
-        android:singleLine="true"
-        android:textColor="@color/black"
+        android:layout_marginTop="56dp"
+        android:hint="Ожидаемая зарплата"
+        android:paddingVertical="8dp"
         android:textColorHint="@color/grey_white"
+        app:boxBackgroundColor="@color/light_grey_grey"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:cursorColor="@color/blue"
+        app:endIconDrawable="@drawable/close"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:endIconTintMode="multiply"
         android:textCursorDrawable="@drawable/color_cursor"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/YsDisplayRegular.Small"
+        app:hintTextColor="@color/blue"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toTopOf="@+id/iv_edit_text_background" />
+        app:layout_constraintTop_toTopOf="@+id/industry"
+        app:placeholderText="Введите сумму"
+        app:placeholderTextAppearance="@style/YsDisplayRegular.Medium"
+        app:placeholderTextColor="@color/grey_white">
 
-    <TextView
-        android:id="@+id/tv_expected_salary"
-        style="@style/YsDisplayRegular.Small"
-        android:layout_width="@dimen/fragment_filter_layout_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_filter_margin_start"
-        android:layout_marginTop="@dimen/fragment_filter_margin_top_32dp"
-        android:colorControlActivated="@color/blue"
-        app:boxBackgroundColor="@color/blue"
-        android:text="@string/expected_salary"
-        android:textColor="@color/grey_white"
-        app:layout_constraintBottom_toTopOf="@+id/et_salary"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline" />
-
-    <ImageView
-        android:id="@+id/iv_clear_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_filter_margin_end"
-        android:src="@drawable/close"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/iv_edit_text_background"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="@id/iv_edit_text_background" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:inputType="number"
+            android:maxLines="1"
+            android:textAppearance="@style/YsDisplayRegular.Medium"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_without_salary"
@@ -169,7 +157,7 @@
         android:textColor="@color/black_white"
         app:layout_constraintEnd_toStartOf="@+id/cb_filter"
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/et_salary" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout" />
 
     <CheckBox
         android:id="@+id/cb_filter"
