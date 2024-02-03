@@ -121,7 +121,11 @@ class VacancyDescriptionFragment : Fragment() {
         placeholderContainer?.visibility = View.VISIBLE
 
         placeholderText?.text = message
-        placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
+        when (message) {
+            getString(R.string.no_internet) -> placeholderImage?.setImageResource(R.drawable.placeholder_no_internet)
+            getString(R.string.placeholder_details_error_message) ->
+                placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
+        }
     }
 
     private fun showContent(vacancyDescription: VacancyDescription, viewModel: VacancyDescriptionViewModel) {
