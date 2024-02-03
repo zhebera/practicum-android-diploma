@@ -77,7 +77,7 @@
     <dimen name="layout_constraintGuide_begin">16dp</dimen>
     <dimen name="fragment_filter_margin_start">16dp</dimen>
     <dimen name="fragment_filter_padding_vartical">8dp</dimen>
-    <dimen name="fragment_filter_padding">8dp</dimen>
+    <dimen name="fragment_filter_padding">12dp</dimen>
     <dimen name="fragment_filter_padding_start">0dp</dimen>
     <dimen name="fragment_filter_layout_width">0dp</dimen>
     <dimen name="fragment_filter_margin_top">16dp</dimen>

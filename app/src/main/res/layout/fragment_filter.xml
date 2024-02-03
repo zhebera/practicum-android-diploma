@@ -23,12 +23,11 @@
         android:id="@+id/ll_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_filter_margin_start"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/fragment_filter_padding_vartical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -36,7 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/fragment_filter_padding"
-            android:paddingStart="@dimen/fragment_filter_padding_start"
             android:src="@drawable/arrow_back" />
 
         <TextView
@@ -59,7 +57,10 @@
         android:textColorHint="@color/grey"
         app:boxStrokeWidth="@dimen/fragment_filter_broke_stroke_width"
         app:boxStrokeWidthFocused="@dimen/fragment_filter_broke_stroke_width"
-        app:layout_constraintEnd_toStartOf="@+id/iv_work_arrow"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black_white"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_main_text">
 
@@ -71,7 +72,8 @@
             android:hint="@string/place_of_work"
             android:text="@string/placeholder_place_of_work"
             android:textColor="@color/black_white"
-            android:textColorHint="@color/grey" />
+            android:textColorHint="@color/grey"
+            app:endIconDrawable="@drawable/arrow_forward" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +85,10 @@
         android:textColorHint="@color/grey"
         app:boxStrokeWidth="@dimen/fragment_filter_broke_stroke_width"
         app:boxStrokeWidthFocused="@dimen/fragment_filter_broke_stroke_width"
-        app:layout_constraintEnd_toStartOf="@+id/iv_industry"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black_white"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_of_work">
 
@@ -98,27 +103,6 @@
             android:textColorHighlight="@color/grey"
             android:textColorHint="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/iv_work_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fragment_filter_height_buttons"
-        android:paddingStart="@dimen/fragment_filter_padding_start_20dp"
-        android:src="@drawable/arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/place_of_work"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="@+id/place_of_work" />
-
-    <ImageView
-        android:id="@+id/iv_industry"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fragment_filter_height_buttons"
-        android:paddingStart="@dimen/fragment_filter_padding_start_20dp"
-        android:src="@drawable/arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/industry"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="@+id/industry"
-        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/iv_edit_text_background"
@@ -194,8 +178,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_without_salary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="@+id/tv_without_salary"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintTop_toTopOf="@+id/tv_without_salary" />
 
 
     <TextView
