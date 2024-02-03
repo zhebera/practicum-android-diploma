@@ -23,12 +23,13 @@
         android:id="@+id/ll_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_filter_country_margin_start"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingStart="@dimen/fragment_filter_country_padding_start"
+        android:paddingEnd="@dimen/fragment_filter_country_padding_end"
         android:paddingVertical="@dimen/fragment_filter_country_padding_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -36,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/fragment_filter_country_padding"
-            android:paddingStart="@dimen/fragment_filter_country_padding_start"
             android:src="@drawable/arrow_back" />
 
         <TextView
@@ -61,32 +61,6 @@
         app:layout_constraintStart_toStartOf="@+id/left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/ll_main_text"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/iv_error"
-        android:layout_width="@dimen/fragment_filter_country_width"
-        android:layout_height="@dimen/fragment_filter_country_height"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_max="@dimen/fragment_filter_country_layout_constraintHeight_max"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/placeholder_no_vacancy_and_region" />
-
-    <TextView
-        android:id="@+id/tv_error"
-        style="@style/YsDisplayMedium.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_filter_country_margin_top"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_error"
-        tools:text="@string/no_such_region" />
 
     <ProgressBar
         android:id="@+id/pb_loading"

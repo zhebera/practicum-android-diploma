@@ -81,7 +81,8 @@
     <dimen name="fragment_filter_country_height">0dp</dimen>
     <dimen name="fragment_filter_country_padding_vertical">8dp</dimen>
     <dimen name="fragment_filter_country_padding">8dp</dimen>
-    <dimen name="fragment_filter_country_padding_start">0dp</dimen>
+    <dimen name="fragment_filter_country_padding_start">4dp</dimen>
+    <dimen name="fragment_filter_country_padding_end">8dp</dimen>
     <dimen name="fragment_filter_country_margin_top_8dp">8dp</dimen>
     <dimen name="fragment_filter_country_layout_constraintHeight_max">223dp</dimen>
     <dimen name="fragment_filter_country_width_and_height">44dp</dimen>
