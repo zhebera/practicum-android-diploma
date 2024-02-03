@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    style="@style/CardFilterRwItem">
+
+    <RadioButton
+        android:id="@+id/sector_radio_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@drawable/radio_button"
+        android:layoutDirection="rtl"
+        style="@style/CardFilterText"
+        tool:text="@string/placeholder_details_title"/>
+
+</LinearLayout>

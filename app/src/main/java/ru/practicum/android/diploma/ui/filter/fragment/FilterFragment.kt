@@ -30,6 +30,10 @@ class FilterFragment : Fragment() {
         binding.etPlaceOfWork.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
         }
+
+        binding.etIndustry.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
+        }
     }
 
     override fun onDestroy() {
