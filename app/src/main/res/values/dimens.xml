@@ -80,4 +80,10 @@
     <dimen name="card_place_padding_end">4dp</dimen>
     <dimen name="card_place_padding_start">16dp</dimen>
     <dimen name="card_place_button_paddings">12dp</dimen>
+
+    <!--    FragmentFilterRegion dimens-->
+    <dimen name="top_bar_padding">8dp</dimen>
+    <dimen name="top_bar_headline_margin">8dp</dimen>
+    <dimen name="top_bar_leading_icon_padding">12dp</dimen>
+
 </resources>
