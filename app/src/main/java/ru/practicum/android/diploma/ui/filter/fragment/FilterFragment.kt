@@ -32,7 +32,6 @@ class FilterFragment : Fragment() {
         var country = "Россия"
         var region = "Москва"
         var industry = "IT"
-        var expectedSalary = 40000
         val showOnlyWithSalary = true
 
         applyTextAndHint(
