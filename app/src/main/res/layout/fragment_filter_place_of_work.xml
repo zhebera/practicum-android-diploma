@@ -22,12 +22,13 @@
         android:id="@+id/ll_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_filter_place_of_work_margin_start"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/fragment_filter_place_of_work_padding_vertical"
+        android:paddingStart="@dimen/fragment_filter_place_of_work_padding_start"
+        android:paddingEnd="@dimen/fragment_filter_place_of_work_padding_end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -35,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/fragment_filter_place_of_work_padding"
-            android:paddingStart="@dimen/fragment_filter_place_of_work_padding_start"
             android:src="@drawable/arrow_back" />
 
         <TextView
@@ -58,8 +58,11 @@
         android:visibility="visible"
         app:boxStrokeWidth="@dimen/fragment_filter_place_of_work_box_stroke_width"
         app:boxStrokeWidthFocused="@dimen/fragment_filter_place_of_work_box_stroke_width"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black_white"
         app:hintTextColor="@color/black_white"
-        app:layout_constraintEnd_toStartOf="@+id/iv_country_arrow"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_main_text">
 
@@ -73,17 +76,6 @@
             android:textColor="@color/black_white" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/iv_country_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fragment_filter_place_of_work_height"
-        android:paddingStart="@dimen/fragment_filter_place_of_work_margin_start_60dp"
-        android:src="@drawable/arrow_forward"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/country"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="@+id/country" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/region"
         android:layout_width="@dimen/fragment_filter_place_of_work_width"
@@ -93,8 +85,11 @@
         android:visibility="visible"
         app:boxStrokeWidth="@dimen/fragment_filter_place_of_work_box_stroke_width"
         app:boxStrokeWidthFocused="@dimen/fragment_filter_place_of_work_box_stroke_width"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:endIconTint="@color/black_white"
         app:hintTextColor="@color/black_white"
-        app:layout_constraintEnd_toStartOf="@+id/iv_region_arrow"
+        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/country">
 
@@ -108,17 +103,6 @@
             android:text="@string/placeholder_region"
             android:textColor="@color/black_white" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/iv_region_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/fragment_filter_place_of_work_height"
-        android:paddingStart="@dimen/fragment_filter_place_of_work_margin_start_60dp"
-        android:src="@drawable/arrow_forward"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/region"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintTop_toTopOf="@+id/region" />
 
     <TextView
         android:id="@+id/tv_select"

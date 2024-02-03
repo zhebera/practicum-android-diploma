@@ -76,9 +76,10 @@
     <!--    FragmentFilterPlaceOfWork dimens-->
     <dimen name="fragment_filter_place_of_work_constraintGuide_begin">16dp</dimen>
     <dimen name="fragment_filter_place_of_work_margin_start">16dp</dimen>
-    <dimen name="fragment_filter_place_of_work_padding_vertical">8dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_vertical">12dp</dimen>
     <dimen name="fragment_filter_place_of_work_padding">8dp</dimen>
-    <dimen name="fragment_filter_place_of_work_padding_start">0dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_start">4dp</dimen>
+    <dimen name="fragment_filter_place_of_work_padding_end">8dp</dimen>
     <dimen name="fragment_filter_place_of_work_width">0dp</dimen>
     <dimen name="fragment_filter_place_of_work_height">60dp</dimen>
     <dimen name="fragment_filter_place_of_work_margin_top">35dp</dimen>
