@@ -19,14 +19,14 @@ class FilterWorkPlaceFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterPlaceOfWorkBinding.inflate(inflater, container, false)
         return binding.root
-
-        binding.etRegion.setOnClickListener {
-            findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.etRegion.setOnClickListener {
+            findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
+        }
 
         binding.ivFilterPlaceOfWorkBackButton.setOnClickListener {
             findNavController().popBackStack()
