@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.practicum.android.diploma.databinding.FragmentFilterCountryBinding
 
-class CountriesWorkPlaceFragment: Fragment() {
+class CountriesWorkPlaceFragment : Fragment() {
 
     private var _binding: FragmentFilterCountryBinding? = null
     private val binding: FragmentFilterCountryBinding
