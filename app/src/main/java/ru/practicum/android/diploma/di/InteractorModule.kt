@@ -2,9 +2,9 @@ package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
 import ru.practicum.android.diploma.domain.api.countries.CountriesInteractor
+import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
-import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
 import ru.practicum.android.diploma.domain.impl.FavouriteInteractorImpl
 import ru.practicum.android.diploma.domain.impl.SearchInteractorImpl
 import ru.practicum.android.diploma.domain.impl.countries.CountriesInteractorImpl
@@ -24,7 +24,7 @@ val interactorModule = module {
         FavouriteInteractorImpl(get())
     }
 
-    single<CountriesInteractor>{
+    single<CountriesInteractor> {
         CountriesInteractorImpl(get())
     }
 }
