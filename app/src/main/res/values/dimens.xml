@@ -119,6 +119,7 @@
     <dimen name="fragment_filter_layout_margin_bottom">8dp</dimen>
     <dimen name="fragment_filter_layout_margin_start_4dp">4dp</dimen>
     <dimen name="fragment_filter_layout_margin_bottom_24dp">24dp</dimen>
+    <dimen name="workplace_edittext_top_padding">23dp</dimen>
 
     <!--    FragmentFilterRegion dimens-->
     <dimen name="top_bar_padding">8dp</dimen>
