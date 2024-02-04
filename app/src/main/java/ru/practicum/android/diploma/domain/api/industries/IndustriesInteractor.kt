@@ -6,5 +6,3 @@ import ru.practicum.android.diploma.domain.models.Industry
 interface IndustriesInteractor {
     fun getIndustries(): Flow<List<Industry>>
 }
-
-
