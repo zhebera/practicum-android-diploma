@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
@@ -32,21 +33,8 @@ class FilterFragment : Fragment() {
         var country = "Россия"
         var region = "Москва"
         var industry = "IT"
-        val showOnlyWithSalary = true
 
-        applyTextAndHint(
-            layout = binding.placeOfWork,
-            editText = binding.etPlaceOfWork,
-            text = "$country, $region",
-            hint = getString(R.string.place_of_work)
-        )
-
-        applyTextAndHint(
-            layout = binding.industry,
-            editText = binding.etIndustry,
-            text = industry,
-            hint = getString(R.string.industry)
-        )
+        var isFilled = false
 
         binding.etPlaceOfWork.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
@@ -58,17 +46,61 @@ class FilterFragment : Fragment() {
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
         }
+
+        // Тестовая кнопка для проверки заполнения TextInput
+        binding.testButton.setOnClickListener {
+            if (!isFilled) {
+                binding.testButton.text = "Очистить TextInput"
+                applyTextAndHint(
+                    layout = binding.placeOfWork,
+                    editText = binding.etPlaceOfWork,
+                    text = "$country, $region",
+                    hint = getString(R.string.place_of_work)
+                )
+
+                applyTextAndHint(
+                    layout = binding.industry,
+                    editText = binding.etIndustry,
+                    text = industry,
+                    hint = getString(R.string.industry)
+                )
+                isFilled = true
+            } else {
+                binding.testButton.text = "Заполнить TextInput"
+                applyTextAndHint(
+                    layout = binding.placeOfWork,
+                    editText = binding.etPlaceOfWork,
+                    text = getString(R.string.place_of_work),
+                    hint = null
+                )
+
+                applyTextAndHint(
+                    layout = binding.industry,
+                    editText = binding.etIndustry,
+                    text = getString(R.string.industry),
+                    hint = null
+                )
+                isFilled = false
+            }
+        }
     }
 
-    fun applyTextAndHint(layout: TextInputLayout, editText: TextInputEditText, text: String, hint: String) {
+    // Функция для заполнения TextInput
+    fun applyTextAndHint(layout: TextInputLayout, editText: TextInputEditText, text: String?, hint: String?) {
         layout.hint = hint
         editText.setText(text)
-        editText.setPadding(
-            0,
-            resources.getDimensionPixelSize(R.dimen.workplace_edittext_top_padding),
-            0,
-            0
-        )
+        if (!hint.isNullOrBlank()) {
+            editText.setTextColor(resources.getColor(R.color.black_white))
+            editText.setPadding(
+                0,
+                resources.getDimensionPixelSize(R.dimen.workplace_edittext_top_padding),
+                0,
+                0
+            )
+        } else {
+            editText.setTextColor(resources.getColor(R.color.grey))
+            editText.setPadding(0, 0, 0, 0)
+        }
     }
 
     override fun onDestroy() {
