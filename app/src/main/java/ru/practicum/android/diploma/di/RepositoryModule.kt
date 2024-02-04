@@ -8,9 +8,11 @@ import ru.practicum.android.diploma.data.converters.VacancyDbConverter
 import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
 import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
+import ru.practicum.android.diploma.data.regions.RegionsRepositoryImpl
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteRepository
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
+import ru.practicum.android.diploma.domain.api.regions.RegionsRepository
 
 val repositoryModule = module {
 
@@ -35,5 +37,9 @@ val repositoryModule = module {
 
     single<FavouriteRepository> {
         FavouriteRepositoryImpl(get(), get())
+    }
+
+    single<RegionsRepository> {
+        RegionsRepositoryImpl()
     }
 }
