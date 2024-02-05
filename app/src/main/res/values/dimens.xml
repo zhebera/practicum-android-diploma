@@ -75,6 +75,7 @@
     <dimen name="fragment_search_padding_bottom_progress_bar">64dp</dimen>
     <dimen name="fragment_search_margin_end_image">8dp</dimen>
     <dimen name="fragment_search_filter_padding_horizontal">12dp</dimen>
+    <dimen name="fragment_search_filter_recycler_clip">46dp</dimen>
     <!--    FragmentFilterCountry dimens-->
     <dimen name="fragment_filter_country_constraintGuide">16dp</dimen>
     <dimen name="fragment_filter_country_margin_start">16dp</dimen>

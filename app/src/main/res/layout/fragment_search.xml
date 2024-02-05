@@ -45,6 +45,7 @@
         style="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingBottom="0dp"
         app:endIconDrawable="@drawable/search"
         app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +96,8 @@
         app:layout_constraintTop_toBottomOf="@id/search_text_input_layout">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="@dimen/fragment_search_filter_recycler_clip"
+            android:clipToPadding="false"
             android:id="@+id/rw_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -110,6 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/vacancy_background"
+        android:layout_marginTop="@dimen/fragment_search_filter_padding_horizontal"
         android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
         android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
         android:textColor="@color/white"
