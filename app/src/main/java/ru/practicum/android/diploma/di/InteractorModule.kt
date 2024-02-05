@@ -5,7 +5,6 @@ import ru.practicum.android.diploma.domain.api.countries.CountriesInteractor
 import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
-import ru.practicum.android.diploma.domain.api.details.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
 import ru.practicum.android.diploma.domain.api.industries.IndustriesInteractor
 import ru.practicum.android.diploma.domain.impl.FavouriteInteractorImpl
