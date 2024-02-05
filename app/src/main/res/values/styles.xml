@@ -212,4 +212,70 @@
     </style>
 
     <dimen name="bottom_navigation_vertical_padding">8dp</dimen>
+
+    <!--    Card Place and Sector Styles   -->
+    <style name="CardFilterRwItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_filter_height</item>
+        <item name="android:paddingVertical">@dimen/card_filter_padding_vertical</item>
+        <item name="android:paddingEnd">@dimen/card_filter_padding_end</item>
+        <item name="android:paddingStart">@dimen/card_filter_padding_start</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="CardFilterText">
+        <item name="android:textColor">@color/black_white</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+
+    <style name="WorkplaceTextInputLayout">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColorHint">@color/grey_white</item>
+        <item name="boxBackgroundColor">@color/white_black</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="endIconTint">@color/black_white</item>
+        <item name="hintTextAppearance">@style/YsDisplayRegular.Small</item>
+        <item name="hintTextColor">@color/black_white</item>
+    </style>
+
+    <style name="WorkplaceTextInputEditText">
+        <item name="android:focusable">false</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textAppearance">@style/YsDisplayRegular.Medium</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="ExpectedSalaryTextInputLayout">
+        <item name="android:textColorHint">@color/grey_white</item>
+        <item name="boxBackgroundColor">@color/light_grey_grey</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="cursorColor">@color/blue</item>
+        <item name="endIconTint">@color/black</item>
+        <item name="expandedHintEnabled">false</item>
+        <item name="hintTextAppearance">@style/YsDisplayRegular.Small</item>
+        <item name="hintTextColor">@color/blue</item>
+        <item name="placeholderTextAppearance">@style/YsDisplayRegular.Medium</item>
+        <item name="placeholderTextColor">@color/grey_white</item>
+    </style>
+
+    <style name="ExpectedSalaryTextInputEditText">
+        <item name="android:textAppearance">@style/YsDisplayRegular.Medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>
