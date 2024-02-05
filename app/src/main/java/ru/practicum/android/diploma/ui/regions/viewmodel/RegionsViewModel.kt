@@ -14,6 +14,8 @@ class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewM
     val regions: LiveData<RegionsState> = _regions
 
     fun getRegions() {
+        _regions.postValue(RegionsState.Loading)
+
         viewModelScope.launch {
             regionsInteractor.getRegions().collect {
                 processResult(it.first, it.second)
