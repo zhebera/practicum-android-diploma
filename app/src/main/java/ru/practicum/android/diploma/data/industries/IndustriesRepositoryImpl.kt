@@ -34,11 +34,24 @@ class IndustriesRepositoryImpl(
             }
 
             ResponseCode.SUCCESS -> {
-                with(response as IndustriesResponse) {
-                    val data = industriesDbConverter.map(response)
-                        .sortedBy { it.name }
-                    emit(Resource.Success(data))
+                val industries = mutableListOf<Industry>()
+                (response as IndustriesResponse).items.forEach {
+                    industries.add(
+                        IndustriesConverter.map(it)
+                    )
+                    it.industries?.forEach {
+                        industries.add(
+                            IndustriesConverter.map(it)
+                        )
+                    }
                 }
+                industries.sortBy { it.name }
+
+                emit(
+                    Resource.Success(
+                        industries.toList()
+                    )
+                )
             }
 
             else -> emit(Resource.Error(message = serverError))
