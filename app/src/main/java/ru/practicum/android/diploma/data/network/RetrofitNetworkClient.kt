@@ -33,7 +33,7 @@ class RetrofitNetworkClient(
                         response.apply {
                             resultCode = ResponseCode.SUCCESS
                         }
-                    } catch (e: Exception) {
+                    } catch (e: HttpException) {
                         Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                     }
 
