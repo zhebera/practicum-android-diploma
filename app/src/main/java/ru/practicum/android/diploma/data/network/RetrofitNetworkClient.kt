@@ -27,17 +27,7 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
-
-                    is AllRegionsRequest -> try {
-                        val serverResponse = hhApi.getAllRegions()
-                        val response = RegionResponse(areas = serverResponse)
-                        response.apply {
-                            resultCode = ResponseCode.SUCCESS
-                        }
-                    } catch (e: Exception) {
-                        Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
-                    }
-
+                    is AllRegionsRequest -> RegionResponse(areas = hhApi.getAllRegions())
                     is CountryRegionsRequest -> hhApi.getCountryRegions(countryId = dto.countryId)
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
