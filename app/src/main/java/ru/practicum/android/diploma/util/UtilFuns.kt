@@ -1,7 +1,10 @@
 package ru.practicum.android.diploma.util
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.util.TypedValue
+import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
@@ -10,6 +13,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
+import java.util.*
 
 fun glide(
     context: Context,
@@ -51,5 +58,46 @@ fun <T> debounce(
                 action(param)
             }
         }
+    }
+}
+
+fun Int.getNumberString(context: Context): String {
+    val configuration = Configuration(context.resources.configuration)
+    configuration.setLocale(Locale("ru"))
+    val localizedResources: Resources = context.createConfigurationContext(configuration).resources
+    return localizedResources.getQuantityString(
+        R.plurals.founded_vacancies,
+        this,
+        this
+    )
+}
+
+private fun formatSalary(value: Int): String {
+    val decimalFormat = DecimalFormat("###,###,###,###,###", DecimalFormatSymbols(Locale.ENGLISH))
+    return decimalFormat.format(value).replace(",", " ")
+}
+
+fun parseSalary(
+    from: Int?,
+    to: Int?,
+    currency: String?,
+    itemView: View
+): String {
+    val usedCurrency = currency ?: ""
+    return if (from == null || to == null) {
+        if (from != null) {
+            itemView.resources.getString(R.string.salary_from, formatSalary(from), usedCurrency)
+        } else if (to != null) {
+            itemView.resources.getString(R.string.salary_to, formatSalary(to), usedCurrency)
+        } else {
+            itemView.resources.getString(R.string.salary_not_specified)
+        }
+    } else {
+        itemView.resources.getString(
+            R.string.salary_from_to,
+            formatSalary(from),
+            formatSalary(to),
+            usedCurrency
+        )
     }
 }

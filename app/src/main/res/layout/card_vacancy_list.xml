@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/card_vacancy_list_margin_start_16dp"
+    android:layout_marginEnd="@dimen/card_vacancy_list_margin_end_16dp"
+    android:paddingVertical="@dimen/card_vacancy_list_padding_vertical">
+
+    <ImageView
+        android:id="@+id/image_company"
+        android:layout_width="@dimen/card_vacancy_list_weight_and_height"
+        android:layout_height="@dimen/card_vacancy_list_weight_and_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_grey"
+        app:strokeWidth="@dimen/card_vacancy_list_stroke_width" />
+
+    <LinearLayout
+        android:id="@+id/vacancy"
+        android:layout_width="@dimen/card_vacancy_list_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/card_vacancy_list_margin_start_12dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_company"
+        app:layout_constraintTop_toTopOf="@+id/image_company">
+
+        <TextView
+            android:id="@+id/vacancy_title"
+            style="@style/YsDisplayMedium.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/placeholder_job_title_and_city" />
+
+        <TextView
+            android:id="@+id/company_title"
+            style="@style/YsDisplayRegular.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/placeholder_company" />
+
+        <TextView
+            android:id="@+id/vacancy_salary"
+            style="@style/YsDisplayRegular.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/placeholder_salary" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
