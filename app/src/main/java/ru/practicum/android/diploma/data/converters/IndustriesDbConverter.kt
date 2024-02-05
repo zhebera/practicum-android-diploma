@@ -9,8 +9,7 @@ object IndustriesDbConverter {
     fun map(industryResponse: IndustryResponse): Industry {
         return Industry(
             industryResponse.id,
-            industryResponse.name,
-            industryResponse.industries
+            industryResponse.name
         )
     }
 
