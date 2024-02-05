@@ -4,8 +4,6 @@ import ru.practicum.android.diploma.domain.models.Country
 
 sealed interface CountriesState {
 
-    object Loading : CountriesState
-
     object Empty : CountriesState
 
     data class Content(

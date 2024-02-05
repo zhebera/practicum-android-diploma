@@ -14,8 +14,6 @@ class CountriesViewModel(private val countriesInteractor: CountriesInteractor) :
     val countriesState: LiveData<CountriesState> = _countriesState
 
     fun getCountries() {
-        _countriesState.postValue(CountriesState.Loading)
-
         viewModelScope.launch {
             countriesInteractor.getCountries().collect { pair ->
                 processResult(pair.first, pair.second)
