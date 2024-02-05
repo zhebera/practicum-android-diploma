@@ -5,5 +5,5 @@ import ru.practicum.android.diploma.domain.models.Country
 
 interface CountriesInteractor {
 
-    fun getCountries(): Flow<List<Country>>
+    fun getCountries(): Flow<Pair<List<Country>?, String?>>
 }
