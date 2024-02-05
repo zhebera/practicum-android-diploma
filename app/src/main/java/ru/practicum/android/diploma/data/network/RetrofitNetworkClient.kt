@@ -9,6 +9,8 @@ import retrofit2.HttpException
 import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
+import ru.practicum.android.diploma.data.request.AllRegionsRequest
+import ru.practicum.android.diploma.data.request.CountryRegionsRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
 
 class RetrofitNetworkClient(
@@ -24,6 +26,8 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
+                    is AllRegionsRequest -> hhApi.getAllRegions()
+                    is CountryRegionsRequest -> hhApi.getCountryRegions(countryId = dto.countryId)
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
