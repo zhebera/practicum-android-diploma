@@ -4,7 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.data.converters.IndustriesDbConverter
+import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.request.IndustriesRequest
@@ -15,7 +15,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class IndustriesRepositoryImpl(
     private val networkClient: NetworkClient,
-    private val industriesDbConverter: IndustriesDbConverter,
+    private val industriesDbConverter: IndustriesConverter,
     context: Context
 ) : IndustriesRepository {
 

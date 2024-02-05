@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.data.response.IndustriesResponse
 import ru.practicum.android.diploma.data.response.IndustryResponse
 import ru.practicum.android.diploma.domain.models.Industry
 
-object IndustriesDbConverter {
+object IndustriesConverter {
 
     fun map(industryResponse: IndustryResponse): Industry {
         return Industry(
