@@ -27,16 +27,7 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
-                    is IndustriesRequest -> try {
-                        val resp = hhApi.getIndustries()
-                        val response = IndustriesResponse(resp)
-                        response.apply {
-                            resultCode = ResponseCode.SUCCESS
-                        }
-                    } catch (e: HttpException) {
-                        Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
-                    }
-
+                    is IndustriesRequest -> IndustriesResponse(hhApi.getIndustries())
                     is CountriesRequest -> hhApi.getCountries()
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
