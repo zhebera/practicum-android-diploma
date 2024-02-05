@@ -5,11 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
-import ru.practicum.android.diploma.domain.models.Vacancies
-import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 
 class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewModel() {
 
