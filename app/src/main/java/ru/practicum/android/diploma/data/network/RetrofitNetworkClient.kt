@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -12,6 +13,7 @@ import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.request.CountriesRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
+import ru.practicum.android.diploma.data.response.IndustriesResponse
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -27,7 +29,16 @@ class RetrofitNetworkClient(
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
                     is CountriesRequest -> hhApi.getCountries()
-                    is IndustriesRequest -> hhApi.getIndustries()
+                    is IndustriesRequest -> try {
+                        val resp = hhApi.getIndustries()
+                        val response = IndustriesResponse(resp)
+                        response.apply {
+                            resultCode = ResponseCode.SUCCESS
+                        }
+                    } catch (e: Exception) {
+                        Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
+                    }
+
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
