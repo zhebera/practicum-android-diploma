@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.di
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.diploma.data.converters.CountriesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
 import ru.practicum.android.diploma.data.converters.VacancyDbConverter
@@ -22,6 +23,8 @@ val repositoryModule = module {
 
     factory { VacancyDbConverter() }
 
+    factory { CountriesConverter }
+
     single<SearchRepository> {
         SearchRepositoryImpl(
             networkClient = get(),
@@ -40,6 +43,6 @@ val repositoryModule = module {
     }
 
     single<CountriesRepository> {
-        CountriesRepositoryImpl()
+        CountriesRepositoryImpl(get(), get(), androidContext())
     }
 }
