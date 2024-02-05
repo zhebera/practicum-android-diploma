@@ -14,24 +14,26 @@ class CountriesViewModel(private val countriesInteractor: CountriesInteractor) :
     val countriesState: LiveData<CountriesState> = _countriesState
 
     fun getCountries() {
+        _countriesState.postValue(CountriesState.Loading)
+
         viewModelScope.launch {
             countriesInteractor.getCountries().collect { pair ->
-                processResult(pair.first, pair.second)
+                processResult(pair.first)
             }
         }
     }
 
-    private fun processResult(countries: List<Country>?, message: String?) {
+    private fun processResult(countries: List<Country>?) {
         if (countries != null) {
             setData(countries)
         } else {
-            _countriesState.postValue(CountriesState.Error(message.toString()))
+            _countriesState.postValue(CountriesState.Error)
         }
     }
 
     private fun setData(data: List<Country>) {
         if (data.isEmpty()) {
-            _countriesState.postValue(CountriesState.Empty)
+            _countriesState.postValue(CountriesState.Error)
         } else {
             _countriesState.postValue(CountriesState.Content(data))
         }
