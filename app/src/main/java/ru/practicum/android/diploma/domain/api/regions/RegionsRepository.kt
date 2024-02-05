@@ -6,5 +6,5 @@ import ru.practicum.android.diploma.util.Resource
 
 interface RegionsRepository {
 
-    fun getRegions(areaId: String? = null) : Flow<Resource<List<Region>>>
+    fun getRegions(areaId: String? = null): Flow<Resource<List<Region>>>
 }

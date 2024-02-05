@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.util.Resource
 
 class RegionsInteractorImpl(private val regionsRepository: RegionsRepository) : RegionsInteractor {
 
-    override fun getRegions(areaId: String?) : Flow<Pair<List<Region>?, String?>> {
+    override fun getRegions(areaId: String?): Flow<Pair<List<Region>?, String?>> {
         return regionsRepository.getRegions(areaId).map { result ->
             when (result) {
                 is Resource.Success -> {
