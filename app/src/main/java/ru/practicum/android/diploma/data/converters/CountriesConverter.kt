@@ -6,13 +6,13 @@ import ru.practicum.android.diploma.domain.models.Country
 
 object CountriesConverter {
 
-    fun map(countriesResponse: CountriesResponse): List<Country>{
-        return countriesResponse.countries.map{
+    fun map(countriesResponse: CountriesResponse): List<Country> {
+        return countriesResponse.countries.map {
             map(it)
         }
     }
 
-    fun map(countryResponse: CountryResponse): Country{
+    fun map(countryResponse: CountryResponse): Country {
         return Country(
             countryResponse.id,
             countryResponse.name,

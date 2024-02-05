@@ -5,10 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.converters.CountriesConverter
-import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.dto.ResponseCode
-import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
-import ru.practicum.android.diploma.data.dto.VacancyDescriptionResponse
 import ru.practicum.android.diploma.data.network.NetworkClient
 import ru.practicum.android.diploma.data.request.CountriesRequest
 import ru.practicum.android.diploma.data.response.CountriesResponse
@@ -27,7 +24,8 @@ class CountriesRepositoryImpl(
     private val serverError by lazy {
         context.getString(R.string.server_error)
     }
-    override fun getCountries(): Flow<Resource<List<Country>>> = flow{
+
+    override fun getCountries(): Flow<Resource<List<Country>>> = flow {
         val response = networkClient.doRequest(CountriesRequest())
         when (response.resultCode) {
             ResponseCode.NETWORK_FAILED -> {

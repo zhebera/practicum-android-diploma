@@ -10,10 +10,11 @@ import ru.practicum.android.diploma.util.Resource
 class CountriesInteractorImpl(private val countriesRepository: CountriesRepository) : CountriesInteractor {
     override fun getCountries(): Flow<Pair<List<Country>?, String?>> {
         return countriesRepository.getCountries().map { result ->
-            when(result){
+            when (result) {
                 is Resource.Success -> {
                     Pair(result.data, null)
                 }
+
                 is Resource.Error -> {
                     Pair(null, result.message)
                 }
