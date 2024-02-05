@@ -81,6 +81,11 @@ class CountriesWorkPlaceFragment : Fragment() {
         adapter.setData(data)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getCountries()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
