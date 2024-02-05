@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.data.dto.Response
 
 data class RegionResponse(
     val areas: List<RegionResponse>,
-    val id: String?,
-    val name: String?,
+    val id: String? = null,
+    val name: String? = null,
     @SerializedName("parent_id") val parentId: String? = null
 ) : Response()

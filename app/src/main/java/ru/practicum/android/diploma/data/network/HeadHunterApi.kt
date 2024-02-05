@@ -18,7 +18,7 @@ interface HeadHunterApi {
     suspend fun getVacancyDescription(@Path("vacancy_id") vacancyId: String): VacancyDescriptionResponse
 
     @GET("/areas")
-    suspend fun getAllRegions(): RegionResponse
+    suspend fun getAllRegions(): ArrayList<RegionResponse>
 
     @GET("/areas/{area_id}")
     suspend fun getCountryRegions(
