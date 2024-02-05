@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -33,7 +34,7 @@ class SearchFragment : Fragment() {
     private var vacancyAdapter = VacancyAdapter(
         clickListener = {
             if (isClickAllowed) {
-                clicker(it)
+                showVacancyDescription(it)
             }
         }
     )
@@ -63,10 +64,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-        binding.ivSearchImage.setOnClickListener {
-            clearAll()
-        }
-
         binding.ivFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
@@ -74,7 +71,6 @@ class SearchFragment : Fragment() {
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                installSearchCancelButton(s)
 
                 if (!s.isNullOrEmpty()) {
                     searchViewModel.searchDebounce(
@@ -83,7 +79,18 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) = Unit
+            override fun afterTextChanged(s: Editable?) {
+                with(binding.searchTextInputLayout) {
+                    if (s.isNullOrBlank()) {
+                        endIconMode = TextInputLayout.END_ICON_CUSTOM
+                        setEndIconDrawable(R.drawable.search)
+                        findViewById<View>(com.google.android.material.R.id.text_input_end_icon).isClickable = false
+                    } else {
+                        setEndIconDrawable(R.drawable.close)
+                        setEndIconOnClickListener { s.clear() }
+                    }
+                }
+            }
         }
         binding.etSearch.addTextChangedListener(textWatcher)
 
@@ -104,7 +111,7 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun clicker(vacancy: Vacancy) {
+    private fun showVacancyDescription(vacancy: Vacancy) {
         findNavController().navigate(
             R.id.action_searchFragment_to_vacancyDescriptionFragment,
             VacancyDescriptionFragment.createArgs(vacancy.id)
@@ -170,25 +177,9 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun clearAll() {
-        binding.etSearch.clearFocus()
-        binding.etSearch.text.clear()
-        vacancyAdapter.clear()
-        binding.tvVacancyNumber.visibility = View.GONE
-        closeKeyboard()
-    }
-
     private fun closeKeyboard() {
         val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
-    }
-
-    private fun installSearchCancelButton(s: CharSequence?) {
-        if (s?.isNotEmpty() == true) {
-            binding.ivSearchImage.setImageResource(R.drawable.close)
-        } else {
-            binding.ivSearchImage.setImageResource(R.drawable.search)
-        }
     }
 
 }
