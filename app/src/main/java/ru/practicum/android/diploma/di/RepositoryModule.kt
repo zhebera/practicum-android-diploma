@@ -2,14 +2,17 @@ package ru.practicum.android.diploma.di
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.diploma.data.converters.IndustriesDbConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
 import ru.practicum.android.diploma.data.converters.VacancyDbConverter
 import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
 import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
+import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
 import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteRepository
+import ru.practicum.android.diploma.domain.api.industries.IndustriesRepository
 import ru.practicum.android.diploma.domain.api.search.SearchRepository
 
 val repositoryModule = module {
@@ -19,6 +22,8 @@ val repositoryModule = module {
     factory { VacanciesDescriptionConverter() }
 
     factory { VacancyDbConverter() }
+
+    factory { IndustriesDbConverter }
 
     single<SearchRepository> {
         SearchRepositoryImpl(
@@ -35,5 +40,9 @@ val repositoryModule = module {
 
     single<FavouriteRepository> {
         FavouriteRepositoryImpl(get(), get())
+    }
+
+    single<IndustriesRepository> {
+        IndustriesRepositoryImpl(get(), get(), androidContext())
     }
 }
