@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.request.CountriesRequest
+import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
 
 class RetrofitNetworkClient(
@@ -26,6 +27,7 @@ class RetrofitNetworkClient(
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
                     is CountriesRequest -> hhApi.getCountries()
+                    is IndustriesRequest -> hhApi.getIndustries()
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
