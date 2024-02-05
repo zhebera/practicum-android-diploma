@@ -24,11 +24,11 @@ class FilterWorkPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etRegion.setOnClickListener {
+        binding.region.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
         }
 
-        binding.etCountry.setOnClickListener {
+        binding.country.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment)
         }
 
