@@ -25,9 +25,11 @@
 
         <TextView
             style="@style/CardTextViewStyleTop"
+            android:textColor="@color/black"
             tools:text="Text"/>
         <TextView
             style="@style/CardTextViewStyleBottom"
+            android:textColor="@color/black"
             tools:text="Text"/>
     </LinearLayout>
 </LinearLayout>

@@ -78,5 +78,6 @@
     <string name="placeholder_region">Москва</string>
     <string name="select">Выбрать</string>
     <string name="industry_tool_bar_header">Выбор отрасли</string>
+    <string name="select_industry">Выберите отрасль</string>
 
 </resources>
