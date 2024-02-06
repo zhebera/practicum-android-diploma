@@ -41,7 +41,6 @@ class FilterViewModel(
         }
     }
 
-
     fun clearFilter() {
         viewModelScope.launch {
             sharedPreferencesInteractor.clearFilter()
