@@ -10,8 +10,9 @@ import ru.practicum.android.diploma.data.dto.Response
 import ru.practicum.android.diploma.data.dto.ResponseCode
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.request.CountriesRequest
+import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
-import ru.practicum.android.diploma.data.response.CountriesResponse
+import ru.practicum.android.diploma.data.response.IndustriesResponse
 
 class RetrofitNetworkClient(
     private val hhApi: HeadHunterApi,
@@ -26,6 +27,7 @@ class RetrofitNetworkClient(
                 val response = when (dto) {
                     is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
+                    is IndustriesRequest -> IndustriesResponse(hhApi.getIndustries())
                     is CountriesRequest -> CountriesResponse(hhApi.getCountries())
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }

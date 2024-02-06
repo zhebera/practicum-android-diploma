@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesState
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
 import ru.practicum.android.diploma.ui.favourite.viewmodel.FavouriteViewModel
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
+import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustryViewModel
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 
 val viewModelModule = module {
@@ -21,7 +22,11 @@ val viewModelModule = module {
         FavouriteViewModel(get())
     }
 
-    viewModel{
+    viewModel {
         CountriesViewModel(get())
+    }
+
+    viewModel {
+        FilterIndustryViewModel(get())
     }
 }
