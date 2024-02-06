@@ -12,6 +12,7 @@ import ru.practicum.android.diploma.data.dto.VacancyDescriptionRequest
 import ru.practicum.android.diploma.data.request.CountriesRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
+import ru.practicum.android.diploma.data.response.CountriesResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 
 class RetrofitNetworkClient(
