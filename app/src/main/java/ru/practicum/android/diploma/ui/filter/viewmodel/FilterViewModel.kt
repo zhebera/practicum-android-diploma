@@ -12,8 +12,8 @@ class FilterViewModel(
     private val sharedPreferencesInteractor: SharedPreferencesInteractor
 ) : ViewModel() {
 
-    private val _filterState = MutableLiveData<FilterModel>()
-    val filterState: LiveData<FilterModel> = _filterState
+    private val _filterState = MutableLiveData<FilterModel?>()
+    val filterState: LiveData<FilterModel?> = _filterState
 
     init {
         viewModelScope.launch { getFilter() }
@@ -21,9 +21,8 @@ class FilterViewModel(
 
     private fun getFilter() {
         val filter = sharedPreferencesInteractor.getFilter()
-        filter.let {
-            _filterState.postValue(it)
-        }
+        _filterState.postValue(filter)
+
     }
 
     fun clearFilter() {
