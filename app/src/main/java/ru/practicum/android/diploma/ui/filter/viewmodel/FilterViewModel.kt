@@ -6,59 +6,46 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
+import ru.practicum.android.diploma.domain.models.FilterModel
 
 class FilterViewModel(
     private val sharedPreferencesInteractor: SharedPreferencesInteractor
 ) : ViewModel() {
 
-    private val _filterState = MutableLiveData<FilterState>()
-    val filterState: LiveData<FilterState> = _filterState
+    private val _filterState = MutableLiveData<FilterModel>()
+    val filterState: LiveData<FilterModel> = _filterState
 
-    fun getFilter() {
-        viewModelScope.launch {
-            val filter = sharedPreferencesInteractor.getFilter()
+    init {
+        viewModelScope.launch { getFilter() }
+    }
 
-            val isFilterNotEmpty =
-                !filter?.regionName.isNullOrEmpty() ||
-                    !filter?.industryName.isNullOrEmpty() ||
-                    !filter?.salary.isNullOrEmpty() ||
-                    !filter?.countryName.isNullOrEmpty() ||
-                    filter?.onlyWithSalary == true
+    private fun getFilter() {
 
-            val newFilterState = if (isFilterNotEmpty) {
-                FilterState.Filter(
-                    filter?.salary,
-                    filter?.onlyWithSalary,
-                    filter?.industryName,
-                    filter?.countryName,
-                    filter?.regionName
-                )
-            } else {
-                FilterState.Filter("", false, "", "", "")
-            }
+        val filter = sharedPreferencesInteractor.getFilter()
 
-            _filterState.postValue(newFilterState)
+        filter.let {
+            _filterState.postValue(it)
         }
     }
 
     fun clearFilter() {
         viewModelScope.launch {
             sharedPreferencesInteractor.clearFilter()
-            _filterState.postValue(FilterState.ClearFilter)
+            getFilter()
         }
     }
 
     fun setSalary(salary: String) {
         viewModelScope.launch {
             sharedPreferencesInteractor.setSalary(salary)
-            _filterState.postValue(FilterState.SetSettings)
+            getFilter()
         }
     }
 
     fun setSalaryCheckbox(salary: Boolean) {
         viewModelScope.launch {
             sharedPreferencesInteractor.setSalaryCheckbox(salary)
-            _filterState.postValue(FilterState.SetSettings)
+            getFilter()
         }
     }
 }
