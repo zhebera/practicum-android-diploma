@@ -22,7 +22,6 @@ class IndustriesViewHolder(
         industryView.isChecked = industry.isChecked
 
         industryView.setOnClickListener {
-
             val industryCopy = industry.copy(isChecked = !industry.isChecked)
             clickListener.onClick(industryCopy)
         }
