@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.domain.models
 
-import java.io.Serializable
-
 data class FilterModel(
     val countryName: String? = null,
     val countryId: String? = null,
@@ -11,4 +9,4 @@ data class FilterModel(
     val industryId: String? = null,
     val salary: String? = null,
     val onlyWithSalary: Boolean? = null
-): Serializable
+)

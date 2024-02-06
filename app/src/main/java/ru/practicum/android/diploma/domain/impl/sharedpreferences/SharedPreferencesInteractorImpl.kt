@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.domain.models.FilterModel
 
 class SharedPreferencesInteractorImpl(
     private val repository: SharedPreferencesRepository
-): SharedPreferencesInteractor {
+) : SharedPreferencesInteractor {
 
     override fun getFilter(): FilterModel {
         return repository.getFilter()

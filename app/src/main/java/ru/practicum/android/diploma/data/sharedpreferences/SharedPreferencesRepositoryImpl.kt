@@ -10,11 +10,14 @@ import ru.practicum.android.diploma.util.FILTER_OBJECT_KEY
 
 class SharedPreferencesRepositoryImpl(
     context: Context
-): SharedPreferencesRepository {
+) : SharedPreferencesRepository {
     private val androidContext = context
     private var gson = Gson()
 
-    private val sharedPreferences = androidContext.getSharedPreferences(CAREER_KEY_APP_PREFERENCES, Context.MODE_PRIVATE)
+    private val sharedPreferences = androidContext.getSharedPreferences(
+        CAREER_KEY_APP_PREFERENCES,
+        Context.MODE_PRIVATE
+    )
 
     override fun getFilter(): FilterModel {
         val json = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
@@ -22,48 +25,42 @@ class SharedPreferencesRepositoryImpl(
     }
 
     override fun setCountry(name: String, id: String) {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(countryName = name, countryId = id)
 
-        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(updatedFilter)).apply()
+        saveFilterToSharedPreferences(updatedFilter)
     }
 
     override fun setRegion(name: String, id: String) {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(regionName = name, regionId = id)
 
-        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(updatedFilter)).apply()
+        saveFilterToSharedPreferences(updatedFilter)
     }
 
     override fun setIndustry(name: String, id: String) {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(industryName = name, industryId = id)
 
-        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(updatedFilter)).apply()
+        saveFilterToSharedPreferences(updatedFilter)
     }
 
     override fun setSalary(input: String) {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(salary = input)
 
-        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(updatedFilter)).apply()
+        saveFilterToSharedPreferences(updatedFilter)
     }
 
     override fun setSalaryCheckbox(input: Boolean) {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(onlyWithSalary = input)
 
-        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(updatedFilter)).apply()
+        saveFilterToSharedPreferences(updatedFilter)
     }
 
     override fun doesFilterApplied(): Boolean {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        val filter = gson.fromJson(spFilter, FilterModel::class.java)
+        val filter = getFilterFromSharedPreferences()
 
         with(filter) {
             return !(countryName == null &&
@@ -72,6 +69,14 @@ class SharedPreferencesRepositoryImpl(
                 salary == null &&
                 onlyWithSalary == null)
         }
+    }
 
+    private fun getFilterFromSharedPreferences(): FilterModel {
+        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
+        return gson.fromJson(spFilter, FilterModel::class.java)
+    }
+
+    private fun saveFilterToSharedPreferences(filter: FilterModel) {
+        sharedPreferences.edit().putString(FILTER_OBJECT_KEY, gson.toJson(filter)).apply()
     }
 }
