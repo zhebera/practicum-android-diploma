@@ -8,11 +8,18 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Country
 
 class CountriesViewHolder(
-    parent: ViewGroup
-) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_place, parent, false)) {
+    parent: ViewGroup,
+    private val clickListener: CountriesAdapter.CountryClickListener
+) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.card_place, parent, false)
+) {
     private val place = itemView.findViewById<TextView>(R.id.place_name)
 
     fun bind(country: Country) {
         place.text = country.name
+
+        itemView.setOnClickListener {
+            clickListener.onClick(country)
+        }
     }
 }

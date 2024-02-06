@@ -1,19 +1,24 @@
 package ru.practicum.android.diploma.ui.filter.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
+import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 
 class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedPreferencesInteractor by inject<SharedPreferencesInteractor>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +31,12 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferencesInteractor.setCountry("Россия", "113")
+
+        val filter = sharedPreferencesInteractor.getFilter()
+        Log.d("D", "${filter!!.countryName}")
+
         binding.tvFilterMainText.text = getString(R.string.setting_of_filter)
 
         binding.etPlaceOfWork.setOnClickListener {

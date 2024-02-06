@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.countries.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.ui.countries.adapter.CountriesAdapter
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesState
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
+import ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment
 
 class CountriesWorkPlaceFragment : Fragment() {
 
@@ -23,7 +25,9 @@ class CountriesWorkPlaceFragment : Fragment() {
     private val binding: FragmentFilterCountryBinding
         get() = _binding!!
     private val viewModel by viewModel<CountriesViewModel>()
-    private val adapter = CountriesAdapter()
+    private val adapter = CountriesAdapter {
+        selectCountry(it)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterCountryBinding.inflate(inflater, container, false)
@@ -47,6 +51,14 @@ class CountriesWorkPlaceFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+    }
+
+    private fun selectCountry(country: Country) {
+        FilterWorkPlaceFragment.createCountryArg(country)
+        findNavController().navigate(
+            R.id.action_countriesWorkPlaceFragment_to_filterWorkPlaceFragment,
+            FilterWorkPlaceFragment.createCountryArg(country)
+        )
     }
 
     private fun renderState(state: CountriesState) {
