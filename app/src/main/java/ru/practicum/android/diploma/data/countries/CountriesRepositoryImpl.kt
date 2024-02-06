@@ -34,7 +34,7 @@ class CountriesRepositoryImpl(
 
             ResponseCode.SUCCESS -> {
                 with(response as CountriesResponse) {
-                    val data = countriesConverter.map(response)
+                    val data = countriesConverter.map(response).sortedBy { it.name }
                     emit(Resource.Success(data))
                 }
             }
