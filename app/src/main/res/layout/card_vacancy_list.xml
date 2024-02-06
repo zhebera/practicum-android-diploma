@@ -34,6 +34,7 @@
             style="@style/YsDisplayMedium.Large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black_white"
             tools:text="@string/placeholder_job_title_and_city" />
 
         <TextView
@@ -41,6 +42,7 @@
             style="@style/YsDisplayRegular.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black_white"
             tools:text="@string/placeholder_company" />
 
         <TextView
@@ -48,8 +50,7 @@
             style="@style/YsDisplayRegular.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black_white"
             tools:text="@string/placeholder_salary" />
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -123,11 +123,13 @@
                     <TextView
                         android:id="@+id/employer_name"
                         style="@style/CardTextViewStyleTop"
+                        android:textColor="@color/black"
                         tools:text="@string/placeholder_details_company" />
 
                     <TextView
                         android:id="@+id/employer_address"
                         style="@style/CardTextViewStyleBottom"
+                        android:textColor="@color/black"
                         tools:text="@string/placeholder_details_address" />
                 </LinearLayout>
             </LinearLayout>

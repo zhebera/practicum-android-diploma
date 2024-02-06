@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Vacancy
-import ru.practicum.android.diploma.util.glide
+import ru.practicum.android.diploma.util.loadImageIntoView
 import ru.practicum.android.diploma.util.parseSalary
 
 class VacancyViewHolder(
@@ -33,7 +33,9 @@ class VacancyViewHolder(
             itemView
         )
 
-        vacancy.employer?.logoUrls?.original?.let { glide(itemView.context, it, imageCompany, RoundedCorners(radius)) }
+        vacancy.employer?.logoUrls?.original?.let {
+            loadImageIntoView(itemView.context, it, imageCompany, RoundedCorners(radius))
+        }
 
         itemView.setOnClickListener {
             clickListener.onClick(vacancy)

@@ -3,8 +3,10 @@ package ru.practicum.android.diploma.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.practicum.android.diploma.data.dto.IndustriesDto
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionResponse
 import ru.practicum.android.diploma.data.response.RegionResponse
+import ru.practicum.android.diploma.data.response.CountriesResponse
 import ru.practicum.android.diploma.data.response.VacanciesResponse
 
 interface HeadHunterApi {
@@ -24,4 +26,10 @@ interface HeadHunterApi {
     suspend fun getCountryRegions(
         @Query("text") countryId: String
     ): RegionResponse
+
+    @GET("/industries")
+    suspend fun getIndustries(): ArrayList<IndustriesDto>
+
+    @GET("/areas/countries")
+    suspend fun getCountries(): CountriesResponse
 }

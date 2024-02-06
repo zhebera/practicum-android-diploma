@@ -4,21 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white_black"
     tools:context=".ui.workplace.fragment.FilterWorkPlaceFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/left_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/fragment_filter_place_of_work_constraintGuide_begin" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/right_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/fragment_filter_place_of_work_constraintGuide_begin" />
 
     <LinearLayout
         android:id="@+id/ll_main_text"
@@ -26,9 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingVertical="@dimen/fragment_filter_place_of_work_padding_vertical"
-        android:paddingStart="@dimen/fragment_filter_place_of_work_padding_start"
-        android:paddingEnd="@dimen/fragment_filter_place_of_work_padding_end"
+        android:paddingVertical="@dimen/fragment_filter_padding_vartical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +22,8 @@
             android:id="@+id/iv_filter_place_of_work_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/fragment_filter_place_of_work_padding"
+            android:layout_marginStart="@dimen/fragment_filter_layout_margin_start_4dp"
+            android:padding="@dimen/fragment_filter_padding"
             android:src="@drawable/arrow_back" />
 
         <TextView
@@ -45,65 +31,51 @@
             style="@style/YsDisplayMedium.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fragment_filter_place_of_work_margin_start"
+            android:layout_marginStart="4dp"
             android:text="@string/selection_place_of_work"
             android:textColor="@color/black_white" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/country"
-        android:layout_width="@dimen/fragment_filter_place_of_work_width"
-        android:layout_height="@dimen/fragment_filter_place_of_work_height"
-        android:layout_marginTop="@dimen/fragment_filter_place_of_work_margin_top"
-        android:enabled="false"
-        android:textColorHint="@color/grey_white"
-        android:visibility="visible"
-        app:boxStrokeWidth="@dimen/fragment_filter_place_of_work_box_stroke_width"
-        app:boxStrokeWidthFocused="@dimen/fragment_filter_place_of_work_box_stroke_width"
+        style="@style/WorkplaceTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/country"
         app:endIconDrawable="@drawable/arrow_forward"
         app:endIconMode="custom"
-        app:endIconTint="@color/black_white"
-        app:hintTextColor="@color/black_white"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_main_text">
+        app:layout_constraintTop_toBottomOf="@id/ll_main_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_country"
-            style="@style/YsDisplayRegular.Medium"
+            style="@style/WorkplaceTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/country"
-            android:text="@string/placeholder_country"
-            android:textColor="@color/black_white" />
+            android:inputType="text"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/region"
-        android:layout_width="@dimen/fragment_filter_place_of_work_width"
+        style="@style/WorkplaceTextInputLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:textColorHint="@color/grey_white"
-        android:visibility="visible"
-        app:boxStrokeWidth="@dimen/fragment_filter_place_of_work_box_stroke_width"
-        app:boxStrokeWidthFocused="@dimen/fragment_filter_place_of_work_box_stroke_width"
+        android:hint="@string/region"
         app:endIconDrawable="@drawable/arrow_forward"
         app:endIconMode="custom"
-        app:endIconTint="@color/black_white"
-        app:hintTextColor="@color/black_white"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country">
+        app:layout_constraintTop_toBottomOf="@id/country">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_region"
-            style="@style/YsDisplayRegular.Medium"
+            style="@style/WorkplaceTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey_white"
-            android:hint="@string/region"
-            android:text="@string/placeholder_region"
-            android:textColor="@color/black_white" />
+            android:inputType="text"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -112,14 +84,14 @@
         android:layout_width="@dimen/fragment_filter_place_of_work_width"
         android:layout_height="@dimen/fragment_filter_place_of_work_height"
         android:layout_marginBottom="@dimen/fragment_filter_place_of_work_margin_bottom"
+        android:layout_marginHorizontal="@dimen/fragment_filter_place_of_work_margin_start"
         android:background="@drawable/button_background_on"
         android:gravity="center"
         android:text="@string/select"
         android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/right_guideline"
-        app:layout_constraintStart_toStartOf="@+id/left_guideline" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
