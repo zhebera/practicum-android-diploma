@@ -1,12 +1,12 @@
 package ru.practicum.android.diploma.ui.regions.viewmodel
 
-import android.graphics.Region
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
+import ru.practicum.android.diploma.domain.models.Region
 
 class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewModel() {
 

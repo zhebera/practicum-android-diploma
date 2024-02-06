@@ -44,7 +44,7 @@ val repositoryModule = module {
     }
 
     single<RegionsRepository> {
-        RegionsRepositoryImpl()
+        RegionsRepositoryImpl(get(), get(), androidContext())
     }
 
     single<IndustriesRepository> {

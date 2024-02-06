@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.ui.regions.viewmodel
 
-import android.graphics.Region
+import ru.practicum.android.diploma.domain.models.Region
 
 sealed interface RegionsState {
 
