@@ -8,7 +8,7 @@ class SharedPreferencesInteractorImpl(
     private val repository: SharedPreferencesRepository
 ) : SharedPreferencesInteractor {
 
-    override fun getFilter(): FilterModel {
+    override fun getFilter(): FilterModel? {
         return repository.getFilter()
     }
 
@@ -46,9 +46,5 @@ class SharedPreferencesInteractorImpl(
 
     override fun clearFilter() {
         repository.clearFilter()
-    }
-
-    override fun doesFilterApplied(): Boolean {
-        return repository.doesFilterApplied()
     }
 }

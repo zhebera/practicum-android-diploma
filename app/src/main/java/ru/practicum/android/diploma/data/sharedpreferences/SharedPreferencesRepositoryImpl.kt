@@ -18,9 +18,14 @@ class SharedPreferencesRepositoryImpl(
         Context.MODE_PRIVATE
     )
 
-    override fun getFilter(): FilterModel {
+    override fun getFilter(): FilterModel? {
         val json = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
-        return gson.fromJson(json, FilterModel::class.java)
+
+        return if (doesFilterApplied()) {
+            gson.fromJson(json, FilterModel::class.java)
+        } else {
+            null
+        }
     }
 
     override fun setCountry(name: String, id: String) {
@@ -83,7 +88,7 @@ class SharedPreferencesRepositoryImpl(
         saveFilterToSharedPreferences(FilterModel())
     }
 
-    override fun doesFilterApplied(): Boolean {
+    private fun doesFilterApplied(): Boolean {
         val filter = getFilterFromSharedPreferences()
 
         with(filter) {
