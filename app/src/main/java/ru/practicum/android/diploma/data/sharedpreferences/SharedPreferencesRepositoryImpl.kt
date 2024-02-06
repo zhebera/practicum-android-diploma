@@ -84,8 +84,8 @@ class SharedPreferencesRepositoryImpl(
 
         with(filter) {
             return !(countryName == null && regionName == null && industryName == null) &&
-                (salary !== null) && (salary !== "") &&
-                (onlyWithSalary !== null)
+                salary !== null && salary !== "" &&
+                onlyWithSalary !== null
         }
     }
 
