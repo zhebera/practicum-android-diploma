@@ -7,7 +7,6 @@ import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.util.CAREER_KEY_APP_PREFERENCES
 import ru.practicum.android.diploma.util.FILTER_OBJECT_KEY
 
-
 class SharedPreferencesRepositoryImpl(
     context: Context
 ) : SharedPreferencesRepository {
