@@ -27,8 +27,7 @@ class RegionsRepositoryImpl(
         context.getString(R.string.server_error)
     }
 
-    override fun getRegions(areaId: String?) : Flow<Resource<List<Region>>> = flow {
-
+    override fun getRegions(areaId: String?): Flow<Resource<List<Region>>> = flow {
         val response = if (areaId == null) {
             networkClient.doRequest(AllRegionsRequest())
         } else {
