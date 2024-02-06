@@ -44,6 +44,10 @@ class SharedPreferencesInteractorImpl(
         repository.setSalaryCheckbox(input)
     }
 
+    override fun clearFilter() {
+        repository.clearFilter()
+    }
+
     override fun doesFilterApplied(): Boolean {
         return repository.doesFilterApplied()
     }

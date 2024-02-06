@@ -79,6 +79,10 @@ class SharedPreferencesRepositoryImpl(
         saveFilterToSharedPreferences(updatedFilter)
     }
 
+    override fun clearFilter() {
+        saveFilterToSharedPreferences(FilterModel())
+    }
+
     override fun doesFilterApplied(): Boolean {
         val filter = getFilterFromSharedPreferences()
 

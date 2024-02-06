@@ -12,5 +12,6 @@ interface SharedPreferencesRepository {
     fun removeIndustry()
     fun setSalary(input: String)
     fun setSalaryCheckbox(input: Boolean)
+    fun clearFilter()
     fun doesFilterApplied(): Boolean
 }
