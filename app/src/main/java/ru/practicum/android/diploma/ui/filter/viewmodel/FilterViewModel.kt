@@ -20,9 +20,7 @@ class FilterViewModel(
     }
 
     private fun getFilter() {
-
         val filter = sharedPreferencesInteractor.getFilter()
-
         filter.let {
             _filterState.postValue(it)
         }
