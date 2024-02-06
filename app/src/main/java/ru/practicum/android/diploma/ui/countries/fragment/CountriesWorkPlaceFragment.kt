@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.countries.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.ui.countries.adapter.CountriesAdapter
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesState
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
-import ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment
+import ru.practicum.android.diploma.util.KEY_COUNTRY
 
 class CountriesWorkPlaceFragment : Fragment() {
 
@@ -54,11 +53,8 @@ class CountriesWorkPlaceFragment : Fragment() {
     }
 
     private fun selectCountry(country: Country) {
-        FilterWorkPlaceFragment.createCountryArg(country)
-        findNavController().navigate(
-            R.id.action_countriesWorkPlaceFragment_to_filterWorkPlaceFragment,
-            FilterWorkPlaceFragment.createCountryArg(country)
-        )
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(KEY_COUNTRY, country)
+        findNavController().popBackStack()
     }
 
     private fun renderState(state: CountriesState) {
