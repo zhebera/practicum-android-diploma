@@ -4,8 +4,8 @@ import android.content.Context
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesRepository
 import ru.practicum.android.diploma.domain.models.FilterModel
-import ru.practicum.android.diploma.util.CAREER_KEY_APP_PREFERENCES
 import ru.practicum.android.diploma.util.FILTER_OBJECT_KEY
+import ru.practicum.android.diploma.util.CAREER_KEY_APP_PREFERENCES
 
 class SharedPreferencesRepositoryImpl(
     context: Context
@@ -19,7 +19,7 @@ class SharedPreferencesRepositoryImpl(
     )
 
     override fun getFilter(): FilterModel? {
-        val json = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
+        val json = sharedPreferences.getString(FILTER_OBJECT_KEY, "{}")
 
         return if (doesFilterApplied()) {
             gson.fromJson(json, FilterModel::class.java)
@@ -92,14 +92,16 @@ class SharedPreferencesRepositoryImpl(
         val filter = getFilterFromSharedPreferences()
 
         with(filter) {
-            return !(countryName == null && regionName == null && industryName == null) &&
-                salary !== null && salary !== "" &&
-                onlyWithSalary !== null
+            return !(countryName == null &&
+                regionName == null &&
+                industryName == null &&
+                salary == null &&
+                onlyWithSalary == null)
         }
     }
 
     private fun getFilterFromSharedPreferences(): FilterModel {
-        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "")
+        val spFilter = sharedPreferences.getString(FILTER_OBJECT_KEY, "{}")
         return gson.fromJson(spFilter, FilterModel::class.java)
     }
 
