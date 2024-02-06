@@ -1,11 +1,11 @@
 package ru.practicum.android.diploma.data.sharedpreferences
 
-import com.google.gson.Gson
-import android.content.Context
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesRepository
 import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.util.FILTER_OBJECT_KEY
 import ru.practicum.android.diploma.util.CAREER_KEY_APP_PREFERENCES
+import com.google.gson.Gson
+import android.content.Context
 
 class SharedPreferencesRepositoryImpl(
     context: Context
