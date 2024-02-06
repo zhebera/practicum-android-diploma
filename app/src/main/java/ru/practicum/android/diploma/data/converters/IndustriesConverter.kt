@@ -1,21 +1,22 @@
 package ru.practicum.android.diploma.data.converters
 
-import ru.practicum.android.diploma.data.response.IndustriesResponse
-import ru.practicum.android.diploma.data.response.IndustryResponse
+import ru.practicum.android.diploma.data.dto.IndustriesDto
 import ru.practicum.android.diploma.domain.models.Industry
 
 object IndustriesConverter {
 
-    fun map(industryResponse: IndustryResponse): Industry {
+    fun map(industries: IndustriesDto): Industry {
         return Industry(
-            industryResponse.id,
-            industryResponse.name
+            id = industries.id!!,
+            name = industries.name!!
         )
     }
 
-    fun map(industriesResponse: IndustriesResponse): List<Industry> {
-        return industriesResponse.industries.map {
-            map(it)
-        }
+    fun map(industry: Industry): IndustriesDto {
+        return IndustriesDto(
+            id = industry.id,
+            name = industry.name,
+            industries = null
+        )
     }
 }
