@@ -17,36 +17,30 @@ class FilterViewModel(
     fun getFilter() {
         viewModelScope.launch {
             val filter = sharedPreferencesInteractor.getFilter()
-            if (filter != null && (
-                    !filter.regionName.isNullOrEmpty() ||
-                        !filter.industryName.isNullOrEmpty() ||
-                        !filter.salary.isNullOrEmpty() ||
-                        !filter.countryName.isNullOrEmpty() ||
-                        filter.onlyWithSalary == true
-                    )
-            ) {
-                _filterState.postValue(
-                    FilterState.Filter(
-                        filter.salary,
-                        filter.onlyWithSalary,
-                        filter.industryName,
-                        filter.countryName,
-                        filter.regionName
-                    )
+
+            val isFilterNotEmpty =
+                !filter?.regionName.isNullOrEmpty() ||
+                    !filter?.industryName.isNullOrEmpty() ||
+                    !filter?.salary.isNullOrEmpty() ||
+                    !filter?.countryName.isNullOrEmpty() ||
+                    filter?.onlyWithSalary == true
+
+            val newFilterState = if (isFilterNotEmpty) {
+                FilterState.Filter(
+                    filter?.salary,
+                    filter?.onlyWithSalary,
+                    filter?.industryName,
+                    filter?.countryName,
+                    filter?.regionName
                 )
             } else {
-                _filterState.postValue(
-                    FilterState.Filter(
-                        "",
-                        false,
-                        "",
-                        "",
-                        ""
-                    )
-                )
+                FilterState.Filter("", false, "", "", "")
             }
+
+            _filterState.postValue(newFilterState)
         }
     }
+
 
     fun clearFilter() {
         viewModelScope.launch {
