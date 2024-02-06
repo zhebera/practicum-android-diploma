@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.domain.impl.regions
 
-import android.graphics.Region
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
 import ru.practicum.android.diploma.domain.api.regions.RegionsRepository
+import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.util.Resource
 
 class RegionsInteractorImpl(private val regionsRepository: RegionsRepository) : RegionsInteractor {
