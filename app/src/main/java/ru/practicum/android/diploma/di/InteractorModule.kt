@@ -7,12 +7,14 @@ import ru.practicum.android.diploma.domain.api.favourite.FavouriteInteractor
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
 import ru.practicum.android.diploma.domain.api.industries.IndustriesInteractor
+import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.impl.FavouriteInteractorImpl
 import ru.practicum.android.diploma.domain.impl.SearchInteractorImpl
 import ru.practicum.android.diploma.domain.impl.countries.CountriesInteractorImpl
 import ru.practicum.android.diploma.domain.impl.details.DetailsInteractorImpl
 import ru.practicum.android.diploma.domain.impl.regions.RegionsInteractorImpl
 import ru.practicum.android.diploma.domain.impl.industries.IndustriesInteractorImpl
+import ru.practicum.android.diploma.domain.impl.sharedpreferences.SharedPreferencesInteractorImpl
 
 val interactorModule = module {
 
@@ -38,5 +40,9 @@ val interactorModule = module {
 
     single<CountriesInteractor> {
         CountriesInteractorImpl(get())
+    }
+
+    single<SharedPreferencesInteractor> {
+        SharedPreferencesInteractorImpl(get())
     }
 }
