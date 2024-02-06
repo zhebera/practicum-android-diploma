@@ -25,7 +25,7 @@ class CountriesWorkPlaceFragment : Fragment() {
     private val viewModel by viewModel<CountriesViewModel>()
     private val adapter = CountriesAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,8 +49,8 @@ class CountriesWorkPlaceFragment : Fragment() {
         })
     }
 
-    private fun renderState(state: CountriesState){
-        when(state){
+    private fun renderState(state: CountriesState) {
+        when (state) {
             is CountriesState.Loading -> showLoading()
             is CountriesState.Error -> showError()
             is CountriesState.Content -> showContent(state.data)

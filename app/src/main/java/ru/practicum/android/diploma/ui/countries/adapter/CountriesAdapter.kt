@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.domain.models.Country
 
-class CountriesAdapter: RecyclerView.Adapter<CountriesViewHolder>() {
+class CountriesAdapter : RecyclerView.Adapter<CountriesViewHolder>() {
 
     private val countries = arrayListOf<Country>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CountriesViewHolder(parent)
