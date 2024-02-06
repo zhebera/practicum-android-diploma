@@ -16,12 +16,24 @@ class SharedPreferencesInteractorImpl(
         repository.setCountry(name, id)
     }
 
+    override fun removeCountry() {
+        repository.removeCountry()
+    }
+
     override fun setRegion(name: String, id: String) {
         repository.setRegion(name, id)
     }
 
+    override fun removeRegion() {
+        repository.removeRegion()
+    }
+
     override fun setIndustry(name: String, id: String) {
         repository.setIndustry(name, id)
+    }
+
+    override fun removeIndustry() {
+        repository.removeIndustry()
     }
 
     override fun setSalary(input: String) {

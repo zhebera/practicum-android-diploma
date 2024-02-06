@@ -30,6 +30,13 @@ class SharedPreferencesRepositoryImpl(
         saveFilterToSharedPreferences(updatedFilter)
     }
 
+    override fun removeCountry() {
+        val filter = getFilterFromSharedPreferences()
+        val updatedFilter = filter.copy(countryName = null, countryId = null)
+
+        saveFilterToSharedPreferences(updatedFilter)
+    }
+
     override fun setRegion(name: String, id: String) {
         val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(regionName = name, regionId = id)
@@ -37,9 +44,23 @@ class SharedPreferencesRepositoryImpl(
         saveFilterToSharedPreferences(updatedFilter)
     }
 
+    override fun removeRegion() {
+        val filter = getFilterFromSharedPreferences()
+        val updatedFilter = filter.copy(regionName = null, regionId = null)
+
+        saveFilterToSharedPreferences(updatedFilter)
+    }
+
     override fun setIndustry(name: String, id: String) {
         val filter = getFilterFromSharedPreferences()
         val updatedFilter = filter.copy(industryName = name, industryId = id)
+
+        saveFilterToSharedPreferences(updatedFilter)
+    }
+
+    override fun removeIndustry() {
+        val filter = getFilterFromSharedPreferences()
+        val updatedFilter = filter.copy(industryName = null, industryId = null)
 
         saveFilterToSharedPreferences(updatedFilter)
     }
@@ -62,11 +83,9 @@ class SharedPreferencesRepositoryImpl(
         val filter = getFilterFromSharedPreferences()
 
         with(filter) {
-            return !(countryName == null &&
-                regionName == null &&
-                industryName == null &&
-                salary == null &&
-                onlyWithSalary == null)
+            return !(countryName == null && regionName == null && industryName == null) &&
+                (salary !== null) && (salary !== "") &&
+                (onlyWithSalary !== null)
         }
     }
 
