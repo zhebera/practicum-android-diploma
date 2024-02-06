@@ -14,6 +14,7 @@ import ru.practicum.android.diploma.data.request.CountryRegionsRequest
 import ru.practicum.android.diploma.data.request.CountriesRequest
 import ru.practicum.android.diploma.data.request.IndustriesRequest
 import ru.practicum.android.diploma.data.request.SearchRequest
+import ru.practicum.android.diploma.data.response.CountriesResponse
 import ru.practicum.android.diploma.data.response.RegionResponse
 import ru.practicum.android.diploma.data.response.IndustriesResponse
 
@@ -33,7 +34,7 @@ class RetrofitNetworkClient(
                     is AllRegionsRequest -> RegionResponse(areas = hhApi.getAllRegions())
                     is CountryRegionsRequest -> hhApi.getCountryRegions(countryId = dto.countryId)
                     is IndustriesRequest -> IndustriesResponse(hhApi.getIndustries())
-                    is CountriesRequest -> hhApi.getCountries()
+                    is CountriesRequest -> CountriesResponse(hhApi.getCountries())
                     else -> Response().apply { resultCode = ResponseCode.BAD_ARGUMENT }
                 }
                 response.apply { resultCode = ResponseCode.SUCCESS }
