@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,14 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
+import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragment
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
+import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
+import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.getNumberString
 
 class SearchFragment : Fragment() {
@@ -41,6 +51,7 @@ class SearchFragment : Fragment() {
     private var isClickAllowed = true
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -181,5 +192,4 @@ class SearchFragment : Fragment() {
         val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
-
 }
