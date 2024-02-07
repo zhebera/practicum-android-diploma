@@ -40,7 +40,6 @@
         android:id="@+id/recycler_filter_country"
         android:layout_width="@dimen/fragment_filter_country_width"
         android:layout_height="@dimen/fragment_filter_country_height"
-        android:layout_marginHorizontal="@dimen/fragment_filter_country_margin_start"
         android:layout_marginTop="@dimen/fragment_filter_country_margin_top_8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

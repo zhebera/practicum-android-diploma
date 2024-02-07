@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
+import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 
 class FilterWorkPlaceFragment : Fragment() {
 
@@ -24,11 +26,20 @@ class FilterWorkPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.region.setOnClickListener {
+        with(findNavController().currentBackStackEntry?.savedStateHandle) {
+            this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { country ->
+                if (country != null) {
+                    binding.etCountry.setText(country.name)
+                    binding.tvSelect.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        binding.etRegion.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
         }
 
-        binding.country.setOnClickListener {
+        binding.etCountry.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment)
         }
 

@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.data.response.CountriesResponse
 import ru.practicum.android.diploma.data.response.CountryResponse
 import ru.practicum.android.diploma.domain.models.Country
 
-object CountriesConverter {
+class CountriesConverter {
 
     fun map(countriesResponse: CountriesResponse): List<Country> {
         return countriesResponse.countries.map {
