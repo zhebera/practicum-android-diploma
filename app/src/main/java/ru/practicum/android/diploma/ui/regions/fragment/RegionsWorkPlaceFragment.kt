@@ -44,7 +44,7 @@ class RegionsWorkPlaceFragment : Fragment() {
         binding.rwResult.layoutManager = LinearLayoutManager(requireContext())
         binding.rwResult.adapter = adapter
 
-        val areaId = null
+        val areaId = "113"
 
         viewModel.getRegions(areaId)
         viewModel.state.observe(viewLifecycleOwner, ::renderState)

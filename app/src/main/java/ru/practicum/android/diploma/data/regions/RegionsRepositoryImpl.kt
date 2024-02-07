@@ -42,15 +42,14 @@ class RegionsRepositoryImpl(
             ResponseCode.SUCCESS -> {
                 with(response as RegionResponse) {
                     val data = regionsConverter.convertRegions(this)
-
                     val mergedList = ArrayList<Region>()
 
-                    data.forEach {
-                        mergedList.addAll(it.includedRegions)
+                    val filteredData = data.filter {
+                        it.id != "1001"
                     }
 
-                    mergedList.filter {
-                        it.parentId !== null
+                    filteredData.forEach {
+                        mergedList.addAll(it.includedRegions)
                     }
 
                     emit(Resource.Success(mergedList))

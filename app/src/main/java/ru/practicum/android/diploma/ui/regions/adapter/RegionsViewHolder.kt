@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.Region
-import ru.practicum.android.diploma.ui.countries.adapter.RegionsAdapter
 
 class RegionsViewHolder(
     parent: ViewGroup,
