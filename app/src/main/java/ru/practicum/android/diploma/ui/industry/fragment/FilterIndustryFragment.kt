@@ -57,7 +57,6 @@ class FilterIndustryFragment : Fragment() {
             checkedIndustries.observe(viewLifecycleOwner, ::renderButton)
         }
 
-
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
