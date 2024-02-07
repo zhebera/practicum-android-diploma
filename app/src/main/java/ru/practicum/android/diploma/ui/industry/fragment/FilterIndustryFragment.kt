@@ -22,6 +22,7 @@ import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.industry.adapter.IndustriesAdapter
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustriesState
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustryViewModel
+import ru.practicum.android.diploma.util.INDUSTRIES_KEY
 
 class FilterIndustryFragment : Fragment() {
 
@@ -66,6 +67,15 @@ class FilterIndustryFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+
+        binding.tvSetIndustry.setOnClickListener {
+            if (binding.tvSetIndustry.isVisible) {
+                val industry = viewModel.getIndustriesList()?.filter { it.isChecked }?.first()
+                findNavController().previousBackStackEntry?.savedStateHandle
+                    ?.set(INDUSTRIES_KEY, industry)
+                findNavController().popBackStack()
+            }
+        }
 
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit

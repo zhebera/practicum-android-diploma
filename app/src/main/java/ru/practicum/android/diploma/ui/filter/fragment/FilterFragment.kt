@@ -30,7 +30,7 @@ class FilterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
