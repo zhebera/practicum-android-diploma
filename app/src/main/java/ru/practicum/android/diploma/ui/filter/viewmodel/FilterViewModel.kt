@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.FilterModel
+import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.domain.models.Region
 
 class FilterViewModel(
     private val sharedPreferencesInteractor: SharedPreferencesInteractor
@@ -32,17 +35,21 @@ class FilterViewModel(
         }
     }
 
-    fun setSalary(salary: String) {
+    fun saveFilter(
+        country: Country?,
+        region: Region?,
+        industry: Industry?,
+        salary: String?,
+        onlyWithSalary: Boolean?
+    ) {
         viewModelScope.launch {
-            sharedPreferencesInteractor.setSalary(salary)
-            getFilter()
-        }
-    }
-
-    fun setSalaryCheckbox(salary: Boolean) {
-        viewModelScope.launch {
-            sharedPreferencesInteractor.setSalaryCheckbox(salary)
-            getFilter()
+            sharedPreferencesInteractor.saveFilter(
+                country,
+                region,
+                industry,
+                salary,
+                onlyWithSalary
+            )
         }
     }
 }
