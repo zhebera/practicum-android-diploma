@@ -146,7 +146,7 @@ class FilterFragment : Fragment() {
         binding.etIndustry.addTextChangedListener(industryTextWatcher)
         binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
 
-        binding.textInputEditText.doAfterTextChanged{ setVisibilityApplyButton() }
+        binding.textInputEditText.doAfterTextChanged { setVisibilityApplyButton() }
     }
 
     private fun setBackStackListeners() {
