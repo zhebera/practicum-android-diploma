@@ -35,10 +35,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CountriesViewModel(get())
-    }
-
-    viewModel {
         FilterViewModel(get())
     }
 }
