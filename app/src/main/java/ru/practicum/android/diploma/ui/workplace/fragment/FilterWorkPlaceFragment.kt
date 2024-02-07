@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
 import ru.practicum.android.diploma.domain.models.Country
-import ru.practicum.android.diploma.util.KEY_COUNTRY
+import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 
 class FilterWorkPlaceFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class FilterWorkPlaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(findNavController().currentBackStackEntry?.savedStateHandle) {
-            this?.getLiveData<Country>(KEY_COUNTRY)?.observe(viewLifecycleOwner) { country ->
+            this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { country ->
                 if (country != null) {
                     binding.etCountry.setText(country.name)
                     binding.tvSelect.visibility = View.VISIBLE
@@ -52,16 +52,6 @@ class FilterWorkPlaceFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        val country = findNavController().currentBackStackEntry?.savedStateHandle?.get<Country>(KEY_COUNTRY)
-        if (country != null) {
-            binding.etCountry.setText(country.name)
-            binding.tvSelect.visibility = View.VISIBLE
-        }
     }
 
     override fun onDestroy() {

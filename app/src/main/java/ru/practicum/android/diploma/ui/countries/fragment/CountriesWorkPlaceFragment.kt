@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.ui.countries.adapter.CountriesAdapter
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesState
 import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
-import ru.practicum.android.diploma.util.KEY_COUNTRY
+import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 
 class CountriesWorkPlaceFragment : Fragment() {
 
@@ -53,7 +53,7 @@ class CountriesWorkPlaceFragment : Fragment() {
     }
 
     private fun selectCountry(country: Country) {
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(KEY_COUNTRY, country)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_BACKSTACK_KEY, country)
         findNavController().popBackStack()
     }
 
