@@ -31,6 +31,16 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvFilterMainText.text = getString(R.string.setting_of_filter)
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Industry>(INDUSTRIES_KEY)?.observe(
+            viewLifecycleOwner
+        ) { industry ->
+            if (industry != null) {
+                binding.etIndustry.setText(industry.name)
+                binding.tvApply.isVisible = true
+                binding.tvRemove.isVisible = true
+            }
+        }
+
         binding.etPlaceOfWork.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
         }
@@ -51,17 +61,6 @@ class FilterFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        val industry = findNavController().currentBackStackEntry?.savedStateHandle?.get<Industry>(INDUSTRIES_KEY)
-        if (industry != null) {
-            binding.etIndustry.setText(industry.name)
-            binding.tvApply.isVisible = true
-            binding.tvRemove.isVisible = true
-        }
     }
 
     override fun onDestroy() {
