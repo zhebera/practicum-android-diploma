@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.filter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,16 +50,20 @@ class FilterFragment : Fragment() {
         setButtonsListeners()
         setTextChangedListeners()
 
-        viewModel.filterState.observe(viewLifecycleOwner) {filterModel ->
+        viewModel.filterState.observe(viewLifecycleOwner) { filterModel ->
             var placeOfWork = ""
 
             filterModel?.countryName?.let { placeOfWork += it }
             filterModel?.regionName?.let { placeOfWork += ", $it" }
-            binding.etPlaceOfWork.setText(placeOfWork)
-            filterModel?.industryName?.let { binding.etIndustry.setText(it) }
-            filterModel?.salary?.let { binding.textInputEditText.setText(it) }
-            filterModel?.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+
+            if (filterModel != null) {
+                binding.etPlaceOfWork.setText(placeOfWork)
+                filterModel.industryName?.let { binding.etIndustry.setText(it) }
+                filterModel.salary?.let { binding.textInputEditText.setText(it) }
+                filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+            }
         }
+
     }
 
     private fun setTextChangedListeners() {
@@ -171,17 +176,41 @@ class FilterFragment : Fragment() {
     private fun setButtonsListeners() {
         binding.placeOfWork.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+            setVisibilityApplyButton()
         }
 
         binding.industry.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
+            setVisibilityApplyButton()
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
+            setVisibilityApplyButton()
+        }
+
+        binding.textInputEditText.setOnClickListener {
+            setVisibilityApplyButton()
         }
 
         binding.ivFilterBackButton.setOnClickListener {
             findNavController().popBackStack()
+            setVisibilityApplyButton()
+        }
+
+
+        binding.tvRemove.setOnClickListener {
+            viewModel.clearFilter()
+            setVisibilityApplyButton()
+        }
+
+        binding.tvApply.setOnClickListener {
+            viewModel.saveFilter(
+                country,
+                region,
+                industry,
+                binding.textInputEditText.text.toString(),
+                binding.cbFilter.isChecked
+            )
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
