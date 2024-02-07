@@ -3,12 +3,11 @@ package ru.practicum.android.diploma.ui.filter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
@@ -18,7 +17,6 @@ import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
-import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
@@ -46,24 +44,37 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBackStackListeners()
         setButtonsListeners()
         setTextChangedListeners()
+        loadSharedPrefsFilter()
+        setBackStackListeners()
+    }
 
-        viewModel.filterState.observe(viewLifecycleOwner) { filterModel ->
-            var placeOfWork = ""
+    private fun loadSharedPrefsFilter() {
+        val filterModel = viewModel.getFilter()
+        var placeOfWork = ""
 
-            filterModel?.countryName?.let { placeOfWork += it }
-            filterModel?.regionName?.let { placeOfWork += ", $it" }
-
-            if (filterModel != null) {
-                binding.etPlaceOfWork.setText(placeOfWork)
-                filterModel.industryName?.let { binding.etIndustry.setText(it) }
-                filterModel.salary?.let { binding.textInputEditText.setText(it) }
-                filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+        if (filterModel != null) {
+            filterModel.country?.let {
+                placeOfWork += it.name
+                country = it
             }
-        }
 
+            filterModel.region?.let {
+                placeOfWork += ", ${it.name}"
+                region = it
+            }
+
+            binding.etPlaceOfWork.setText(placeOfWork)
+
+            filterModel.industry?.let {
+                binding.etIndustry.setText(it.name)
+                industry = it
+            }
+
+            filterModel.salary?.let { binding.textInputEditText.setText(it) }
+            filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+        }
     }
 
     private fun setTextChangedListeners() {
@@ -89,6 +100,8 @@ class FilterFragment : Fragment() {
                                 INDUSTRY_BACKSTACK_KEY,
                                 industry
                             )
+
+                            setVisibilityApplyButton()
                         }
                     }
                 }
@@ -116,12 +129,14 @@ class FilterFragment : Fragment() {
                             region = null
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 COUNTRY_BACKSTACK_KEY,
-                                country
+                                null
                             )
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 REGION_BACKSTACK_KEY,
-                                region
+                                null
                             )
+
+                            setVisibilityApplyButton()
                         }
                     }
                 }
@@ -130,6 +145,8 @@ class FilterFragment : Fragment() {
 
         binding.etIndustry.addTextChangedListener(industryTextWatcher)
         binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
+
+        binding.textInputEditText.doAfterTextChanged{ setVisibilityApplyButton() }
     }
 
     private fun setBackStackListeners() {
@@ -141,8 +158,7 @@ class FilterFragment : Fragment() {
                     industry = backStackIndustry
 
                     binding.etIndustry.setText(industry?.name)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
+                    setVisibilityApplyButton()
                 }
             }
 
@@ -153,8 +169,7 @@ class FilterFragment : Fragment() {
                     country = backStackCountry
 
                     binding.etPlaceOfWork.setText(country?.name)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
+                    setVisibilityApplyButton()
                 }
             }
 
@@ -166,8 +181,7 @@ class FilterFragment : Fragment() {
 
                     val fullWorkPlace = "${country?.name}, ${region?.name}"
                     binding.etPlaceOfWork.setText(fullWorkPlace)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
+                    setVisibilityApplyButton()
                 }
             }
         }
@@ -176,31 +190,49 @@ class FilterFragment : Fragment() {
     private fun setButtonsListeners() {
         binding.placeOfWork.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
-            setVisibilityApplyButton()
         }
 
         binding.industry.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
-            setVisibilityApplyButton()
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
             setVisibilityApplyButton()
         }
 
-        binding.textInputEditText.setOnClickListener {
+        binding.textInputLayout.setOnClickListener {
             setVisibilityApplyButton()
         }
 
         binding.ivFilterBackButton.setOnClickListener {
             findNavController().popBackStack()
-            setVisibilityApplyButton()
         }
 
 
         binding.tvRemove.setOnClickListener {
             viewModel.clearFilter()
-            setVisibilityApplyButton()
+
+            country = null
+            region = null
+            industry = null
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                COUNTRY_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                REGION_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                INDUSTRY_BACKSTACK_KEY,
+                null
+            )
+
+            binding.etIndustry.setText("")
+            binding.etPlaceOfWork.setText("")
+            binding.textInputEditText.setText("")
+            binding.cbFilter.isChecked = false
         }
 
         binding.tvApply.setOnClickListener {
@@ -211,6 +243,8 @@ class FilterFragment : Fragment() {
                 binding.textInputEditText.text.toString(),
                 binding.cbFilter.isChecked
             )
+
+            findNavController().popBackStack()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
@@ -221,21 +255,8 @@ class FilterFragment : Fragment() {
     }
 
     private fun setVisibilityApplyButton() {
-        if (binding.etPlaceOfWork.text.toString().isNotEmpty() ||
-            binding.etIndustry.text.toString().isNotEmpty() ||
-            binding.cbFilter.isChecked ||
-            binding.textInputEditText.text.toString().isNotEmpty()
-        ) {
-            binding.apply {
-                tvApply.visibility = View.VISIBLE
-                tvRemove.visibility = View.VISIBLE
-            }
-        } else {
-            binding.apply {
-                tvApply.visibility = View.GONE
-                tvRemove.visibility = View.GONE
-            }
-        }
+        binding.tvApply.visibility = View.VISIBLE
+        binding.tvRemove.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

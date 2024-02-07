@@ -39,12 +39,9 @@ class SharedPreferencesRepositoryImpl(
         onlyWithSalary: Boolean?
     ) {
         val filter = FilterModel(
-            countryName = country?.name,
-            countryId = country?.id,
-            regionName = region?.name,
-            regionId = region?.id,
-            industryName = industry?.name,
-            industryId = industry?.id,
+            country = country,
+            region = region,
+            industry = industry,
             salary = salary,
             onlyWithSalary = onlyWithSalary
         )
@@ -60,9 +57,9 @@ class SharedPreferencesRepositoryImpl(
         val filter = getFilterFromSharedPreferences()
 
         with(filter) {
-            return !(countryName == null &&
-                regionName == null &&
-                industryName == null &&
+            return !(country == null &&
+                region == null &&
+                industry == null &&
                 salary == null &&
                 onlyWithSalary == null)
         }

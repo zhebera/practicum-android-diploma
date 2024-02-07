@@ -59,8 +59,8 @@ class SearchViewModel(
         val hashMap = HashMap<String, String>()
         hashMap[SEARCH_MAP_KEY_TEXT] = changedText
         if (filter != null) {
-            if (!filter.industryId.isNullOrEmpty()) {
-                hashMap[SEARCH_MAP_KEY_INDUSTRY] = filter.industryId
+            if (!filter.industry?.id.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_INDUSTRY] = filter.industry?.id.toString()
             }
             if (filter.onlyWithSalary != null) {
                 hashMap[SEARCH_MAP_KEY_WITH_SALARY] = filter.onlyWithSalary.toString()
@@ -68,8 +68,8 @@ class SearchViewModel(
             if (!filter.salary.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_SALARY] = filter.salary
             }
-            if (!filter.regionId.isNullOrEmpty()) {
-                hashMap[SEARCH_MAP_KEY_AREA] = filter.regionId
+            if (!filter.region?.id.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_AREA] = filter.region?.id.toString()
             }
         }
         return hashMap
