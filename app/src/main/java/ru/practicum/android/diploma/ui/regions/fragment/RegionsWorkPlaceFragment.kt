@@ -64,7 +64,9 @@ class RegionsWorkPlaceFragment : Fragment() {
         textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                setFilteredRegions(s)
+            }
 
             override fun afterTextChanged(s: Editable?) {
                 with(binding.searchTextInputLayout) {
@@ -85,6 +87,15 @@ class RegionsWorkPlaceFragment : Fragment() {
     private fun selectRegion(region: Region) {
         findNavController().previousBackStackEntry?.savedStateHandle?.set(REGION_BACKSTACK_KEY, region)
         findNavController().popBackStack()
+    }
+
+    private fun setFilteredRegions(s: CharSequence?) {
+        if (!s.isNullOrEmpty()) {
+            viewModel.getRegionsList()
+                ?.let { adapter.setData(it.filter { it.name?.lowercase()?.contains(s) ?: false }) }
+        } else {
+            viewModel.getRegionsList()?.let { adapter.setData(it) }
+        }
     }
 
     private fun renderState(state: RegionsState) {

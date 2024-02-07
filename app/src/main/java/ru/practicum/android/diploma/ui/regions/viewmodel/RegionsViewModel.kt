@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.regions.RegionsInteractor
+import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 
 class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewModel() {
 
     private val _state = MutableLiveData<RegionsState>()
     val state: LiveData<RegionsState> = _state
+    private var regions: List<Region>? = null
 
     fun getRegions(areaId: String?) {
         _state.postValue(RegionsState.Loading)
@@ -26,8 +28,11 @@ class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewM
     private fun processResult(data: List<Region>?, message: String?) {
         if (data != null) {
             _state.postValue(RegionsState.Content(data))
+            regions = data
         } else {
             _state.postValue(RegionsState.Error(message.toString()))
         }
     }
+
+    fun getRegionsList() = regions
 }
