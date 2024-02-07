@@ -22,7 +22,7 @@ import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.ui.industry.adapter.IndustriesAdapter
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustriesState
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustryViewModel
-import ru.practicum.android.diploma.util.INDUSTRIES_KEY
+import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
 
 class FilterIndustryFragment : Fragment() {
 
@@ -72,7 +72,7 @@ class FilterIndustryFragment : Fragment() {
             if (binding.tvSetIndustry.isVisible) {
                 val industry = viewModel.getIndustriesList()?.filter { it.isChecked }?.first()
                 findNavController().previousBackStackEntry?.savedStateHandle
-                    ?.set(INDUSTRIES_KEY, industry)
+                    ?.set(INDUSTRY_BACKSTACK_KEY, industry)
                 findNavController().popBackStack()
             }
         }
