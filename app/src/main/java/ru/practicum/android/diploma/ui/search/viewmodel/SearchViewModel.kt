@@ -68,7 +68,6 @@ class SearchViewModel(
             if (!filter.salary.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_SALARY] = filter.salary
             }
-
             if (!filter.regionId.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_AREA] = filter.regionId
             }
