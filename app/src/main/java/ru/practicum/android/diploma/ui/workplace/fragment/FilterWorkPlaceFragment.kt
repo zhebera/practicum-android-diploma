@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterPlaceOfWorkBinding
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Region
+import ru.practicum.android.diploma.ui.regions.fragment.RegionsWorkPlaceFragment
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
 
@@ -49,7 +50,10 @@ class FilterWorkPlaceFragment : Fragment() {
         }
 
         binding.etRegion.setOnClickListener {
-            findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
+            findNavController().navigate(
+                R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
+                RegionsWorkPlaceFragment.createArgs(countryModel?.id!!)
+            )
         }
 
         binding.etCountry.setOnClickListener {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,9 +45,9 @@ class RegionsWorkPlaceFragment : Fragment() {
         binding.rwResult.layoutManager = LinearLayoutManager(requireContext())
         binding.rwResult.adapter = adapter
 
-        val areaId = "113"
+        val area = requireArguments().getSerializable(COUNTRY_ARG) as String
 
-        viewModel.getRegions(areaId)
+        viewModel.getRegions(area)
         viewModel.state.observe(viewLifecycleOwner, ::renderState)
 
         binding.btnBack.setOnClickListener {
@@ -131,5 +132,10 @@ class RegionsWorkPlaceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val COUNTRY_ARG = "country"
+        fun createArgs(vacancyId: String): Bundle = bundleOf(COUNTRY_ARG to vacancyId)
     }
 }
