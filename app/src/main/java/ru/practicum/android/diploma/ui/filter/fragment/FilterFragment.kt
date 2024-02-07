@@ -65,7 +65,10 @@ class FilterFragment : Fragment() {
                         setEndIconOnClickListener {
                             s.clear()
                             industry = null
-                            findNavController().currentBackStackEntry?.savedStateHandle?.set(INDUSTRY_BACKSTACK_KEY, industry)
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                INDUSTRY_BACKSTACK_KEY,
+                                industry
+                            )
                         }
                     }
                 }
@@ -91,8 +94,14 @@ class FilterFragment : Fragment() {
                             s.clear()
                             country = null
                             region = null
-                            findNavController().currentBackStackEntry?.savedStateHandle?.set(COUNTRY_BACKSTACK_KEY, country)
-                            findNavController().currentBackStackEntry?.savedStateHandle?.set(REGION_BACKSTACK_KEY, region)
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                COUNTRY_BACKSTACK_KEY,
+                                country
+                            )
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                REGION_BACKSTACK_KEY,
+                                region
+                            )
                         }
                     }
                 }
@@ -102,8 +111,6 @@ class FilterFragment : Fragment() {
         binding.etIndustry.addTextChangedListener(industryTextWatcher)
         binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
     }
-
-
 
     private fun setBackStackListeners() {
         with(findNavController().currentBackStackEntry?.savedStateHandle) {
