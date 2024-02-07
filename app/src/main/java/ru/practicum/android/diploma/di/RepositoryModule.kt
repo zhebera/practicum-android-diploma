@@ -32,7 +32,7 @@ val repositoryModule = module {
 
     factory { IndustriesConverter }
 
-    factory { CountriesConverter }
+    factory { CountriesConverter() }
 
     single<SearchRepository> {
         SearchRepositoryImpl(

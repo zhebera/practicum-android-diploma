@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.workplace.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,14 @@ class FilterWorkPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val country = findNavController().currentBackStackEntry?.savedStateHandle?.get<Country>("key")
+        with(findNavController().currentBackStackEntry?.savedStateHandle) {
+            this?.getLiveData<Country>(KEY_COUNTRY)?.observe(viewLifecycleOwner) { country ->
+                if (country != null) {
+                    binding.etCountry.setText(country.name)
+                    binding.tvSelect.visibility = View.VISIBLE
+                }
+            }
+        }
 
         binding.etRegion.setOnClickListener {
             findNavController().navigate(R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment)
@@ -53,7 +59,6 @@ class FilterWorkPlaceFragment : Fragment() {
 
         val country = findNavController().currentBackStackEntry?.savedStateHandle?.get<Country>(KEY_COUNTRY)
         if (country != null) {
-            Log.d("D", country.name)
             binding.etCountry.setText(country.name)
             binding.tvSelect.visibility = View.VISIBLE
         }
