@@ -32,19 +32,22 @@ class SharedPreferencesRepositoryImpl(
     }
 
     override fun saveFilter(
-        country: Country?,
-        region: Region?,
-        industry: Industry?,
+        countryName: String?,
+        countryId: String?,
+        regionName: String?,
+        regionId: String?,
+        industryName: String?,
+        industryId: String?,
         salary: String?,
         onlyWithSalary: Boolean?
     ) {
         val filter = FilterModel(
-            countryName = country?.name,
-            countryId = country?.id,
-            regionName = region?.name,
-            regionId = region?.id,
-            industryName = industry?.name,
-            industryId = industry?.id,
+            countryName = countryName,
+            countryId = countryId,
+            regionName = regionName,
+            regionId = regionId,
+            industryName = industryName,
+            industryId = industryId,
             salary = salary,
             onlyWithSalary = onlyWithSalary
         )

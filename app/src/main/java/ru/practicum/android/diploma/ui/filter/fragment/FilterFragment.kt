@@ -205,11 +205,14 @@ class FilterFragment : Fragment() {
 
         binding.tvApply.setOnClickListener {
             viewModel.saveFilter(
-                country,
-                region,
-                industry,
-                binding.textInputEditText.text.toString(),
-                binding.cbFilter.isChecked
+                countryName = country?.name,
+                countryId = country?.id,
+                regionName = region?.name,
+                regionId = region?.id,
+                industryName = industry?.name,
+                industryId = industry?.id,
+                salary = binding.textInputEditText.text.toString(),
+                onlyWithSalary = binding.cbFilter.isChecked
             )
         }
 

@@ -16,13 +16,23 @@ class SharedPreferencesInteractorImpl(
     }
 
     override fun saveFilter(
-        country: Country?,
-        region: Region?,
-        industry: Industry?,
+        countryName: String?,
+        countryId: String?,
+        regionName: String?,
+        regionId: String?,
+        industryName: String?,
+        industryId: String?,
         salary: String?,
         onlyWithSalary: Boolean?
     ) {
-        repository.saveFilter(country, region, industry, salary, onlyWithSalary)
+        repository.saveFilter(countryName,
+            countryId,
+            regionName,
+            regionId,
+            industryName,
+            industryId,
+            salary,
+            onlyWithSalary)
     }
 
     override fun clearFilter() {

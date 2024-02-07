@@ -7,6 +7,13 @@ import ru.practicum.android.diploma.domain.models.Region
 
 interface SharedPreferencesInteractor {
     fun getFilter(): FilterModel?
-    fun saveFilter(country: Country?, region: Region?, industry: Industry?, salary: String?, onlyWithSalary: Boolean?)
+    fun saveFilter(countryName: String?,
+                   countryId: String?,
+                   regionName: String?,
+                   regionId: String?,
+                   industryName: String?,
+                   industryId: String?,
+                   salary: String?,
+                   onlyWithSalary: Boolean?)
     fun clearFilter()
 }
