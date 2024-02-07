@@ -2,7 +2,10 @@ package ru.practicum.android.diploma.domain.impl.sharedpreferences
 
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesRepository
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.FilterModel
+import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.domain.models.Region
 
 class SharedPreferencesInteractorImpl(
     private val repository: SharedPreferencesRepository
@@ -12,36 +15,14 @@ class SharedPreferencesInteractorImpl(
         return repository.getFilter()
     }
 
-    override fun setCountry(name: String, id: String) {
-        repository.setCountry(name, id)
-    }
-
-    override fun removeCountry() {
-        repository.removeCountry()
-    }
-
-    override fun setRegion(name: String, id: String) {
-        repository.setRegion(name, id)
-    }
-
-    override fun removeRegion() {
-        repository.removeRegion()
-    }
-
-    override fun setIndustry(name: String, id: String) {
-        repository.setIndustry(name, id)
-    }
-
-    override fun removeIndustry() {
-        repository.removeIndustry()
-    }
-
-    override fun setSalary(input: String) {
-        repository.setSalary(input)
-    }
-
-    override fun setSalaryCheckbox(input: Boolean) {
-        repository.setSalaryCheckbox(input)
+    override fun saveFilter(
+        country: Country?,
+        region: Region?,
+        industry: Industry?,
+        salary: String?,
+        onlyWithSalary: Boolean?
+    ) {
+        repository.saveFilter(country, region, industry, salary, onlyWithSalary)
     }
 
     override fun clearFilter() {

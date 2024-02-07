@@ -3,7 +3,10 @@ package ru.practicum.android.diploma.data.sharedpreferences
 import android.content.Context
 import com.google.gson.Gson
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesRepository
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.FilterModel
+import ru.practicum.android.diploma.domain.models.Industry
+import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.util.CAREER_KEY_APP_PREFERENCES
 import ru.practicum.android.diploma.util.FILTER_OBJECT_KEY
 
@@ -28,60 +31,25 @@ class SharedPreferencesRepositoryImpl(
         }
     }
 
-    override fun setCountry(name: String, id: String) {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(countryName = name, countryId = id)
+    override fun saveFilter(
+        country: Country?,
+        region: Region?,
+        industry: Industry?,
+        salary: String?,
+        onlyWithSalary: Boolean?
+    ) {
+        val filter = FilterModel(
+            countryName = country?.name,
+            countryId = country?.id,
+            regionName = region?.name,
+            regionId = region?.id,
+            industryName = industry?.name,
+            industryId = industry?.id,
+            salary = salary,
+            onlyWithSalary = onlyWithSalary
+        )
 
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun removeCountry() {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(countryName = null, countryId = null)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun setRegion(name: String, id: String) {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(regionName = name, regionId = id)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun removeRegion() {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(regionName = null, regionId = null)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun setIndustry(name: String, id: String) {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(industryName = name, industryId = id)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun removeIndustry() {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(industryName = null, industryId = null)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun setSalary(input: String) {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(salary = input)
-
-        saveFilterToSharedPreferences(updatedFilter)
-    }
-
-    override fun setSalaryCheckbox(input: Boolean) {
-        val filter = getFilterFromSharedPreferences()
-        val updatedFilter = filter.copy(onlyWithSalary = input)
-
-        saveFilterToSharedPreferences(updatedFilter)
+        saveFilterToSharedPreferences(filter)
     }
 
     override fun clearFilter() {
