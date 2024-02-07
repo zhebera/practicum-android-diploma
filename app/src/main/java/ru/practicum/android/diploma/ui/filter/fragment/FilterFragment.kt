@@ -49,15 +49,14 @@ class FilterFragment : Fragment() {
         setButtonsListeners()
         setTextChangedListeners()
 
-        viewModel.filterState.observe(viewLifecycleOwner) {
-            binding.etPlaceOfWork.setText(it?.countryName)
-            binding.etIndustry.setText(it?.industryName)
-            val placeOfWork = "${country?.name}, ${region?.name}"
-            if (it?.regionName != null) {
-                binding.etPlaceOfWork.setText(placeOfWork)
-            }
-            binding.textInputEditText.setText(it?.salary)
-            binding.cbFilter.isChecked = it?.onlyWithSalary == true
+        viewModel.filterState.observe(viewLifecycleOwner) {filterModel ->
+            var placeOfWork = ""
+
+            filterModel?.countryName?.let { placeOfWork += it }
+            filterModel?.regionName?.let { placeOfWork += ", $it" }
+            filterModel?.industryName?.let { binding.etIndustry.setText(it) }
+            filterModel?.salary?.let { binding.textInputEditText.setText(it) }
+            filterModel?.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
         }
     }
 
