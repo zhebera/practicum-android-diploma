@@ -7,7 +7,7 @@ sealed interface FilterIndustriesState {
     object Loading : FilterIndustriesState
 
     data class Content(
-        val data: List<Industry>?
+        val data: List<Industry>
     ) : FilterIndustriesState
 
     data class Error(
