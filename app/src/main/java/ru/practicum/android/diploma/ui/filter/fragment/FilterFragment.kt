@@ -11,11 +11,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
+import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
+import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
@@ -28,6 +31,7 @@ class FilterFragment : Fragment() {
     private var country: Country? = null
     private var region: Region? = null
     private var industry: Industry? = null
+    private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +48,17 @@ class FilterFragment : Fragment() {
         setBackStackListeners()
         setButtonsListeners()
         setTextChangedListeners()
+
+        viewModel.filterState.observe(viewLifecycleOwner) {
+            binding.etPlaceOfWork.setText(it?.countryName)
+            binding.etIndustry.setText(it?.industryName)
+            val placeOfWork = "${country?.name}, ${region?.name}"
+            if (it?.regionName != null) {
+                binding.etPlaceOfWork.setText(placeOfWork)
+            }
+            binding.textInputEditText.setText(it?.salary)
+            binding.cbFilter.isChecked = it?.onlyWithSalary == true
+        }
     }
 
     private fun setTextChangedListeners() {
@@ -174,6 +189,24 @@ class FilterFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+    }
+
+    private fun setVisibilityApplyButton() {
+        if (binding.etPlaceOfWork.text.toString().isNotEmpty() ||
+            binding.etIndustry.text.toString().isNotEmpty() ||
+            binding.cbFilter.isChecked ||
+            binding.textInputEditText.text.toString().isNotEmpty()
+        ) {
+            binding.apply {
+                tvApply.visibility = View.VISIBLE
+                tvRemove.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                tvApply.visibility = View.GONE
+                tvRemove.visibility = View.GONE
+            }
+        }
     }
 
     override fun onDestroy() {
