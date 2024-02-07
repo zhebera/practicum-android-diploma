@@ -53,7 +53,7 @@ class FilterWorkPlaceFragment : Fragment() {
             findNavController().navigate(
                 R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
                 RegionsWorkPlaceFragment.createArgs(countryModel?.id!!)
-                )
+            )
         }
 
         binding.etCountry.setOnClickListener {
