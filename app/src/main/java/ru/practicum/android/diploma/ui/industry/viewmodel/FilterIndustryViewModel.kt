@@ -12,7 +12,10 @@ class FilterIndustryViewModel(private val industriesInteractor: IndustriesIntera
 
     private val _industriesState = MutableLiveData<FilterIndustriesState>()
     val industriesState: LiveData<FilterIndustriesState> = _industriesState
-    private var industries: List<Industry>? = null
+    private var industries: MutableList<Industry>? = null
+
+    private val _checkedIndustries = MutableLiveData<List<Boolean>>()
+    val checkedIndustries: LiveData<List<Boolean>> = _checkedIndustries
 
     fun getIndustries() {
         _industriesState.postValue(FilterIndustriesState.Loading)
@@ -30,8 +33,14 @@ class FilterIndustryViewModel(private val industriesInteractor: IndustriesIntera
             _industriesState.postValue(FilterIndustriesState.Error(message = message ?: "Неизвестная ошибка"))
         } else {
             _industriesState.postValue(FilterIndustriesState.Content(data))
-            industries = data
+            industries = data.toMutableList()
         }
+    }
+
+    fun changeChecks(industry: Industry) {
+        val index = industries!!.indexOf(industry.copy(isChecked = !industry.isChecked))
+        industries!!.set(index, industry)
+        _checkedIndustries.postValue(industries!!.map { it.isChecked })
     }
 
     fun getIndustriesList() = industries

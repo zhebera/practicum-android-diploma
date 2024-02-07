@@ -30,20 +30,18 @@ class FilterIndustryFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel by viewModel<FilterIndustryViewModel>()
+    private var editText: CharSequence? = null
     private val adapter = IndustriesAdapter { industry ->
         setCheckedData(industry)
     }
 
     private fun setCheckedData(industry: Industry) {
-        if (industry.isChecked) {
-            adapter.setData(listOf(industry))
-        } else {
-            viewModel.getIndustriesList()?.let { adapter.setData(it) }
-        }
+        viewModel.changeChecks(industry)
+        setFilteredIndustries(editText)
     }
 
     private var textWatcher: TextWatcher? = null
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFilterIndustryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,7 +52,11 @@ class FilterIndustryFragment : Fragment() {
         binding.rvIndustries.layoutManager = LinearLayoutManager(requireContext())
         binding.rvIndustries.adapter = adapter
 
-        viewModel.industriesState.observe(viewLifecycleOwner, ::renderState)
+        with(viewModel) {
+            industriesState.observe(viewLifecycleOwner, ::renderState)
+            checkedIndustries.observe(viewLifecycleOwner, ::renderButton)
+        }
+
 
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
@@ -70,13 +72,8 @@ class FilterIndustryFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty()) {
-                    viewModel.getIndustriesList()
-                        ?.let { adapter.setData(it.filter { it.name?.lowercase()?.contains(s) ?: false }) }
-                } else {
-                    viewModel.getIndustriesList()?.let { adapter.setData(it) }
-                }
-
+                editText = s
+                setFilteredIndustries(s)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -103,6 +100,10 @@ class FilterIndustryFragment : Fragment() {
                 false
             }
         }
+    }
+
+    private fun renderButton(checks: List<Boolean>) {
+        binding.tvSetIndustry.isVisible = checks.contains(true)
     }
 
     private fun renderState(state: FilterIndustriesState) {
@@ -137,6 +138,15 @@ class FilterIndustryFragment : Fragment() {
         binding.llPlaceholderIndustry.isVisible = false
         binding.tvSetIndustry.isVisible = false
         binding.pbLoading.isVisible = true
+    }
+
+    private fun setFilteredIndustries(s: CharSequence?) {
+        if (!s.isNullOrEmpty()) {
+            viewModel.getIndustriesList()
+                ?.let { adapter.setData(it.filter { it.name?.lowercase()?.contains(s) ?: false }) }
+        } else {
+            viewModel.getIndustriesList()?.let { adapter.setData(it) }
+        }
     }
 
     private fun closeKeyboard() {
