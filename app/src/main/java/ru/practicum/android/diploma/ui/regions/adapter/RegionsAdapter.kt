@@ -1,9 +1,8 @@
-package ru.practicum.android.diploma.ui.countries.adapter
+package ru.practicum.android.diploma.ui.regions.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.domain.models.Region
-import ru.practicum.android.diploma.ui.regions.adapter.RegionsViewHolder
 
 class RegionsAdapter(
     private val clickListener: RegionClickListener
