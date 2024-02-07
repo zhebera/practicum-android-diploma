@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.ui.filter.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
@@ -40,6 +43,73 @@ class FilterFragment : Fragment() {
 
         setBackStackListeners()
         setButtonsListeners()
+        setTextChangedListeners()
+    }
+
+    private fun setTextChangedListeners() {
+        val industryTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+
+            override fun afterTextChanged(s: Editable?) {
+                with(binding.industry) {
+                    if (s.isNullOrBlank()) {
+                        setEndIconDrawable(R.drawable.arrow_forward)
+                        setEndIconOnClickListener {
+                            findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
+                        }
+                    } else {
+                        endIconMode = TextInputLayout.END_ICON_CUSTOM
+                        setEndIconDrawable(R.drawable.close)
+
+                        setEndIconOnClickListener {
+                            s.clear()
+                            industry = null
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                INDUSTRY_BACKSTACK_KEY,
+                                industry
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        val workPlaceTextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+
+            override fun afterTextChanged(s: Editable?) {
+                with(binding.placeOfWork) {
+                    if (s.isNullOrBlank()) {
+                        setEndIconDrawable(R.drawable.arrow_forward)
+                        setEndIconOnClickListener {
+                            findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+                        }
+                    } else {
+                        endIconMode = TextInputLayout.END_ICON_CUSTOM
+                        setEndIconDrawable(R.drawable.close)
+
+                        setEndIconOnClickListener {
+                            s.clear()
+                            country = null
+                            region = null
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                COUNTRY_BACKSTACK_KEY,
+                                country
+                            )
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                REGION_BACKSTACK_KEY,
+                                region
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.etIndustry.addTextChangedListener(industryTextWatcher)
+        binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
     }
 
     private fun setBackStackListeners() {
@@ -84,11 +154,11 @@ class FilterFragment : Fragment() {
     }
 
     private fun setButtonsListeners() {
-        binding.etPlaceOfWork.setOnClickListener {
+        binding.placeOfWork.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
         }
 
-        binding.etIndustry.setOnClickListener {
+        binding.industry.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
         }
 
