@@ -12,7 +12,7 @@ class FilterIndustryViewModel(private val industriesInteractor: IndustriesIntera
 
     private val _industriesState = MutableLiveData<FilterIndustriesState>()
     val industriesState: LiveData<FilterIndustriesState> = _industriesState
-    private var industry: List<Industry>? = null
+    private var industries: List<Industry>? = null
 
     fun getIndustries() {
         _industriesState.postValue(FilterIndustriesState.Loading)
@@ -26,11 +26,13 @@ class FilterIndustryViewModel(private val industriesInteractor: IndustriesIntera
     }
 
     private fun processResult(data: List<Industry>?, message: String?) {
-        if (data == null) {
+        if (data.isNullOrEmpty()) {
             _industriesState.postValue(FilterIndustriesState.Error(message = message ?: "Неизвестная ошибка"))
         } else {
             _industriesState.postValue(FilterIndustriesState.Content(data))
-            industry = data
+            industries = data
         }
     }
+
+    fun getIndustriesList() = industries
 }

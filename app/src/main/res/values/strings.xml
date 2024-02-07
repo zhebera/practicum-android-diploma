@@ -79,5 +79,6 @@
     <string name="select">Выбрать</string>
     <string name="industry_tool_bar_header">Выбор отрасли</string>
     <string name="select_industry">Выберите отрасль</string>
+    <string name="industries_placeholder_message">Не удается получить список отраслей</string>
 
 </resources>
