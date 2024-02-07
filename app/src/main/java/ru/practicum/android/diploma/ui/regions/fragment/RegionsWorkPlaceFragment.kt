@@ -99,7 +99,7 @@ class RegionsWorkPlaceFragment : Fragment() {
     private fun renderState(state: RegionsState) {
         when (state) {
             is RegionsState.Loading -> showLoading()
-            is RegionsState.Error -> showError()
+            is RegionsState.Error -> showError(message = state.message)
             is RegionsState.Content -> showContent(state.data)
         }
     }
@@ -110,7 +110,7 @@ class RegionsWorkPlaceFragment : Fragment() {
         binding.pbLoading.isVisible = true
     }
 
-    private fun showError() {
+    private fun showError(message: String?) {
         binding.rwResult.isVisible = false
         binding.llPlaceholder.isVisible = true
         binding.pbLoading.isVisible = false
