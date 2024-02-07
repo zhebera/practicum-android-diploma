@@ -62,7 +62,7 @@ class FilterFragment : Fragment() {
                 if (backStackCountry != null) {
                     country = backStackCountry
 
-                    binding.etIndustry.setText(country?.name)
+                    binding.etPlaceOfWork.setText(country?.name)
                     binding.tvApply.isVisible = true
                     binding.tvRemove.isVisible = true
                 }
@@ -75,7 +75,7 @@ class FilterFragment : Fragment() {
                     region = backStackRegion
 
                     val fullWorkPlace = "${country?.name}, ${region?.name}"
-                    binding.etIndustry.setText(fullWorkPlace)
+                    binding.etPlaceOfWork.setText(fullWorkPlace)
                     binding.tvApply.isVisible = true
                     binding.tvRemove.isVisible = true
                 }
