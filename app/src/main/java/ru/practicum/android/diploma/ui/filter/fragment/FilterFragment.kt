@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.filter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
+import ru.practicum.android.diploma.ui.countries.viewmodel.CountriesViewModel
+import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
@@ -28,6 +32,7 @@ class FilterFragment : Fragment() {
     private var country: Country? = null
     private var region: Region? = null
     private var industry: Industry? = null
+    private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +49,21 @@ class FilterFragment : Fragment() {
         setBackStackListeners()
         setButtonsListeners()
         setTextChangedListeners()
+
+        viewModel.filterState.observe(viewLifecycleOwner) { filterModel ->
+            var placeOfWork = ""
+
+            filterModel?.countryName?.let { placeOfWork += it }
+            filterModel?.regionName?.let { placeOfWork += ", $it" }
+
+            if (filterModel != null) {
+                binding.etPlaceOfWork.setText(placeOfWork)
+                filterModel.industryName?.let { binding.etIndustry.setText(it) }
+                filterModel.salary?.let { binding.textInputEditText.setText(it) }
+                filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+            }
+        }
+
     }
 
     private fun setTextChangedListeners() {
@@ -156,17 +176,41 @@ class FilterFragment : Fragment() {
     private fun setButtonsListeners() {
         binding.placeOfWork.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+            setVisibilityApplyButton()
         }
 
         binding.industry.setEndIconOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
+            setVisibilityApplyButton()
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
+            setVisibilityApplyButton()
+        }
+
+        binding.textInputEditText.setOnClickListener {
+            setVisibilityApplyButton()
         }
 
         binding.ivFilterBackButton.setOnClickListener {
             findNavController().popBackStack()
+            setVisibilityApplyButton()
+        }
+
+
+        binding.tvRemove.setOnClickListener {
+            viewModel.clearFilter()
+            setVisibilityApplyButton()
+        }
+
+        binding.tvApply.setOnClickListener {
+            viewModel.saveFilter(
+                country,
+                region,
+                industry,
+                binding.textInputEditText.text.toString(),
+                binding.cbFilter.isChecked
+            )
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
@@ -174,6 +218,24 @@ class FilterFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+    }
+
+    private fun setVisibilityApplyButton() {
+        if (binding.etPlaceOfWork.text.toString().isNotEmpty() ||
+            binding.etIndustry.text.toString().isNotEmpty() ||
+            binding.cbFilter.isChecked ||
+            binding.textInputEditText.text.toString().isNotEmpty()
+        ) {
+            binding.apply {
+                tvApply.visibility = View.VISIBLE
+                tvRemove.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                tvApply.visibility = View.GONE
+                tvRemove.visibility = View.GONE
+            }
+        }
     }
 
     override fun onDestroy() {
