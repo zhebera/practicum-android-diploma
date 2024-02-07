@@ -43,40 +43,42 @@ class FilterFragment : Fragment() {
     }
 
     private fun setBackStackListeners() {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Industry>(INDUSTRY_BACKSTACK_KEY)?.observe(
-            viewLifecycleOwner
-        ) { backStackIndustry ->
-            if (backStackIndustry != null) {
-                industry = backStackIndustry
+        with(findNavController().currentBackStackEntry?.savedStateHandle) {
+            this?.getLiveData<Industry>(INDUSTRY_BACKSTACK_KEY)?.observe(
+                viewLifecycleOwner
+            ) { backStackIndustry ->
+                if (backStackIndustry != null) {
+                    industry = backStackIndustry
 
-                binding.etIndustry.setText(industry?.name)
-                binding.tvApply.isVisible = true
-                binding.tvRemove.isVisible = true
+                    binding.etIndustry.setText(industry?.name)
+                    binding.tvApply.isVisible = true
+                    binding.tvRemove.isVisible = true
+                }
             }
-        }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(
-            viewLifecycleOwner
-        ) { backStackCountry ->
-            if (backStackCountry != null) {
-                country = backStackCountry
+            this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(
+                viewLifecycleOwner
+            ) { backStackCountry ->
+                if (backStackCountry != null) {
+                    country = backStackCountry
 
-                binding.etIndustry.setText(country?.name)
-                binding.tvApply.isVisible = true
-                binding.tvRemove.isVisible = true
+                    binding.etIndustry.setText(country?.name)
+                    binding.tvApply.isVisible = true
+                    binding.tvRemove.isVisible = true
+                }
             }
-        }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(
-            viewLifecycleOwner
-        ) { backStackRegion ->
-            if (backStackRegion != null) {
-                region = backStackRegion
+            this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(
+                viewLifecycleOwner
+            ) { backStackRegion ->
+                if (backStackRegion != null) {
+                    region = backStackRegion
 
-                val fullWorkPlace = "${country?.name}, ${region?.name}"
-                binding.etIndustry.setText(fullWorkPlace)
-                binding.tvApply.isVisible = true
-                binding.tvRemove.isVisible = true
+                    val fullWorkPlace = "${country?.name}, ${region?.name}"
+                    binding.etIndustry.setText(fullWorkPlace)
+                    binding.tvApply.isVisible = true
+                    binding.tvRemove.isVisible = true
+                }
             }
         }
     }
