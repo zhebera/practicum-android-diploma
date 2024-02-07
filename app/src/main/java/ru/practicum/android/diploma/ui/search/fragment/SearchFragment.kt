@@ -41,6 +41,7 @@ class SearchFragment : Fragment() {
     private var isClickAllowed = true
     private val searchViewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -181,5 +182,4 @@ class SearchFragment : Fragment() {
         val inputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
-
 }
