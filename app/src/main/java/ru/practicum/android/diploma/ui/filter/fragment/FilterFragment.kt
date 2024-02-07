@@ -54,6 +54,7 @@ class FilterFragment : Fragment() {
 
             filterModel?.countryName?.let { placeOfWork += it }
             filterModel?.regionName?.let { placeOfWork += ", $it" }
+            binding.etPlaceOfWork.setText(placeOfWork)
             filterModel?.industryName?.let { binding.etIndustry.setText(it) }
             filterModel?.salary?.let { binding.textInputEditText.setText(it) }
             filterModel?.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
