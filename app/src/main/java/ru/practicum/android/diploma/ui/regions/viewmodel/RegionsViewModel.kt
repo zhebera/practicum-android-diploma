@@ -10,14 +10,14 @@ import ru.practicum.android.diploma.domain.models.Region
 
 class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewModel() {
 
-    private val _regions = MutableLiveData<RegionsState>()
-    val regions: LiveData<RegionsState> = _regions
+    private val _state = MutableLiveData<RegionsState>()
+    val state: LiveData<RegionsState> = _state
 
-    fun getRegions() {
-        _regions.postValue(RegionsState.Loading)
+    fun getRegions(areaId: String?) {
+        _state.postValue(RegionsState.Loading)
 
         viewModelScope.launch {
-            regionsInteractor.getRegions().collect {
+            regionsInteractor.getRegions(areaId).collect {
                 processResult(it.first, it.second)
             }
         }
@@ -25,9 +25,9 @@ class RegionsViewModel(private val regionsInteractor: RegionsInteractor) : ViewM
 
     private fun processResult(data: List<Region>?, message: String?) {
         if (data != null) {
-            _regions.postValue(RegionsState.Content(data))
+            _state.postValue(RegionsState.Content(data))
         } else {
-            _regions.postValue(RegionsState.Error(message.toString()))
+            _state.postValue(RegionsState.Error(message.toString()))
         }
     }
 }
