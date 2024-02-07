@@ -28,36 +28,61 @@ class RegionsRepositoryImpl(
     }
 
     override fun getRegions(areaId: String?): Flow<Resource<List<Region>>> = flow {
-        val response = if (areaId == null) {
-            networkClient.doRequest(AllRegionsRequest())
-        } else {
-            networkClient.doRequest(CountryRegionsRequest(areaId))
-        }
 
-        when (response.resultCode) {
-            ResponseCode.NETWORK_FAILED -> {
-                emit(Resource.Error(message = badConnection))
-            }
+        if (areaId.isNullOrBlank()) {
+            val response = networkClient.doRequest(AllRegionsRequest())
 
-            ResponseCode.SUCCESS -> {
-                with(response as RegionResponse) {
-                    val data = regionsConverter.convertRegions(this)
-
-                    val mergedList = ArrayList(data)
-
-                    data.filter {
-                        it.parentId != null
-                    }
-
-                    data.forEach {
-                        mergedList.addAll(it.includedRegions)
-                    }
-
-                    emit(Resource.Success(mergedList))
+            when (response.resultCode) {
+                ResponseCode.NETWORK_FAILED -> {
+                    emit(Resource.Error(message = badConnection))
                 }
-            }
 
-            else -> emit(Resource.Error(message = serverError))
+                ResponseCode.SUCCESS -> {
+                    with(response as RegionResponse) {
+                        val countriesData = regionsConverter.convertRegions(this)
+                        val mergedList = ArrayList<Region>()
+
+                        val filteredData = countriesData.filter {
+                            it.id != "1001"
+                        }
+
+                        filteredData.forEach { country ->
+                            mergedList.addAll(country.includedRegions)
+
+                            country.includedRegions.forEach { region ->
+                                mergedList.addAll(region.includedRegions)
+                            }
+                        }
+
+                        emit(Resource.Success(mergedList))
+                    }
+                }
+
+                else -> emit(Resource.Error(message = serverError))
+            }
+        } else {
+            val response = networkClient.doRequest(CountryRegionsRequest(areaId))
+
+            when (response.resultCode) {
+                ResponseCode.NETWORK_FAILED -> {
+                    emit(Resource.Error(message = badConnection))
+                }
+
+                ResponseCode.SUCCESS -> {
+                    with(response as RegionResponse) {
+                        val regionsData = regionsConverter.convertRegions(this)
+                        val mergedList = ArrayList<Region>(regionsData)
+
+                        regionsData.forEach {
+                            mergedList.addAll(it.includedRegions)
+                        }
+
+                        emit(Resource.Success(mergedList))
+                    }
+                }
+
+                else -> emit(Resource.Error(message = serverError))
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ interface HeadHunterApi {
 
     @GET("/areas/{area_id}")
     suspend fun getCountryRegions(
-        @Query("text") countryId: String
+        @Path("area_id") countryId: String
     ): RegionResponse
 
     @GET("/industries")
