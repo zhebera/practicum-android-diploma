@@ -48,8 +48,8 @@ class SearchRepositoryImpl(
         }
     }
 
-    override fun searchVacancies(vacancy: String): Flow<Resource<Vacancies>> = flow {
-        val response = networkClient.doRequest(SearchRequest(vacancy))
+    override fun searchVacancies(options: HashMap<String, String>): Flow<Resource<Vacancies>> = flow {
+        val response = networkClient.doRequest(SearchRequest(options))
         when (response.resultCode) {
             ResponseCode.NETWORK_FAILED -> {
                 emit(Resource.Error(badConnection))
