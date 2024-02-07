@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.data.dto.IndustriesDto
 import ru.practicum.android.diploma.data.dto.VacancyDescriptionResponse
 import ru.practicum.android.diploma.data.response.CountryResponse
@@ -13,7 +14,7 @@ interface HeadHunterApi {
 
     @GET("/vacancies")
     suspend fun getVacancies(
-        @Query("text") vacancy: String
+        @QueryMap options: Map<String, String>
     ): VacanciesResponse
 
     @GET("/vacancies/{vacancy_id}")

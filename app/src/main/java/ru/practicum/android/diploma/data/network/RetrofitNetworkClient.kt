@@ -29,7 +29,7 @@ class RetrofitNetworkClient(
         return withContext(Dispatchers.IO) {
             try {
                 val response = when (dto) {
-                    is SearchRequest -> hhApi.getVacancies(vacancy = dto.vacancy)
+                    is SearchRequest -> hhApi.getVacancies(options = dto.options)
                     is VacancyDescriptionRequest -> hhApi.getVacancyDescription(vacancyId = dto.vacancyId)
                     is AllRegionsRequest -> RegionResponse(areas = hhApi.getAllRegions())
                     is CountryRegionsRequest -> hhApi.getCountryRegions(countryId = dto.countryId)
