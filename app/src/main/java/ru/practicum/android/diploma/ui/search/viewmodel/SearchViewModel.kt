@@ -8,12 +8,18 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.FilterModel
-import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Vacancies
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_AREA
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_INDUSTRY
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_SALARY
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_TEXT
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_WITH_SALARY
 import ru.practicum.android.diploma.util.debounce
 
-class SearchViewModel(private val searchInteractor: SearchInteractor,
-    private val sharedPreferencesInteractor: SharedPreferencesInteractor) : ViewModel() {
+class SearchViewModel(
+    private val searchInteractor: SearchInteractor,
+    private val sharedPreferencesInteractor: SharedPreferencesInteractor
+) : ViewModel() {
 
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
@@ -51,16 +57,21 @@ class SearchViewModel(private val searchInteractor: SearchInteractor,
 
     private fun getRequestWithFilter(changedText: String, filter: FilterModel?): HashMap<String, String> {
         val hashMap = HashMap<String, String>()
-        hashMap["text"] = changedText
-        if(filter != null){
-            if(!filter.industryId.isNullOrEmpty())
-                hashMap["industry"] = filter.industryId
-            if(filter.onlyWithSalary != null)
-                hashMap["only_with_salary"] = filter.onlyWithSalary.toString()
-            if(!filter.salary.isNullOrEmpty())
-                hashMap["salary"] = filter.salary
-            if(!filter.regionId.isNullOrEmpty())
-                hashMap["area"] = filter.regionId
+        hashMap[SEARCH_MAP_KEY_TEXT] = changedText
+        if (filter != null) {
+            if (!filter.industryId.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_INDUSTRY] = filter.industryId
+            }
+            if (filter.onlyWithSalary != null) {
+                hashMap[SEARCH_MAP_KEY_WITH_SALARY] = filter.onlyWithSalary.toString()
+            }
+            if (!filter.salary.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_SALARY] = filter.salary
+            }
+
+            if (!filter.regionId.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_AREA] = filter.regionId
+            }
         }
         return hashMap
     }
