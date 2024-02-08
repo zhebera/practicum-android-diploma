@@ -151,6 +151,8 @@ class VacancyDescriptionFragment : Fragment() {
         vacancyDescription.contacts?.let { setContactsBlock(it, viewModel) }
 
         binding.shareButton.setOnClickListener { viewModel.shareLink(vacancyDescription.url) }
+
+        viewModel.checkFavorite()
     }
 
     private fun setSalaryBlock(salaryResponse: Salary) {
