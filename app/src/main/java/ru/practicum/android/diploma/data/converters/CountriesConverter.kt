@@ -8,15 +8,16 @@ class CountriesConverter {
 
     fun map(countriesResponse: CountriesResponse): List<Country> {
         return countriesResponse.countries.map {
-            map(it)
+            convertCountry(it)
         }
     }
 
-    fun map(countryResponse: CountryResponse): Country {
+    private fun convertCountry(countryResponse: CountryResponse): Country {
         return Country(
-            countryResponse.id,
-            countryResponse.name,
-            countryResponse.url
+            includedRegions = countryResponse.areas.map { convertCountry(it) },
+            id = countryResponse.id?.let { countryResponse.id },
+            name = countryResponse.name?.let { countryResponse.name },
+            parentId = countryResponse.parentId?.let { countryResponse.parentId }
         )
     }
 }

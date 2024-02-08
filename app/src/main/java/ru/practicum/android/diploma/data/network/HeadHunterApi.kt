@@ -31,6 +31,6 @@ interface HeadHunterApi {
     @GET("/industries")
     suspend fun getIndustries(): ArrayList<IndustriesDto>
 
-    @GET("/areas/countries")
+    @GET("/areas")
     suspend fun getCountries(): List<CountryResponse>
 }
