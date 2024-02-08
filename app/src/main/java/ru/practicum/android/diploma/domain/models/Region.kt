@@ -8,5 +8,6 @@ data class Region(
     val includedRegions: List<Region>,
     val id: String?,
     val name: String?,
-    val parentId: String? = null
+    val parentId: String? = null,
+    var parentCountry: Country? = null
 ) : Parcelable

@@ -42,8 +42,10 @@ class FilterWorkPlaceFragment : Fragment() {
 
             this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
                 regionModel = region
+                countryModel = region.parentCountry
                 if (region != null) {
                     binding.etRegion.setText(region.name)
+                    binding.etCountry.setText(region.parentCountry?.name)
                     binding.tvSelect.visibility = View.VISIBLE
                 }
             }
