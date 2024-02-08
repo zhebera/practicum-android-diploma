@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.data.response
 
+import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.Response
 
 data class CountriesResponse(
@@ -7,7 +8,8 @@ data class CountriesResponse(
 ) : Response()
 
 data class CountryResponse(
-    val id: String,
-    val name: String,
-    val url: String
+    val areas: List<CountryResponse>,
+    val id: String? = null,
+    val name: String? = null,
+    @SerializedName("parent_id") val parentId: String? = null
 )
