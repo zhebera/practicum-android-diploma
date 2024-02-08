@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Vacancies
-import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_AREA
 import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_INDUSTRY
 import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_SALARY

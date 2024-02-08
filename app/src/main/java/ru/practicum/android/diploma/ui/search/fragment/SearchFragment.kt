@@ -173,10 +173,14 @@ class SearchFragment : Fragment() {
         binding.tvPlaceholders.text = message
         closeKeyboard()
         when (message) {
-            getString(R.string.no_internet) -> binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+            getString(R.string.no_internet) ->
+                binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+
             getString(R.string.placeholder_details_error_message) ->
                 binding.ivPlaceholders.setImageResource(R.drawable.placeholder_error_server)
-            getString(R.string.no_vacancy) -> binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
+
+            getString(R.string.no_vacancy) ->
+                binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
         }
     }
 
