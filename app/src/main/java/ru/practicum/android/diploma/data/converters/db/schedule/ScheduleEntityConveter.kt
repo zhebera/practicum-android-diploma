@@ -11,7 +11,9 @@ object ScheduleEntityConveter {
                 scheduleEntity.id,
                 scheduleEntity.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 
     fun map(schedule: Schedule?): ScheduleEntity? {
@@ -20,6 +22,8 @@ object ScheduleEntityConveter {
                 schedule.id,
                 schedule.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 }

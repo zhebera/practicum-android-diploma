@@ -11,7 +11,9 @@ object EmploymentEntityConverter {
                 employmentEntity.id,
                 employmentEntity.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 
     fun map(employment: Employment?): EmploymentEntity? {
@@ -20,6 +22,8 @@ object EmploymentEntityConverter {
                 employment.id,
                 employment.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 }

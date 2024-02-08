@@ -10,7 +10,9 @@ object LogoUrlsEntityConverter {
             LogoUrlsEntity(
                 logoUrls.original
             )
-        } else null
+        } else {
+            null
+        }
     }
 
     fun map(logoUrlsEntity: LogoUrlsEntity?): LogoUrls? {
@@ -18,6 +20,8 @@ object LogoUrlsEntityConverter {
             LogoUrls(
                 logoUrlsEntity.original
             )
-        } else null
+        } else {
+            null
+        }
     }
 }

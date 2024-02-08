@@ -11,7 +11,9 @@ object ExperienceEntityConverter {
                 experienceEntity.id,
                 experienceEntity.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 
     fun map(experience: Experience?): ExperienceEntity? {
@@ -20,6 +22,8 @@ object ExperienceEntityConverter {
                 experience.id,
                 experience.name
             )
-        } else null
+        } else {
+            null
+        }
     }
 }
