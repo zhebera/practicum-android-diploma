@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.data.favourite
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.data.converters.VacancyDbConverter
+import ru.practicum.android.diploma.data.converters.db.VacancyDbConverter
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.domain.api.favourite.FavouriteRepository
 import ru.practicum.android.diploma.domain.models.VacancyDescription
