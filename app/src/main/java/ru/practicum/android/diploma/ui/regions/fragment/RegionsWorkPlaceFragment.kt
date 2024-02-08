@@ -136,6 +136,6 @@ class RegionsWorkPlaceFragment : Fragment() {
 
     companion object {
         const val COUNTRY_ARG = "country"
-        fun createArgs(vacancyId: String): Bundle = bundleOf(COUNTRY_ARG to vacancyId)
+        fun createArgs(vacancyId: String?): Bundle = bundleOf(COUNTRY_ARG to vacancyId)
     }
 }

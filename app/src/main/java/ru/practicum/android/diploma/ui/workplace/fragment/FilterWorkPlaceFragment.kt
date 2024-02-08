@@ -50,9 +50,14 @@ class FilterWorkPlaceFragment : Fragment() {
         }
 
         binding.etRegion.setOnClickListener {
+            val countryId = if (countryModel != null) {
+                countryModel!!.id
+            } else {
+                ""
+            }
             findNavController().navigate(
                 R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
-                RegionsWorkPlaceFragment.createArgs(countryModel?.id!!)
+                RegionsWorkPlaceFragment.createArgs(countryId)
             )
         }
 
