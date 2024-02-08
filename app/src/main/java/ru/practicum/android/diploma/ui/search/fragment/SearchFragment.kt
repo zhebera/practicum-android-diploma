@@ -130,7 +130,7 @@ class SearchFragment : Fragment() {
             }
 
             is SearchState.Error -> {
-                showError()
+                showError(state.message)
             }
 
             is SearchState.Empty -> {
@@ -162,12 +162,21 @@ class SearchFragment : Fragment() {
         }
     }
 
-    // todo
-    private fun showError() {
-        with(binding) {
-            pbCentralProgressBar.visibility = View.GONE
-            llProblem.visibility = View.VISIBLE
-            tvPlaceholders.visibility = View.VISIBLE
+    private fun showError(message: String) {
+        binding.pbCentralProgressBar.visibility = View.GONE
+        binding.llContent.visibility = View.GONE
+        binding.llProblem.visibility = View.VISIBLE
+        binding.tvPlaceholders.visibility = View.VISIBLE
+        binding.rwResult.visibility = View.GONE
+        binding.tvVacancyNumber.visibility = View.GONE
+
+        binding.tvPlaceholders.text = message
+        closeKeyboard()
+        when (message) {
+            getString(R.string.no_internet) -> binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+            getString(R.string.placeholder_details_error_message) ->
+                binding.ivPlaceholders.setImageResource(R.drawable.placeholder_error_server)
+            getString(R.string.no_vacancy) -> binding.ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
         }
     }
 
