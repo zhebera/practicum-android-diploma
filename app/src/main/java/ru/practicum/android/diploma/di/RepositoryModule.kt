@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.converters.RegionsConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
-import ru.practicum.android.diploma.data.converters.VacancyDbConverter
+import ru.practicum.android.diploma.data.converters.db.VacancyDbConverter
 import ru.practicum.android.diploma.data.countries.CountriesRepositoryImpl
 import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
 import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
@@ -51,7 +51,7 @@ val repositoryModule = module {
     }
 
     single<FavouriteRepository> {
-        FavouriteRepositoryImpl(get(), get())
+        FavouriteRepositoryImpl(get(), get(), androidContext())
     }
 
     single<RegionsRepository> {

@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +65,7 @@ class VacancyDescriptionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,15 +77,14 @@ class VacancyDescriptionFragment : Fragment() {
 
         viewModel.getVacancyDescription(vacancyId)
 
-        viewModel.vacancyDescriptionState.observe(viewLifecycleOwner) {
-            renderState(it, viewModel)
+        with(viewModel) {
+            vacancyDescriptionState.observe(viewLifecycleOwner, ::renderState)
+            isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
 
         binding.favouriteButton.setOnClickListener {
             viewModel.changeFavourite()
         }
-
-        viewModel.isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
 
         setViews()
         setListeners()
@@ -95,11 +95,11 @@ class VacancyDescriptionFragment : Fragment() {
         viewModel.checkFavorite()
     }
 
-    private fun renderState(vacancyDescriptionState: VacancyDescriptionState, viewModel: VacancyDescriptionViewModel) {
+    private fun renderState(vacancyDescriptionState: VacancyDescriptionState) {
         when (vacancyDescriptionState) {
             is VacancyDescriptionState.Loading -> showLoading()
             is VacancyDescriptionState.Error -> showError(vacancyDescriptionState.message)
-            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data, viewModel)
+            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
         }
     }
 
@@ -128,8 +128,9 @@ class VacancyDescriptionFragment : Fragment() {
         }
     }
 
-    private fun showContent(vacancyDescription: VacancyDescription, viewModel: VacancyDescriptionViewModel) {
+    private fun showContent(vacancyDescription: VacancyDescription) {
         progressBar?.visibility = View.GONE
+        placeholderContainer?.isVisible = false
         contentContainer?.visibility = View.VISIBLE
 
         title?.text = vacancyDescription.name
@@ -151,6 +152,8 @@ class VacancyDescriptionFragment : Fragment() {
         vacancyDescription.contacts?.let { setContactsBlock(it, viewModel) }
 
         binding.shareButton.setOnClickListener { viewModel.shareLink(vacancyDescription.url) }
+
+        viewModel.checkFavorite()
     }
 
     private fun setSalaryBlock(salaryResponse: Salary) {
