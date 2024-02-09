@@ -78,7 +78,7 @@ class VacancyDescriptionFragment : Fragment() {
         viewModel.getVacancyDescription(vacancyId)
 
         with(viewModel) {
-            vacancyDescriptionState.observe(viewLifecycleOwner,::renderState)
+            vacancyDescriptionState.observe(viewLifecycleOwner, ::renderState)
             isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
 
