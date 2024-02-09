@@ -5,7 +5,11 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -16,7 +20,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-import ru.practicum.android.diploma.domain.models.*
+import ru.practicum.android.diploma.domain.models.Contacts
+import ru.practicum.android.diploma.domain.models.Employer
+import ru.practicum.android.diploma.domain.models.Experience
+import ru.practicum.android.diploma.domain.models.KeySkill
+import ru.practicum.android.diploma.domain.models.Salary
+import ru.practicum.android.diploma.domain.models.VacancyDescription
 import ru.practicum.android.diploma.ui.details.adapter.PhoneAdapter
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
@@ -69,7 +78,7 @@ class VacancyDescriptionFragment : Fragment() {
         viewModel.getVacancyDescription(vacancyId)
 
         with(viewModel) {
-            vacancyDescriptionState.observe(viewLifecycleOwner, ::renderState)
+            vacancyDescriptionState.observe(viewLifecycleOwner,::renderState)
             vacancyDescriptionDbState.observe(viewLifecycleOwner, ::renderBdState)
             isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
@@ -95,8 +104,8 @@ class VacancyDescriptionFragment : Fragment() {
         }
     }
 
-    private fun renderBdState(state: VacancyDescriptionState) {
-        when (state) {
+    private fun renderBdState(state: VacancyDescriptionState){
+        when(state){
             is VacancyDescriptionState.Content -> showContent(state.data)
             else -> showError(getString(R.string.no_internet))
         }
