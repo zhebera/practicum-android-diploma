@@ -9,12 +9,7 @@ import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Vacancies
-import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_AREA
-import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_INDUSTRY
-import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_SALARY
-import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_TEXT
-import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_WITH_SALARY
-import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.util.*
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
@@ -70,6 +65,8 @@ class SearchViewModel(
             }
             if (!filter.region?.id.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_AREA] = filter.region?.id.toString()
+            } else if (!filter.country?.id.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_AREA] = filter.country?.id.toString()
             }
         }
         return hashMap

@@ -21,7 +21,7 @@ class FavouriteRepositoryImpl(
     }
 
     override fun getAllVacancies(): Flow<List<VacancyDescription>> = flow {
-        val vacancies = appDatabase.vacancyDao().getAllVacancies()
+        val vacancies = appDatabase.vacancyDao().getAllVacancies().reversed()
         emit(vacancyDbConverter.convert(vacancies))
     }
 
