@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.ui.filter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
 
@@ -205,7 +207,7 @@ class FilterFragment : Fragment() {
         }
 
         binding.ivFilterBackButton.setOnClickListener {
-            findNavController().popBackStack()
+            returnToSearchFragment()
         }
 
 
@@ -215,19 +217,6 @@ class FilterFragment : Fragment() {
             country = null
             region = null
             industry = null
-
-            findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                COUNTRY_BACKSTACK_KEY,
-                null
-            )
-            findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                REGION_BACKSTACK_KEY,
-                null
-            )
-            findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                INDUSTRY_BACKSTACK_KEY,
-                null
-            )
 
             binding.etIndustry.setText("")
             binding.etPlaceOfWork.setText("")
@@ -244,19 +233,33 @@ class FilterFragment : Fragment() {
                 binding.cbFilter.isChecked
             )
 
-            findNavController().popBackStack()
+            returnToSearchFragment()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().popBackStack()
+                returnToSearchFragment()
             }
         })
+    }
+
+    private fun returnToSearchFragment() {
+        with(findNavController()) {
+            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, checkFilter())
+            popBackStack()
+        }
     }
 
     private fun setVisibilityApplyButton() {
         binding.tvApply.visibility = View.VISIBLE
         binding.tvRemove.visibility = View.VISIBLE
+    }
+
+    private fun checkFilter(): Boolean {
+        return (!binding.etPlaceOfWork.text.isNullOrEmpty()
+            || !binding.etIndustry.text.isNullOrEmpty()
+            || !binding.textInputEditText.text.isNullOrEmpty()
+            || binding.cbFilter.isChecked)
     }
 
     override fun onDestroy() {

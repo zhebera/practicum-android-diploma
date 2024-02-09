@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -47,8 +48,8 @@ class SearchViewModel(
         getVacancies(options)
     }
 
-    fun searchDebounce(changedText: String) {
-        if (latestSearchTrack == changedText) return
+    fun searchDebounce(changedText: String, newFilter: Boolean) {
+        if (latestSearchTrack == changedText && !newFilter) return
         val filter = sharedPreferencesInteractor.getFilter()
         val request = getRequestWithFilter(changedText, filter)
         searchingDebounce(request)
