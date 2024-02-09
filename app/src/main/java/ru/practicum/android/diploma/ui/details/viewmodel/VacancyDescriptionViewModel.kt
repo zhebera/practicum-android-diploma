@@ -21,13 +21,8 @@ class VacancyDescriptionViewModel(
     private val _vacancyDescriptionState = MutableLiveData<VacancyDescriptionState>()
     val vacancyDescriptionState: LiveData<VacancyDescriptionState> = _vacancyDescriptionState
 
-    private val _vacancyDescriptionDbState = MutableLiveData<VacancyDescriptionState>()
-    val vacancyDescriptionDbState: LiveData<VacancyDescriptionState> = _vacancyDescriptionDbState
-
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
-
-    private var counter = 0
 
     fun getVacancyDescription(vacancyId: String) {
         _vacancyDescriptionState.postValue(VacancyDescriptionState.Loading)

@@ -79,7 +79,6 @@ class VacancyDescriptionFragment : Fragment() {
 
         with(viewModel) {
             vacancyDescriptionState.observe(viewLifecycleOwner,::renderState)
-            vacancyDescriptionDbState.observe(viewLifecycleOwner, ::renderBdState)
             isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
 
@@ -101,13 +100,6 @@ class VacancyDescriptionFragment : Fragment() {
             is VacancyDescriptionState.Loading -> showLoading()
             is VacancyDescriptionState.Error -> showError(vacancyDescriptionState.message)
             is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
-        }
-    }
-
-    private fun renderBdState(state: VacancyDescriptionState){
-        when(state){
-            is VacancyDescriptionState.Content -> showContent(state.data)
-            else -> showError(getString(R.string.no_internet))
         }
     }
 
