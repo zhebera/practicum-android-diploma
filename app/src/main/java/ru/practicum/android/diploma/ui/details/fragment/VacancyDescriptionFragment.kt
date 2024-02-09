@@ -5,12 +5,9 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentDetailsBinding
-import ru.practicum.android.diploma.domain.models.Contacts
-import ru.practicum.android.diploma.domain.models.Employer
-import ru.practicum.android.diploma.domain.models.Experience
-import ru.practicum.android.diploma.domain.models.KeySkill
-import ru.practicum.android.diploma.domain.models.Salary
-import ru.practicum.android.diploma.domain.models.VacancyDescription
+import ru.practicum.android.diploma.domain.models.*
 import ru.practicum.android.diploma.ui.details.adapter.PhoneAdapter
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
@@ -64,7 +56,7 @@ class VacancyDescriptionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,15 +68,15 @@ class VacancyDescriptionFragment : Fragment() {
 
         viewModel.getVacancyDescription(vacancyId)
 
-        viewModel.vacancyDescriptionState.observe(viewLifecycleOwner) {
-            renderState(it, viewModel)
+        with(viewModel) {
+            vacancyDescriptionState.observe(viewLifecycleOwner, ::renderState)
+            vacancyDescriptionDbState.observe(viewLifecycleOwner, ::renderBdState)
+            isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
 
         binding.favouriteButton.setOnClickListener {
             viewModel.changeFavourite()
         }
-
-        viewModel.isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
 
         setViews()
         setListeners()
@@ -95,11 +87,18 @@ class VacancyDescriptionFragment : Fragment() {
         viewModel.checkFavorite()
     }
 
-    private fun renderState(vacancyDescriptionState: VacancyDescriptionState, viewModel: VacancyDescriptionViewModel) {
+    private fun renderState(vacancyDescriptionState: VacancyDescriptionState) {
         when (vacancyDescriptionState) {
             is VacancyDescriptionState.Loading -> showLoading()
             is VacancyDescriptionState.Error -> showError(vacancyDescriptionState.message)
-            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data, viewModel)
+            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
+        }
+    }
+
+    private fun renderBdState(state: VacancyDescriptionState) {
+        when (state) {
+            is VacancyDescriptionState.Content -> showContent(state.data)
+            else -> showError(getString(R.string.no_internet))
         }
     }
 
@@ -128,8 +127,9 @@ class VacancyDescriptionFragment : Fragment() {
         }
     }
 
-    private fun showContent(vacancyDescription: VacancyDescription, viewModel: VacancyDescriptionViewModel) {
+    private fun showContent(vacancyDescription: VacancyDescription) {
         progressBar?.visibility = View.GONE
+        placeholderContainer?.isVisible = false
         contentContainer?.visibility = View.VISIBLE
 
         title?.text = vacancyDescription.name

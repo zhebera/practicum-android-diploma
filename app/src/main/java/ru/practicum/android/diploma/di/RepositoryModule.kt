@@ -51,7 +51,7 @@ val repositoryModule = module {
     }
 
     single<FavouriteRepository> {
-        FavouriteRepositoryImpl(get(), get())
+        FavouriteRepositoryImpl(get(), get(), androidContext())
     }
 
     single<RegionsRepository> {
