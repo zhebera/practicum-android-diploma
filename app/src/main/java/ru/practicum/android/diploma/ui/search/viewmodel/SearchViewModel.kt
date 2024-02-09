@@ -9,7 +9,12 @@ import ru.practicum.android.diploma.domain.api.search.SearchInteractor
 import ru.practicum.android.diploma.domain.api.sharedpreferences.SharedPreferencesInteractor
 import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Vacancies
-import ru.practicum.android.diploma.util.*
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_AREA
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_INDUSTRY
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_SALARY
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_TEXT
+import ru.practicum.android.diploma.util.SEARCH_MAP_KEY_WITH_SALARY
+import ru.practicum.android.diploma.util.debounce
 
 class SearchViewModel(
     private val searchInteractor: SearchInteractor,
