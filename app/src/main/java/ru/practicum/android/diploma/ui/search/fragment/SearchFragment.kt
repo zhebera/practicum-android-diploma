@@ -55,11 +55,10 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner){filterStatus ->
-            if(!binding.etSearch.text.isNullOrEmpty()){
-                if(filterStatus){
-                    viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
-                }
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner) { filterStatus ->
+            if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
+                viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
             }
         }
 
@@ -70,7 +69,7 @@ class SearchFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.adapter = vacancyAdapter
 
-        with(viewModel){
+        with(viewModel) {
             searchState.observe(viewLifecycleOwner, ::render)
             filterState.observe(viewLifecycleOwner, ::renderFilter)
         }
@@ -151,7 +150,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun renderFilter(isFiltered: Boolean) {
-        when(isFiltered) {
+        when (isFiltered) {
             false -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_off))
             true -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_on))
         }
