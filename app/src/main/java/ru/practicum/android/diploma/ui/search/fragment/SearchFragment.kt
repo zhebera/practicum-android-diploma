@@ -141,13 +141,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun renderFilter(isFiltered: Boolean) {
-        when (isFiltered) {
-            false -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_off))
-            true -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_on))
-        }
-    }
-
     private fun showContent(vacancies: List<Vacancy>) {
         with(binding) {
             llContent.isVisible = true
