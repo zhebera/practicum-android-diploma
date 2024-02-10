@@ -39,7 +39,7 @@ class DetailsRepositoryImpl(context: Context) : DetailsRepository {
                 androidContext.getString(R.string.no_email_toast),
                 Toast.LENGTH_SHORT
             ).show()
-        } catch (e: Exception) {
+        } catch (throwable: Throwable) {
             Toast.makeText(
                 androidContext,
                 androidContext.getString(R.string.unknown_error),
