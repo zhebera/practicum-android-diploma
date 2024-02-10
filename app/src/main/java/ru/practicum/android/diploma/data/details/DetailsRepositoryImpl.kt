@@ -39,14 +39,7 @@ class DetailsRepositoryImpl(context: Context) : DetailsRepository {
                 androidContext.getString(R.string.no_email_toast),
                 Toast.LENGTH_SHORT
             ).show()
-        } catch (throwable: Throwable) {
-            Toast.makeText(
-                androidContext,
-                androidContext.getString(R.string.unknown_error),
-                Toast.LENGTH_SHORT
-            ).show()
         }
-
     }
 
     override fun openPhone(phone: String) {
