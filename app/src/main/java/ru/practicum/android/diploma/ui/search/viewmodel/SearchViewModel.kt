@@ -24,9 +24,10 @@ class SearchViewModel(
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
     private var latestSearchTrack: String? = null
+    private var foundVacancies: Int? = null
 
     init {
-        _searchState.postValue(SearchState.Empty)
+        _searchState.postValue(SearchState.Default)
     }
 
     private fun getVacancies(options: HashMap<String, String>) {
@@ -46,6 +47,9 @@ class SearchViewModel(
     ) { options ->
         getVacancies(options)
     }
+
+
+    fun getCountVacancies() = foundVacancies
 
     fun searchDebounce(changedText: String) {
         if (latestSearchTrack == changedText) return
@@ -79,7 +83,7 @@ class SearchViewModel(
         if (data != null) {
             setData(data)
         } else {
-            _searchState.postValue(SearchState.Error(message = message ?: "Неизвестная ошибка"))
+            _searchState.postValue(SearchState.Error(message.toString()))
         }
     }
 
@@ -89,6 +93,7 @@ class SearchViewModel(
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
+            foundVacancies = data.found
         }
     }
 
