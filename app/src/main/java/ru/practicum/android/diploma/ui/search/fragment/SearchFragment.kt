@@ -57,10 +57,10 @@ class SearchFragment : Fragment() {
 
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner) { filterStatus ->
-            if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
-                viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
+                if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
+                    viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
+                }
             }
-        }
 
         binding.tvTitle.text = getString(R.string.main)
         viewModel.getFilterState()
