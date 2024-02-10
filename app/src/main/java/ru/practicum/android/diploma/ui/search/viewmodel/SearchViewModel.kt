@@ -48,7 +48,6 @@ class SearchViewModel(
         getVacancies(options)
     }
 
-
     fun getCountVacancies() = foundVacancies
 
     fun searchDebounce(changedText: String) {
