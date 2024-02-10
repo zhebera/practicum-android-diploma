@@ -4,7 +4,6 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,15 +64,15 @@ class SearchFragment : Fragment() {
         }
 
         binding.tvTitle.text = getString(R.string.main)
+        viewModel.getFilterState()
 
         recyclerView = binding.rwResult
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.adapter = vacancyAdapter
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchState.observe(viewLifecycleOwner) { state ->
-                render(state)
-            }
+        with(viewModel){
+            searchState.observe(viewLifecycleOwner, ::render)
+            filterState.observe(viewLifecycleOwner, ::renderFilter)
         }
 
         binding.ivFilter.setOnClickListener {
@@ -148,6 +147,13 @@ class SearchFragment : Fragment() {
             is SearchState.Empty -> {
                 showEmpty()
             }
+        }
+    }
+
+    private fun renderFilter(isFiltered: Boolean) {
+        when(isFiltered) {
+            false -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_off))
+            true -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_on))
         }
     }
 
