@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
@@ -34,6 +35,7 @@ class DetailsRepositoryImpl(context: Context) : DetailsRepository {
         try {
             androidContext.startActivity(emailIntent)
         } catch (e: ActivityNotFoundException) {
+            print(e.message)
             Toast.makeText(
                 androidContext,
                 androidContext.getString(R.string.no_email_toast),
