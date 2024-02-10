@@ -64,10 +64,9 @@
     <ScrollView
         android:id="@+id/vacancy_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/details_vacancy_container_margin_top"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/details_description_padding_bottom"
         android:visibility="gone"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +78,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_description_padding_bottom"
             android:orientation="vertical">
 
             <TextView
@@ -170,7 +170,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/details_description_margin_top"
-                android:layout_marginBottom="@dimen/details_description_padding_bottom"
                 tools:text="@string/placeholder_details_description" />
 
             <LinearLayout
@@ -178,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/details_description_padding_bottom"
+                android:layout_marginTop="24dp"
                 android:visibility="gone">
 
                 <TextView
@@ -202,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/details_description_padding_bottom"
+                android:layout_marginTop="24dp"
                 android:visibility="gone">
 
                 <TextView
@@ -215,14 +214,15 @@
                     android:id="@+id/contact_name_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/DetailsSubtitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/details_description_margin_top"
-                        android:text="@string/details_contacts_name_subtitle" />
+                        android:text="@string/details_contacts_name_subtitle"/>
 
                     <TextView
                         android:id="@+id/contact_name"
@@ -263,7 +263,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="3"
+                    tools:itemCount="1"
                     tools:listitem="@layout/card_contact_phone" />
             </LinearLayout>
         </LinearLayout>
@@ -275,6 +275,7 @@
         android:layout_height="@dimen/details_progressBar_size"
         android:layout_gravity="center"
         android:indeterminateTint="@color/blue"
+        android:visibility="visible"
 
         app:layout_constraintTop_toBottomOf="@id/topNavigationBar"
         app:layout_constraintLeft_toLeftOf="@id/leftBorder"
