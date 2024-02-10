@@ -34,8 +34,17 @@ class DetailsRepositoryImpl(context: Context) : DetailsRepository {
         try {
             androidContext.startActivity(emailIntent)
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(androidContext, androidContext.getString(R.string.no_email_toast),
-                Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                androidContext,
+                androidContext.getString(R.string.no_email_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+        } catch (e: Exception) {
+            Toast.makeText(
+                androidContext,
+                androidContext.getString(R.string.unknown_error),
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
     }
