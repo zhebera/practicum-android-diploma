@@ -96,6 +96,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_text_input_layout">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="@dimen/fragment_search_filter_recycler_clip"
+            android:clipToPadding="false"
+            android:id="@+id/rw_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/card_vacancy_list" />
+
         <TextView
             android:id="@+id/tv_vacancy_number"
             style="@style/YsDisplayRegular.Medium"
@@ -109,17 +120,6 @@
             android:textColor="@color/white"
             android:visibility="visible"
             tools:text="@string/number_of_founded_vacancies" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="@dimen/fragment_search_filter_recycler_clip"
-            android:clipToPadding="false"
-            android:id="@+id/rw_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="4"
-            tools:listitem="@layout/card_vacancy_list" />
 
         <ProgressBar
             android:id="@+id/pb_progress_bar"
