@@ -121,11 +121,13 @@ class FilterWorkPlaceFragment : Fragment() {
                             regionModel = null
 
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                                COUNTRY_BACKSTACK_KEY, null
+                                COUNTRY_BACKSTACK_KEY,
+                                null
                             )
 
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                                REGION_BACKSTACK_KEY, null
+                                REGION_BACKSTACK_KEY,
+                                null
                             )
                         }
                     }
