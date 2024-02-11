@@ -119,6 +119,14 @@ class FilterWorkPlaceFragment : Fragment() {
 
                             countryModel = null
                             regionModel = null
+
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                COUNTRY_BACKSTACK_KEY, null
+                            )
+
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                REGION_BACKSTACK_KEY, null
+                            )
                         }
                     }
                 }
@@ -151,6 +159,10 @@ class FilterWorkPlaceFragment : Fragment() {
                         setEndIconOnClickListener {
                             s.clear()
                             regionModel = null
+
+                            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                                REGION_BACKSTACK_KEY, null
+                            )
                         }
                     }
                 }
@@ -173,8 +185,8 @@ class FilterWorkPlaceFragment : Fragment() {
 
             this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
                 regionModel = region
-                countryModel = region.parentCountry
                 if (region != null) {
+                    countryModel = region.parentCountry
                     regionTextInput?.setText(region.name)
                     countryTextInput?.setText(region.parentCountry?.name)
                     submitButton?.visibility = View.VISIBLE
