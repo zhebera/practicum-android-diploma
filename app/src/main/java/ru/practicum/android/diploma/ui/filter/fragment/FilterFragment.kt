@@ -15,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
@@ -30,6 +31,7 @@ class FilterFragment : Fragment() {
     private var country: Country? = null
     private var region: Region? = null
     private var industry: Industry? = null
+    private var oldFilterModel: FilterModel? = null
     private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreateView(
@@ -45,6 +47,7 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setButtonsListeners()
+        setVisibilityRemoveButton()
         setTextChangedListeners()
         loadSharedPrefsFilter()
         setBackStackListeners()
@@ -52,6 +55,7 @@ class FilterFragment : Fragment() {
 
     private fun loadSharedPrefsFilter() {
         val filterModel = viewModel.getFilter()
+        oldFilterModel = filterModel
         var placeOfWork = ""
 
         if (filterModel != null) {
@@ -96,15 +100,16 @@ class FilterFragment : Fragment() {
                         setEndIconOnClickListener {
                             s.clear()
                             industry = null
+                            setVisibilityApplyButton()
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 INDUSTRY_BACKSTACK_KEY,
                                 industry
                             )
-
-                            setVisibilityApplyButton()
                         }
                     }
                 }
+                setVisibilityApplyButton()
+                setVisibilityRemoveButton()
             }
         }
 
@@ -127,6 +132,7 @@ class FilterFragment : Fragment() {
                             s.clear()
                             country = null
                             region = null
+                            setVisibilityApplyButton()
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 COUNTRY_BACKSTACK_KEY,
                                 null
@@ -135,18 +141,21 @@ class FilterFragment : Fragment() {
                                 REGION_BACKSTACK_KEY,
                                 null
                             )
-
-                            setVisibilityApplyButton()
                         }
                     }
                 }
+                setVisibilityApplyButton()
+                setVisibilityRemoveButton()
             }
         }
 
         binding.etIndustry.addTextChangedListener(industryTextWatcher)
         binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
 
-        binding.textInputEditText.doAfterTextChanged { setVisibilityApplyButton() }
+        binding.textInputEditText.doAfterTextChanged {
+            setVisibilityApplyButton()
+            setVisibilityRemoveButton()
+        }
     }
 
     private fun setBackStackListeners() {
@@ -158,7 +167,6 @@ class FilterFragment : Fragment() {
                     industry = backStackIndustry
 
                     binding.etIndustry.setText(industry?.name)
-                    setVisibilityApplyButton()
                 }
             }
 
@@ -169,7 +177,6 @@ class FilterFragment : Fragment() {
                     country = backStackCountry
 
                     binding.etPlaceOfWork.setText(country?.name)
-                    setVisibilityApplyButton()
                 }
             }
 
@@ -181,7 +188,6 @@ class FilterFragment : Fragment() {
 
                     val fullWorkPlace = "${country?.name}, ${region?.name}"
                     binding.etPlaceOfWork.setText(fullWorkPlace)
-                    setVisibilityApplyButton()
                 }
             }
         }
@@ -198,6 +204,7 @@ class FilterFragment : Fragment() {
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
             setVisibilityApplyButton()
+            setVisibilityRemoveButton()
         }
 
         binding.textInputLayout.setOnClickListener {
@@ -255,8 +262,34 @@ class FilterFragment : Fragment() {
     }
 
     private fun setVisibilityApplyButton() {
-        binding.tvApply.visibility = View.VISIBLE
-        binding.tvRemove.visibility = View.VISIBLE
+        if (isFilterChanged()) {
+            binding.tvApply.visibility = View.VISIBLE
+        } else {
+            binding.tvApply.visibility = View.GONE
+        }
+    }
+
+    private fun setVisibilityRemoveButton() {
+        if (areThereAnyFilledFields()) {
+            binding.tvRemove.visibility = View.VISIBLE
+        } else {
+            binding.tvRemove.visibility = View.GONE
+        }
+    }
+
+    private fun areThereAnyFilledFields(): Boolean {
+        return !(binding.etPlaceOfWork.text.isNullOrBlank()
+            && binding.etIndustry.text.isNullOrBlank()
+            && binding.textInputEditText.text.isNullOrBlank()
+            && !binding.cbFilter.isChecked)
+    }
+
+    private fun isFilterChanged(): Boolean {
+        return !(oldFilterModel?.country?.id == country?.id
+            && oldFilterModel?.region?.id == region?.id
+            && oldFilterModel?.industry?.id == industry?.id
+            && oldFilterModel?.salary == binding.textInputEditText.text.toString()
+            && oldFilterModel?.onlyWithSalary == binding.cbFilter.isChecked)
     }
 
     override fun onDestroy() {
