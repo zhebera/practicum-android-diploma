@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.data.response.SalaryResponse
 import ru.practicum.android.diploma.data.response.VacanciesResponse
 import ru.practicum.android.diploma.data.response.VacancyResponse
 import ru.practicum.android.diploma.domain.models.Area
-import ru.practicum.android.diploma.domain.models.Department
 import ru.practicum.android.diploma.domain.models.Employer
 import ru.practicum.android.diploma.domain.models.Employment
 import ru.practicum.android.diploma.domain.models.LogoUrls

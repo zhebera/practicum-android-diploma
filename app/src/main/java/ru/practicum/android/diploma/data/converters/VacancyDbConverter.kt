@@ -13,8 +13,6 @@ import ru.practicum.android.diploma.data.converters.EmploymentDbConverter.fromEm
 import ru.practicum.android.diploma.data.converters.EmploymentDbConverter.toEmploymentEntity
 import ru.practicum.android.diploma.data.converters.ExperienceDbConverter.fromExperienceEntity
 import ru.practicum.android.diploma.data.converters.ExperienceDbConverter.toExperienceEntity
-import ru.practicum.android.diploma.data.converters.ListKeySkillDbConverter.fromKeySkillsEntity
-import ru.practicum.android.diploma.data.converters.ListKeySkillDbConverter.toKeySkillsEntity
 import ru.practicum.android.diploma.data.converters.SalaryDbConverter.fromSalaryEntity
 import ru.practicum.android.diploma.data.converters.SalaryDbConverter.toSalaryEntity
 import ru.practicum.android.diploma.data.converters.ScheduleDbConverter.fromScheduleEntity
@@ -36,7 +34,7 @@ class VacancyDbConverter {
             experience = fromExperienceEntity(vacancyEntity.experience),
             employment = fromEmploymentEntity(vacancyEntity.employment),
             schedule = fromScheduleEntity(vacancyEntity.schedule),
-            keySkills = fromKeySkillsEntity(vacancyEntity.keySkills),
+            keySkills = listOf(),
             contacts = fromContactsEntity(vacancyEntity.contacts),
             description = vacancyEntity.description
         )
@@ -55,7 +53,6 @@ class VacancyDbConverter {
             experience = toExperienceEntity(vacancy.experience),
             employment = toEmploymentEntity(vacancy.employment),
             schedule = toScheduleEntity(vacancy.schedule),
-            keySkills = toKeySkillsEntity(vacancy.keySkills),
             contacts = toContactsEntity(vacancy.contacts),
             description = vacancy.description
         )
