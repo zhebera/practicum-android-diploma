@@ -54,7 +54,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner) { filterStatus ->
                 if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
