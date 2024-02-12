@@ -28,15 +28,11 @@ class RegionsRepositoryImpl(
     }
 
     override fun getRegions(areaId: String?): Flow<Resource<List<Region>>> = flow {
-
         if (areaId.isNullOrBlank()) {
             val response = networkClient.doRequest(AllRegionsRequest())
 
             when (response.resultCode) {
-                ResponseCode.NETWORK_FAILED -> {
-                    emit(Resource.Error(message = badConnection))
-                }
-
+                ResponseCode.NETWORK_FAILED -> { emit(Resource.Error(message = badConnection)) }
                 ResponseCode.SUCCESS -> {
                     with(response as RegionResponse) {
                         val countriesData = regionsConverter.convertRegions(this)
@@ -53,20 +49,15 @@ class RegionsRepositoryImpl(
                                 mergedList.addAll(region.includedRegions)
                             }
                         }
-
                         emit(Resource.Success(mergedList))
                     }
                 }
-
                 else -> emit(Resource.Error(message = serverError))
             }
         } else {
             val response = networkClient.doRequest(CountryRegionsRequest(areaId))
-
             when (response.resultCode) {
-                ResponseCode.NETWORK_FAILED -> {
-                    emit(Resource.Error(message = badConnection))
-                }
+                ResponseCode.NETWORK_FAILED -> { emit(Resource.Error(message = badConnection)) }
 
                 ResponseCode.SUCCESS -> {
                     with(response as RegionResponse) {
@@ -76,7 +67,6 @@ class RegionsRepositoryImpl(
                         regionsData.forEach {
                             mergedList.addAll(it.includedRegions)
                         }
-
                         emit(Resource.Success(mergedList))
                     }
                 }
