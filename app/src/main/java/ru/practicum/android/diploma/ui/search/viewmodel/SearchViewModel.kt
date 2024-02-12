@@ -70,6 +70,8 @@ class SearchViewModel(
             }
             if (!filter.region?.id.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_AREA] = filter.region?.id.toString()
+            } else if (!filter.country?.id.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_AREA] = filter.country?.id.toString()
             }
         }
         return hashMap
