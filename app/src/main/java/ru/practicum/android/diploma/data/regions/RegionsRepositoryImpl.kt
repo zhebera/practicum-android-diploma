@@ -38,9 +38,7 @@ class RegionsRepositoryImpl(
                         val countriesData = regionsConverter.convertRegions(this)
                         val mergedList = ArrayList<Region>()
 
-                        val filteredData = countriesData.filter {
-                            it.id != "1001"
-                        }
+                        val filteredData = countriesData.filter { it.id != "1001" }
 
                         filteredData.forEach { country ->
                             mergedList.addAll(country.includedRegions)
@@ -64,9 +62,7 @@ class RegionsRepositoryImpl(
                         val regionsData = regionsConverter.convertRegions(this)
                         val mergedList = ArrayList<Region>(regionsData)
 
-                        regionsData.forEach {
-                            mergedList.addAll(it.includedRegions)
-                        }
+                        regionsData.forEach { mergedList.addAll(it.includedRegions) }
                         emit(Resource.Success(mergedList))
                     }
                 }

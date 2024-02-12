@@ -218,7 +218,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun setVisibilityApplyButton() {
-        if ( checkEmptyField() ) {
+        if (checkEmptyField()) {
             binding.apply {
                 tvApply.visibility = View.VISIBLE
                 tvRemove.visibility = View.VISIBLE
