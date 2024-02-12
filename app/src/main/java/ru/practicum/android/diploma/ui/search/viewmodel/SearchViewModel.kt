@@ -129,11 +129,12 @@ class SearchViewModel(
     }
 
     fun getNextPageData() {
-        if (currentPage == maxPages) return
-        else {
+        if (currentPage == maxPages) {
+            return
+        } else {
             val filter = sharedPreferencesInteractor.getFilter()
             val request = getRequestWithFilter(latestSearchVacancy.toString(), filter)
-            request[PAGE] = (currentPage?.plus(1)).toString()
+            request[PAGE] = currentPage?.plus(1).toString()
             newItemList = false
             searchingDebounce(request)
         }
