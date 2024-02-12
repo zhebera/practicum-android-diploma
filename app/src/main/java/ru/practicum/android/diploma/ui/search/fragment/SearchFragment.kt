@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragme
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.getNumberString
 
 class SearchFragment : Fragment() {
@@ -39,7 +40,7 @@ class SearchFragment : Fragment() {
         }
     )
     private var isClickAllowed = true
-    private val searchViewModel by viewModel<SearchViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
 
     override fun onCreateView(
@@ -53,16 +54,24 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner) { filterStatus ->
+                if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
+                    viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
+                }
+            }
+
         binding.tvTitle.text = getString(R.string.main)
+        viewModel.getFilterState()
 
         recyclerView = binding.rwResult
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.adapter = vacancyAdapter
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchState.observe(viewLifecycleOwner) { state ->
-                render(state)
-            }
+        with(viewModel) {
+            searchState.observe(viewLifecycleOwner, ::render)
+            filterState.observe(viewLifecycleOwner, ::renderFilter)
         }
 
         binding.ivFilter.setOnClickListener {
@@ -74,8 +83,9 @@ class SearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
                 if (!s.isNullOrEmpty()) {
-                    searchViewModel.searchDebounce(
-                        changedText = s.toString()
+                    viewModel.searchDebounce(
+                        changedText = s.toString(),
+                        newFilter = false
                     )
                 }
             }
@@ -97,7 +107,7 @@ class SearchFragment : Fragment() {
 
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && !binding.etSearch.text.toString().isNullOrEmpty()) {
-                searchViewModel.searchDebounce(binding.etSearch.text.toString())
+                viewModel.searchDebounce(binding.etSearch.text.toString(), false)
                 closeKeyboard()
                 binding.etSearch.clearFocus()
                 true
@@ -136,6 +146,13 @@ class SearchFragment : Fragment() {
             is SearchState.Empty -> {
                 showEmpty()
             }
+        }
+    }
+
+    private fun renderFilter(isFiltered: Boolean) {
+        when (isFiltered) {
+            false -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_off))
+            true -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_on))
         }
     }
 

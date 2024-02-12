@@ -23,6 +23,10 @@ class SearchViewModel(
 
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
+
+    private val _filterState = MutableLiveData<Boolean>()
+    val filterState: LiveData<Boolean> = _filterState
+
     private var latestSearchTrack: String? = null
 
     init {
@@ -47,8 +51,8 @@ class SearchViewModel(
         getVacancies(options)
     }
 
-    fun searchDebounce(changedText: String) {
-        if (latestSearchTrack == changedText) return
+    fun searchDebounce(changedText: String, newFilter: Boolean) {
+        if (latestSearchTrack == changedText && !newFilter) return
         val filter = sharedPreferencesInteractor.getFilter()
         val request = getRequestWithFilter(changedText, filter)
         searchingDebounce(request)
@@ -70,6 +74,8 @@ class SearchViewModel(
             }
             if (!filter.region?.id.isNullOrEmpty()) {
                 hashMap[SEARCH_MAP_KEY_AREA] = filter.region?.id.toString()
+            } else if (!filter.country?.id.isNullOrEmpty()) {
+                hashMap[SEARCH_MAP_KEY_AREA] = filter.country?.id.toString()
             }
         }
         return hashMap
@@ -89,6 +95,23 @@ class SearchViewModel(
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
+        }
+    }
+
+    fun getFilterState() {
+        _filterState.postValue(checkFilter())
+    }
+
+    private fun checkFilter(): Boolean {
+        val filter = sharedPreferencesInteractor.getFilter()
+        return if (filter == null) {
+            false
+        } else {
+            (!filter.country?.id.isNullOrEmpty()
+                || !filter.region?.id.isNullOrEmpty()
+                || !filter.industry?.id.isNullOrEmpty()
+                || !filter.salary.isNullOrEmpty()
+                || filter.onlyWithSalary == true)
         }
     }
 
