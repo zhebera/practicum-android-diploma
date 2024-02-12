@@ -218,6 +218,19 @@ class FilterFragment : Fragment() {
             region = null
             industry = null
 
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                COUNTRY_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                REGION_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                INDUSTRY_BACKSTACK_KEY,
+                null
+            )
+
             binding.etIndustry.setText("")
             binding.etPlaceOfWork.setText("")
             binding.textInputEditText.setText("")
