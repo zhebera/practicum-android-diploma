@@ -4,6 +4,8 @@ import ru.practicum.android.diploma.domain.models.Vacancies
 
 sealed interface SearchState {
 
+    object Default : SearchState
+
     object Loading : SearchState
 
     object Empty : SearchState

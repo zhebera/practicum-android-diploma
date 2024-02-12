@@ -67,7 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="invisible"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,10 +82,11 @@
         <TextView
             android:id="@+id/tv_placeholders"
             style="@style/TextViewPlaceholderSearch"
+            android:textAlignment="center"
             tools:text="@string/no_internet" />
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_search_height"
@@ -104,23 +106,30 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="4"
             tools:listitem="@layout/card_vacancy_list" />
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_vacancy_number"
-        style="@style/YsDisplayRegular.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/vacancy_background"
-        android:layout_marginTop="@dimen/fragment_search_filter_padding_horizontal"
-        android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
-        android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ll_content"
-        tools:text="@string/number_of_founded_vacancies" />
+        <TextView
+            android:id="@+id/tv_vacancy_number"
+            style="@style/YsDisplayRegular.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vacancy_background"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/fragment_search_filter_padding_horizontal"
+            android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
+            android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            tools:text="@string/number_of_founded_vacancies" />
+
+        <ProgressBar
+            android:id="@+id/pb_progress_bar"
+            android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
+            android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
+            android:indeterminateTint="@color/blue"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/fragment_search_padding_bottom_progress_bar"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <ProgressBar
         android:id="@+id/pb_central_progress_bar"
@@ -133,14 +142,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/search_text_input_layout" />
 
-    <ProgressBar
-        android:id="@+id/pb_bottom_progress_bar"
-        android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
-        android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
-        android:indeterminateTint="@color/blue"
-        android:paddingBottom="@dimen/fragment_search_padding_bottom_progress_bar"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

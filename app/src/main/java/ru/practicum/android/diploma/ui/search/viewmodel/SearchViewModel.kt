@@ -28,9 +28,10 @@ class SearchViewModel(
     val filterState: LiveData<Boolean> = _filterState
 
     private var latestSearchTrack: String? = null
+    private var foundVacancies: Int? = null
 
     init {
-        _searchState.postValue(SearchState.Empty)
+        _searchState.postValue(SearchState.Default)
     }
 
     private fun getVacancies(options: HashMap<String, String>) {
@@ -50,6 +51,8 @@ class SearchViewModel(
     ) { options ->
         getVacancies(options)
     }
+
+    fun getCountVacancies() = foundVacancies
 
     fun searchDebounce(changedText: String, newFilter: Boolean) {
         if (latestSearchTrack == changedText && !newFilter) return
@@ -95,6 +98,7 @@ class SearchViewModel(
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
+            foundVacancies = data.found
         }
     }
 

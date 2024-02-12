@@ -9,13 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -131,6 +130,8 @@ class SearchFragment : Fragment() {
 
     private fun render(state: SearchState) {
         when (state) {
+            is SearchState.Default -> showDefault()
+
             is SearchState.Content -> {
                 showContent(state.data.items)
             }
@@ -158,13 +159,14 @@ class SearchFragment : Fragment() {
 
     private fun showContent(vacancies: List<Vacancy>) {
         with(binding) {
-            llProblem.visibility = View.GONE
-            tvVacancyNumber.visibility = View.VISIBLE
-            pbCentralProgressBar.visibility = View.GONE
+            llContent.isVisible = true
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = false
+
             vacancyAdapter.setData(vacancies)
             closeKeyboard()
             tvVacancyNumber.apply {
-                text = vacancies.count().getNumberString(requireContext())
+                text = viewModel.getCountVacancies()?.getNumberString(requireContext())
                 measure(0, 0)
             }
         }
@@ -172,26 +174,45 @@ class SearchFragment : Fragment() {
 
     private fun showEmpty() {
         with(binding) {
-            pbCentralProgressBar.visibility = View.GONE
-            llProblem.visibility = View.VISIBLE
-            ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
-            tvPlaceholders.visibility = View.GONE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = true
+            tvPlaceholders.isVisible = true
+
+            ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
+            tvPlaceholders.text = getString(R.string.no_vacancy)
         }
     }
 
-    // todo
+    private fun showDefault() {
+        with(binding) {
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = true
+            tvPlaceholders.isVisible = false
+            ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
+            closeKeyboard()
+        }
+    }
+
     private fun showError() {
         with(binding) {
-            pbCentralProgressBar.visibility = View.GONE
-            llProblem.visibility = View.VISIBLE
-            tvPlaceholders.visibility = View.VISIBLE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = true
+            tvPlaceholders.isVisible = true
+            ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+            tvPlaceholders.text = getString(R.string.no_internet)
+            closeKeyboard()
         }
     }
 
     private fun showLoading() {
         with(binding) {
-            llProblem.visibility = View.GONE
-            pbCentralProgressBar.visibility = View.VISIBLE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = true
+            llProblem.isVisible = false
+            closeKeyboard()
         }
     }
 
