@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.ui.filter.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
@@ -32,6 +32,7 @@ class FilterFragment : Fragment() {
     private var country: Country? = null
     private var region: Region? = null
     private var industry: Industry? = null
+    private var oldFilterModel: FilterModel? = null
     private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreateView(
@@ -54,6 +55,7 @@ class FilterFragment : Fragment() {
 
     private fun loadSharedPrefsFilter() {
         val filterModel = viewModel.getFilter()
+        oldFilterModel = filterModel
         var placeOfWork = ""
 
         if (filterModel != null) {
@@ -181,12 +183,16 @@ class FilterFragment : Fragment() {
                 if (backStackRegion != null) {
                     region = backStackRegion
 
-                    val fullWorkPlace = "${country?.name}, ${region?.name}"
+                    val fullWorkPlace = getFullWorkPlace(country?.name, region?.name)
                     binding.etPlaceOfWork.setText(fullWorkPlace)
                     setVisibilityApplyButton()
                 }
             }
         }
+    }
+
+    private fun getFullWorkPlace(country: String?, region: String?): String {
+        return "$country, $region"
     }
 
     private fun setButtonsListeners() {
@@ -207,9 +213,8 @@ class FilterFragment : Fragment() {
         }
 
         binding.ivFilterBackButton.setOnClickListener {
-            returnToSearchFragment()
+            findNavController().popBackStack()
         }
-
 
         binding.tvRemove.setOnClickListener {
             viewModel.clearFilter()
@@ -251,14 +256,14 @@ class FilterFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                returnToSearchFragment()
+                findNavController().popBackStack()
             }
         })
     }
 
     private fun returnToSearchFragment() {
         with(findNavController()) {
-            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, checkFilter())
+            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, checkNewFilter())
             popBackStack()
         }
     }
@@ -268,11 +273,13 @@ class FilterFragment : Fragment() {
         binding.tvRemove.visibility = View.VISIBLE
     }
 
-    private fun checkFilter(): Boolean {
-        return (!binding.etPlaceOfWork.text.isNullOrEmpty()
-            || !binding.etIndustry.text.isNullOrEmpty()
-            || !binding.textInputEditText.text.isNullOrEmpty()
-            || binding.cbFilter.isChecked)
+    private fun checkNewFilter(): Boolean {
+        val filterModel = viewModel.getFilter()
+        return !(oldFilterModel?.country?.id == filterModel?.country?.id
+            && oldFilterModel?.region?.id == filterModel?.region?.id
+            && oldFilterModel?.industry?.id == filterModel?.industry?.id
+            && oldFilterModel?.salary == filterModel?.salary
+            && oldFilterModel?.onlyWithSalary == filterModel?.onlyWithSalary)
     }
 
     override fun onDestroy() {

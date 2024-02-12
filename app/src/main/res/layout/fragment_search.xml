@@ -36,8 +36,7 @@
             android:layout_margin="8dp"
             android:padding="12dp"
             android:src="@drawable/filter_off"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/black_white" />
+            app:layout_constraintEnd_toEndOf="parent"/>
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout

@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.ui.search.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +23,10 @@ class SearchViewModel(
 
     private val _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> = _searchState
+
+    private val _filterState = MutableLiveData<Boolean>()
+    val filterState: LiveData<Boolean> = _filterState
+
     private var latestSearchTrack: String? = null
 
     init {
@@ -90,6 +93,23 @@ class SearchViewModel(
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
             _searchState.postValue(SearchState.Content(data))
+        }
+    }
+
+    fun getFilterState() {
+        _filterState.postValue(checkFilter())
+    }
+
+    private fun checkFilter(): Boolean {
+        val filter = sharedPreferencesInteractor.getFilter()
+        return if (filter == null) {
+            false
+        } else {
+            (!filter.country?.id.isNullOrEmpty()
+                || !filter.region?.id.isNullOrEmpty()
+                || !filter.industry?.id.isNullOrEmpty()
+                || !filter.salary.isNullOrEmpty()
+                || filter.onlyWithSalary == true)
         }
     }
 
