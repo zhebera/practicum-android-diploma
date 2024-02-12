@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.data.details
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
 
 class DetailsRepositoryImpl(context: Context) : DetailsRepository {
@@ -23,12 +26,21 @@ class DetailsRepositoryImpl(context: Context) : DetailsRepository {
     override fun openEmail(email: String) {
         val emailIntent = Intent().apply {
             action = Intent.ACTION_SENDTO
-            data = Uri.parse("mailto:")
+            data = Uri.parse("mailto: $email")
             putExtra(Intent.EXTRA_EMAIL, email)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
-        androidContext.startActivity(emailIntent)
+        try {
+            androidContext.startActivity(emailIntent)
+        } catch (e: ActivityNotFoundException) {
+            print(e.message)
+            Toast.makeText(
+                androidContext,
+                androidContext.getString(R.string.no_email_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun openPhone(phone: String) {

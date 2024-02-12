@@ -219,7 +219,14 @@ class VacancyDescriptionFragment : Fragment() {
         if (keySkillsResponse.isNotEmpty()) {
             keySkillsContainer?.visibility = View.VISIBLE
 
-            keySkillsResponse.forEach { skill -> keySkillsFullString += " •  ${skill.name}\n" }
+            keySkillsResponse.forEachIndexed { index, keySkill ->
+                if (index != keySkillsResponse.lastIndex) {
+                    keySkillsFullString += " •  ${keySkill.name}\n"
+                } else {
+                    keySkillsFullString += " •  ${keySkill.name}"
+                }
+            }
+
             keySkills?.text = keySkillsFullString
         }
     }
