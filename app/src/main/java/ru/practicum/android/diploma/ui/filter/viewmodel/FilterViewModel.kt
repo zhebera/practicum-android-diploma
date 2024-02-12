@@ -14,24 +14,13 @@ import ru.practicum.android.diploma.domain.models.Region
 class FilterViewModel(
     private val sharedPreferencesInteractor: SharedPreferencesInteractor
 ) : ViewModel() {
-
-    private val _filterState = MutableLiveData<FilterModel?>()
-    val filterState: LiveData<FilterModel?> = _filterState
-
-    init {
-        viewModelScope.launch { getFilter() }
-    }
-
-    private fun getFilter() {
-        val filter = sharedPreferencesInteractor.getFilter()
-        _filterState.postValue(filter)
-
+    fun getFilter(): FilterModel? {
+        return sharedPreferencesInteractor.getFilter()
     }
 
     fun clearFilter() {
         viewModelScope.launch {
             sharedPreferencesInteractor.clearFilter()
-            getFilter()
         }
     }
 

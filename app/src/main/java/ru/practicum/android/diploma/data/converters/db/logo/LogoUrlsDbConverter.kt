@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.converters
+package ru.practicum.android.diploma.data.converters.db.logo
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

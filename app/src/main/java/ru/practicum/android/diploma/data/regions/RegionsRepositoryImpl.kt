@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.data.request.AllRegionsRequest
 import ru.practicum.android.diploma.data.request.CountryRegionsRequest
 import ru.practicum.android.diploma.data.response.RegionResponse
 import ru.practicum.android.diploma.domain.api.regions.RegionsRepository
+import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.util.Resource
 
@@ -47,11 +48,24 @@ class RegionsRepositoryImpl(
                         }
 
                         filteredData.forEach { country ->
-                            mergedList.addAll(country.includedRegions)
+                            val temporaryList = ArrayList<Region>()
+
+                            temporaryList.addAll(country.includedRegions)
 
                             country.includedRegions.forEach { region ->
-                                mergedList.addAll(region.includedRegions)
+                                temporaryList.addAll(region.includedRegions)
                             }
+
+                            temporaryList.map {
+                                it.parentCountry = Country(
+                                    id = country.id,
+                                    name = country.name,
+                                    parentId = country.parentId,
+                                    includedRegions = ArrayList()
+                                )
+                            }
+
+                            mergedList.addAll(temporaryList)
                         }
 
                         emit(Resource.Success(mergedList))
@@ -70,11 +84,21 @@ class RegionsRepositoryImpl(
 
                 ResponseCode.SUCCESS -> {
                     with(response as RegionResponse) {
+                        val parentCountry = regionsConverter.convertRegion(this)
                         val regionsData = regionsConverter.convertRegions(this)
                         val mergedList = ArrayList<Region>(regionsData)
 
                         regionsData.forEach {
                             mergedList.addAll(it.includedRegions)
+                        }
+
+                        mergedList.map {
+                            it.parentCountry = Country(
+                                id = parentCountry.id,
+                                name = parentCountry.name,
+                                parentId = parentCountry.parentId,
+                                includedRegions = ArrayList()
+                            )
                         }
 
                         emit(Resource.Success(mergedList))

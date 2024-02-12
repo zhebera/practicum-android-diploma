@@ -42,17 +42,24 @@ class FilterWorkPlaceFragment : Fragment() {
 
             this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
                 regionModel = region
+                countryModel = region.parentCountry
                 if (region != null) {
                     binding.etRegion.setText(region.name)
+                    binding.etCountry.setText(region.parentCountry?.name)
                     binding.tvSelect.visibility = View.VISIBLE
                 }
             }
         }
 
         binding.etRegion.setOnClickListener {
+            val countryId = if (countryModel != null) {
+                countryModel!!.id
+            } else {
+                ""
+            }
             findNavController().navigate(
                 R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
-                RegionsWorkPlaceFragment.createArgs(countryModel?.id!!)
+                RegionsWorkPlaceFragment.createArgs(countryId)
             )
         }
 
