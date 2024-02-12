@@ -11,7 +11,8 @@ sealed interface SearchState {
     object Empty : SearchState
 
     data class Content(
-        val data: Vacancies
+        val data: Vacancies,
+        val currentPage: Int?
     ) : SearchState
 
     data class Error(

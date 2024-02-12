@@ -27,15 +27,20 @@ class SearchViewModel(
     private val _filterState = MutableLiveData<Boolean>()
     val filterState: LiveData<Boolean> = _filterState
 
-    private var latestSearchTrack: String? = null
+    private var latestSearchVacancy: String? = null
     private var foundVacancies: Int? = null
+    private var currentPage: Int? = null
+    private var maxPages: Int? = null
+    private var newItemList = true
 
     init {
         _searchState.postValue(SearchState.Default)
     }
 
     private fun getVacancies(options: HashMap<String, String>) {
-        _searchState.postValue(SearchState.Loading)
+        if (newItemList) {
+            _searchState.postValue(SearchState.Loading)
+        }
 
         viewModelScope.launch {
             searchInteractor.searchVacancies(options).collect { pair ->
@@ -55,15 +60,17 @@ class SearchViewModel(
     fun getCountVacancies() = foundVacancies
 
     fun searchDebounce(changedText: String, newFilter: Boolean) {
-        if (latestSearchTrack == changedText && !newFilter) return
+        if (latestSearchVacancy == changedText && !newFilter) return
         val filter = sharedPreferencesInteractor.getFilter()
         val request = getRequestWithFilter(changedText, filter)
+        newItemList = true
         searchingDebounce(request)
-        latestSearchTrack = changedText
+        latestSearchVacancy = changedText
     }
 
     private fun getRequestWithFilter(changedText: String, filter: FilterModel?): HashMap<String, String> {
         val hashMap = HashMap<String, String>()
+        hashMap[PER_PAGE_KEY] = PER_PAGE_COUNT.toString()
         hashMap[SEARCH_MAP_KEY_TEXT] = changedText
         if (filter != null) {
             if (!filter.industry?.id.isNullOrEmpty()) {
@@ -97,8 +104,10 @@ class SearchViewModel(
             _searchState.postValue(SearchState.Empty)
         }
         if (data.found != 0 && data.items.isNotEmpty()) {
-            _searchState.postValue(SearchState.Content(data))
             foundVacancies = data.found
+            currentPage = data.page
+            maxPages = data.pages
+            _searchState.postValue(SearchState.Content(data, currentPage))
         }
     }
 
@@ -119,7 +128,21 @@ class SearchViewModel(
         }
     }
 
+    fun getNextPageData() {
+        if (currentPage == maxPages) return
+        else {
+            val filter = sharedPreferencesInteractor.getFilter()
+            val request = getRequestWithFilter(latestSearchVacancy.toString(), filter)
+            request[PAGE] = (currentPage?.plus(1)).toString()
+            newItemList = false
+            searchingDebounce(request)
+        }
+    }
+
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val PER_PAGE_COUNT = 20
+        const val PER_PAGE_KEY = "per_page"
+        private const val PAGE = "page"
     }
 }

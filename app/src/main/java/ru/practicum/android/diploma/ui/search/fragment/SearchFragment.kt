@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.AbsListView
+import android.widget.AbsListView.OnScrollListener
+import android.widget.NumberPicker
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -46,7 +49,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -114,6 +117,21 @@ class SearchFragment : Fragment() {
                 false
             }
         }
+
+        binding.rwResult.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    val position = (binding.rwResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacancyAdapter.itemCount
+                    if (position >= itemsCount - 1) {
+                        viewModel.getNextPageData()
+                        binding.pbProgressBar.isVisible = true
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -133,7 +151,7 @@ class SearchFragment : Fragment() {
             is SearchState.Default -> showDefault()
 
             is SearchState.Content -> {
-                showContent(state.data.items)
+                showContent(state.data.items, state.currentPage)
             }
 
             is SearchState.Loading -> {
@@ -157,13 +175,19 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showContent(vacancies: List<Vacancy>) {
+    private fun showContent(vacancies: List<Vacancy>, currentPage: Int?) {
         with(binding) {
             llContent.isVisible = true
             pbCentralProgressBar.isVisible = false
             llProblem.isVisible = false
+            binding.pbProgressBar.isVisible = false
 
-            vacancyAdapter.setData(vacancies)
+            if (currentPage != null && currentPage > 0) {
+                vacancyAdapter.setNewPageData(vacancies)
+            } else {
+                vacancyAdapter.setData(vacancies)
+            }
+
             closeKeyboard()
             tvVacancyNumber.apply {
                 text = viewModel.getCountVacancies()?.getNumberString(requireContext())
@@ -178,6 +202,7 @@ class SearchFragment : Fragment() {
             pbCentralProgressBar.isVisible = false
             llProblem.isVisible = true
             tvPlaceholders.isVisible = true
+            binding.pbProgressBar.isVisible = false
 
             ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
             tvPlaceholders.text = getString(R.string.no_vacancy)
@@ -190,6 +215,8 @@ class SearchFragment : Fragment() {
             pbCentralProgressBar.isVisible = false
             llProblem.isVisible = true
             tvPlaceholders.isVisible = false
+            binding.pbProgressBar.isVisible = false
+
             ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
             closeKeyboard()
         }
@@ -201,6 +228,8 @@ class SearchFragment : Fragment() {
             pbCentralProgressBar.isVisible = false
             llProblem.isVisible = true
             tvPlaceholders.isVisible = true
+            binding.pbProgressBar.isVisible = false
+
             ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
             tvPlaceholders.text = getString(R.string.no_internet)
             closeKeyboard()
@@ -212,6 +241,7 @@ class SearchFragment : Fragment() {
             llContent.isVisible = false
             pbCentralProgressBar.isVisible = true
             llProblem.isVisible = false
+            binding.pbProgressBar.isVisible = false
             closeKeyboard()
         }
     }
