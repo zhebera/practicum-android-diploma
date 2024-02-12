@@ -267,7 +267,7 @@ class FilterFragment : Fragment() {
 
     private fun returnToSearchFragment() {
         with(findNavController()) {
-            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, checkNewFilter())
+            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, isFilterChanged())
             popBackStack()
         }
     }
@@ -301,15 +301,6 @@ class FilterFragment : Fragment() {
             && oldFilterModel?.industry?.id == industry?.id
             && oldFilterModel?.salary == binding.textInputEditText.text.toString()
             && oldFilterModel?.onlyWithSalary == binding.cbFilter.isChecked)
-    }
-
-    private fun checkNewFilter(): Boolean {
-        val filterModel = viewModel.getFilter()
-        return !(oldFilterModel?.country?.id == filterModel?.country?.id
-            && oldFilterModel?.region?.id == filterModel?.region?.id
-            && oldFilterModel?.industry?.id == filterModel?.industry?.id
-            && oldFilterModel?.salary == filterModel?.salary
-            && oldFilterModel?.onlyWithSalary == filterModel?.onlyWithSalary)
     }
 
     override fun onDestroy() {
