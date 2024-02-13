@@ -95,7 +95,7 @@ class SearchViewModel(
         if (data != null) {
             setData(data)
         } else {
-            _searchState.postValue(SearchState.Error(message.toString()))
+            _searchState.postValue(SearchState.Error(message.toString(), currentPage))
         }
     }
 
@@ -129,15 +129,15 @@ class SearchViewModel(
     }
 
     fun getNextPageData() {
-        if (currentPage == maxPages) {
-            return
-        } else {
-            val filter = sharedPreferencesInteractor.getFilter()
-            val request = getRequestWithFilter(latestSearchVacancy.toString(), filter)
-            request[PAGE] = currentPage?.plus(1).toString()
-            newItemList = false
-            searchingDebounce(request)
-        }
+        val filter = sharedPreferencesInteractor.getFilter()
+        val request = getRequestWithFilter(latestSearchVacancy.toString(), filter)
+        request[PAGE] = currentPage?.plus(1).toString()
+        newItemList = false
+        searchingDebounce(request)
+    }
+
+    fun checkLastPage(): Boolean {
+        return currentPage == maxPages?.minus(1)
     }
 
     companion object {

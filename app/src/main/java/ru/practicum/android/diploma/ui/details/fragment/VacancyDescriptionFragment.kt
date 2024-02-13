@@ -213,10 +213,10 @@ class VacancyDescriptionFragment : Fragment() {
         experience?.text = experienceResponse.name
     }
 
-    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>) {
+    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>?) {
         var keySkillsFullString = ""
 
-        if (keySkillsResponse.isNotEmpty()) {
+        if (!keySkillsResponse.isNullOrEmpty()) {
             keySkillsContainer?.visibility = View.VISIBLE
 
             keySkillsResponse.forEachIndexed { index, keySkill ->

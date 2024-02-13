@@ -10,5 +10,5 @@ object KeySkillDbConverter {
     fun fromKeySkillEntity(data: String) = Gson().fromJson(data, KeySkillEntity::class.java)
 
     @TypeConverter
-    fun toKeySkillEntity(keySkillEntity: KeySkillEntity) = Gson().toJson(keySkillEntity)
+    fun toKeySkillEntity(keySkillEntity: KeySkillEntity?) = Gson().toJson(keySkillEntity)
 }
