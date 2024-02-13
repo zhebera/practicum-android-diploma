@@ -3,12 +3,14 @@ package ru.practicum.android.diploma.ui.workplace.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
@@ -48,6 +50,12 @@ class FilterWorkPlaceFragment : Fragment() {
         setOnClickListeners()
         setTextChangedListeners()
         setBackStackListeners()
+
+        regionModel = requireArguments().getParcelable(REGION_ARG)
+        countryModel = requireArguments().getParcelable(COUNTRY_ARG)
+
+        binding.etCountry.setText(countryModel?.name)
+        binding.etRegion.setText(regionModel?.name)
     }
 
     private fun setViews() {
@@ -61,21 +69,19 @@ class FilterWorkPlaceFragment : Fragment() {
 
     private fun setOnClickListeners() {
         countryContainer?.setEndIconOnClickListener {
-            findNavController().navigate(
-                R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment
-            )
+            countryClickListener()
+        }
+
+        countryTextInput?.setOnClickListener {
+            countryClickListener()
         }
 
         regionContainer?.setEndIconOnClickListener {
-            val countryId = if (countryModel != null) {
-                countryModel!!.id
-            } else {
-                ""
-            }
-            findNavController().navigate(
-                R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
-                RegionsWorkPlaceFragment.createArgs(countryId)
-            )
+            regionClickListener()
+        }
+
+        regionTextInput?.setOnClickListener {
+            regionClickListener()
         }
 
         submitButton?.setOnClickListener {
@@ -93,6 +99,25 @@ class FilterWorkPlaceFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+    }
+
+    private fun regionClickListener() {
+        val countryId = if (countryModel != null) {
+            countryModel!!.id
+        } else {
+            ""
+        }
+
+        findNavController().navigate(
+            R.id.action_filterWorkPlaceFragment_to_regionsWorkPlaceFragment,
+            RegionsWorkPlaceFragment.createArgs(countryId)
+        )
+    }
+
+    private fun countryClickListener() {
+        findNavController().navigate(
+            R.id.action_filterWorkPlaceFragment_to_countriesWorkPlaceFragment
+        )
     }
 
     private fun setTextChangedListeners() {
@@ -129,6 +154,8 @@ class FilterWorkPlaceFragment : Fragment() {
                                 REGION_BACKSTACK_KEY,
                                 null
                             )
+
+                            submitButton?.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -166,6 +193,8 @@ class FilterWorkPlaceFragment : Fragment() {
                                 REGION_BACKSTACK_KEY,
                                 null
                             )
+
+                            submitButton?.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -180,18 +209,34 @@ class FilterWorkPlaceFragment : Fragment() {
         with(findNavController().currentBackStackEntry?.savedStateHandle) {
             this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { country ->
                 countryModel = country
+                val region = regionModel
+
                 if (country != null) {
                     countryTextInput?.setText(country.name)
                     submitButton?.visibility = View.VISIBLE
                 }
+
+                Log.d("EPIC7", "countryModelId: ${countryModel?.id}, parentCountryId: ${region?.parentCountry?.id}")
+
+                if (countryModel?.id != region?.parentCountry?.id) {
+                    regionTextInput?.text?.clear()
+                    regionModel = null
+                    findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                        REGION_BACKSTACK_KEY, null
+                    )
+                }
             }
 
-            this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
+            this?.getLiveData<Region?>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
                 regionModel = region
+
+                if (countryModel == null) {
+                    countryModel = regionModel?.parentCountry
+                    countryTextInput?.setText(regionModel?.parentCountry?.name)
+                }
+
                 if (region != null) {
-                    countryModel = region.parentCountry
                     regionTextInput?.setText(region.name)
-                    countryTextInput?.setText(region.parentCountry?.name)
                     submitButton?.visibility = View.VISIBLE
                 }
             }
@@ -201,5 +246,18 @@ class FilterWorkPlaceFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val COUNTRY_ARG = "country_arg"
+        private const val REGION_ARG = "region_arg"
+
+        fun createArgs(country: Country?, region: Region?): Bundle {
+            val bundle = bundleOf()
+            country?.let { bundle.putAll(bundleOf(COUNTRY_ARG to country)) }
+            region?.let { bundle.putAll(bundleOf(REGION_ARG to region)) }
+
+            return bundle
+        }
     }
 }
