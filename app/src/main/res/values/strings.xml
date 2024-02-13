@@ -81,5 +81,6 @@
     <string name="select_industry">Выберите отрасль</string>
     <string name="industries_placeholder_message">Не удается получить список отраслей</string>
     <string name="no_email_toast">На устройстве нет приложения для отправки почты</string>
+    <string name="toast_message">Произошла ошибка</string>
 
 </resources>

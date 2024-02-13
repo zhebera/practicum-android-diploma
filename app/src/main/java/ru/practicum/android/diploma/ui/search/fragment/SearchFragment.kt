@@ -230,7 +230,7 @@ class SearchFragment : Fragment() {
                 llProblem.isVisible = false
                 binding.pbProgressBar.isVisible = false
 
-                val toast = Toast.makeText(requireContext(), "Произошла ошибка", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(requireContext(), getString(R.string.toast_message), Toast.LENGTH_LONG)
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                     val view = toast.view
                     view!!.background = requireContext().getDrawable(R.drawable.card_vacancy_background)
