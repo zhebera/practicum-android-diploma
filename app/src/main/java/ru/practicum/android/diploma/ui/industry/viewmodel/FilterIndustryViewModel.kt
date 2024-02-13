@@ -17,23 +17,24 @@ class FilterIndustryViewModel(private val industriesInteractor: IndustriesIntera
     private val _checkedIndustries = MutableLiveData<List<Boolean>>()
     val checkedIndustries: LiveData<List<Boolean>> = _checkedIndustries
 
-    fun getIndustries() {
+    fun getIndustries(chosenIndustry: Industry?) {
         _industriesState.postValue(FilterIndustriesState.Loading)
 
         viewModelScope.launch {
             industriesInteractor.getIndustries()
                 .collect { pair ->
-                    processResult(pair.first, pair.second)
+                    processResult(pair.first, pair.second, chosenIndustry)
                 }
         }
     }
 
-    private fun processResult(data: List<Industry>?, message: String?) {
+    private fun processResult(data: List<Industry>?, message: String?, chosenIndustry: Industry?) {
         if (data.isNullOrEmpty()) {
             _industriesState.postValue(FilterIndustriesState.Error(message = message ?: "Неизвестная ошибка"))
         } else {
             _industriesState.postValue(FilterIndustriesState.Content(data))
             industries = data
+            chosenIndustry?.let { changeChecks(it) }
         }
     }
 

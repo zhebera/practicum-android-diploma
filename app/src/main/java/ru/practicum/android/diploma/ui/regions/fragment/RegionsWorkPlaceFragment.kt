@@ -85,6 +85,7 @@ class RegionsWorkPlaceFragment : Fragment() {
 
     private fun selectRegion(region: Region) {
         findNavController().previousBackStackEntry?.savedStateHandle?.set(REGION_BACKSTACK_KEY, region)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(COUNTRY_ARG, region.parentCountry)
         findNavController().popBackStack()
     }
 

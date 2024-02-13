@@ -19,6 +19,8 @@ import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
+import ru.practicum.android.diploma.ui.industry.fragment.FilterIndustryFragment
+import ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
@@ -48,9 +50,9 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setButtonsListeners()
-        setVisibilityRemoveButton()
         setTextChangedListeners()
         loadSharedPrefsFilter()
+        setVisibilityRemoveButton()
         setBackStackListeners()
     }
 
@@ -123,7 +125,10 @@ class FilterFragment : Fragment() {
                     if (s.isNullOrBlank()) {
                         setEndIconDrawable(R.drawable.arrow_forward)
                         setEndIconOnClickListener {
-                            findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+                            findNavController().navigate(
+                                R.id.action_filterFragment_to_filterWorkPlaceFragment,
+                                FilterWorkPlaceFragment.createArgs(country, region)
+                            )
                         }
                     } else {
                         endIconMode = TextInputLayout.END_ICON_CUSTOM
@@ -184,9 +189,9 @@ class FilterFragment : Fragment() {
             this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(
                 viewLifecycleOwner
             ) { backStackRegion ->
+                region = backStackRegion
+                setVisibilityApplyButton()
                 if (backStackRegion != null) {
-                    region = backStackRegion
-
                     val fullWorkPlace = getFullWorkPlace(country?.name, region?.name)
                     binding.etPlaceOfWork.setText(fullWorkPlace)
                 }
@@ -199,12 +204,18 @@ class FilterFragment : Fragment() {
     }
 
     private fun setButtonsListeners() {
-        binding.placeOfWork.setEndIconOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+        binding.etPlaceOfWork.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_filterFragment_to_filterWorkPlaceFragment,
+                FilterWorkPlaceFragment.createArgs(country, region)
+            )
         }
 
-        binding.industry.setEndIconOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
+        binding.etIndustry.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_filterFragment_to_filterIndustryFragment,
+                FilterIndustryFragment.createArgs(industry)
+            )
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->

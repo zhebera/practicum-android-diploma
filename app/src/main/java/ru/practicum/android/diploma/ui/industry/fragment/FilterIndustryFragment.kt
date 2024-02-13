@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -130,6 +131,7 @@ class FilterIndustryFragment : Fragment() {
         binding.pbLoading.isVisible = false
 
         adapter.setData(data)
+        setFilteredIndustries(editText)
     }
 
     private fun showError() {
@@ -165,11 +167,24 @@ class FilterIndustryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getIndustries()
+
+        val chosenIndustry = arguments?.getParcelable<Industry?>(INDUSTRY_ARG)
+        viewModel.getIndustries(chosenIndustry)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val INDUSTRY_ARG = "industry_arg"
+
+        fun createArgs(industry: Industry?): Bundle {
+            val bundle = bundleOf()
+            industry?.let { bundle.putAll(bundleOf(INDUSTRY_ARG to industry)) }
+
+            return bundle
+        }
     }
 }
