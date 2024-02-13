@@ -28,7 +28,6 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.getNumberString
 
-
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
