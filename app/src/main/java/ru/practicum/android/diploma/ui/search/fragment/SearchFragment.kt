@@ -61,7 +61,6 @@ class SearchFragment : Fragment() {
                 }
             }
 
-        binding.tvTitle.text = getString(R.string.main)
         viewModel.getFilterState()
 
         recyclerView = binding.rwResult
