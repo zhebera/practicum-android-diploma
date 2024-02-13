@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -25,6 +27,7 @@ import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.getNumberString
+
 
 class SearchFragment : Fragment() {
 
@@ -122,8 +125,10 @@ class SearchFragment : Fragment() {
                     val position = (binding.rwResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                     val itemsCount = vacancyAdapter.itemCount
                     if (position >= itemsCount - 1) {
-                        viewModel.getNextPageData()
-                        binding.pbProgressBar.isVisible = true
+                        if (!viewModel.checkLastPage()) {
+                            viewModel.getNextPageData()
+                            binding.pbProgressBar.isVisible = true
+                        }
                     }
                 }
             }
@@ -155,7 +160,7 @@ class SearchFragment : Fragment() {
             }
 
             is SearchState.Error -> {
-                showError()
+                showError(state.currentPage)
             }
 
             is SearchState.Empty -> {
@@ -218,17 +223,32 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showError() {
+    private fun showError(currentPage: Int?) {
         with(binding) {
-            llContent.isVisible = false
-            pbCentralProgressBar.isVisible = false
-            llProblem.isVisible = true
-            tvPlaceholders.isVisible = true
-            binding.pbProgressBar.isVisible = false
+            if (currentPage != null) {
+                llContent.isVisible = true
+                pbCentralProgressBar.isVisible = false
+                llProblem.isVisible = false
+                binding.pbProgressBar.isVisible = false
 
-            ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
-            tvPlaceholders.text = getString(R.string.no_internet)
-            closeKeyboard()
+                val toast = Toast.makeText(requireContext(), "Произошла ошибка", Toast.LENGTH_LONG)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    val view = toast.view
+                    view!!.background = requireContext().getDrawable(R.drawable.card_vacancy_background)
+                    view.setBackgroundColor(requireContext().getColor(R.color.red))
+                }
+                toast.show()
+            } else {
+                llContent.isVisible = false
+                pbCentralProgressBar.isVisible = false
+                llProblem.isVisible = true
+                tvPlaceholders.isVisible = true
+                binding.pbProgressBar.isVisible = false
+
+                ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+                tvPlaceholders.text = getString(R.string.no_internet)
+                closeKeyboard()
+            }
         }
     }
 

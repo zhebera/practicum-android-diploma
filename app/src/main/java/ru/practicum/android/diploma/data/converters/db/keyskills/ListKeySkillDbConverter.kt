@@ -9,7 +9,8 @@ import java.util.stream.Collectors
 object ListKeySkillDbConverter {
 
     @TypeConverter
-    fun fromKeySkillsEntity(data: String): List<KeySkillEntity> {
+    fun fromKeySkillsEntity(data: String): List<KeySkillEntity>? {
+        if (data.equals("null")) return null
         val massive = data.split('^')
         val list = mutableListOf<KeySkillEntity>()
         massive.forEach { str ->
@@ -19,10 +20,14 @@ object ListKeySkillDbConverter {
     }
 
     @TypeConverter
-    fun toKeySkillsEntity(listKeySkills: List<KeySkillEntity>): String {
+    fun toKeySkillsEntity(listKeySkills: List<KeySkillEntity>?): String {
         val list = mutableListOf<String>()
-        listKeySkills.forEach { keySkillEntity ->
-            list.add(toKeySkillEntity(keySkillEntity))
+        if (listKeySkills.isNullOrEmpty()) {
+            list.add(toKeySkillEntity(null))
+        } else {
+            listKeySkills.forEach { keySkillEntity ->
+                list.add(toKeySkillEntity(keySkillEntity))
+            }
         }
         return convertList(list)
     }

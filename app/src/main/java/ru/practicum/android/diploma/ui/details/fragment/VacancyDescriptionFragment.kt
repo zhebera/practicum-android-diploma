@@ -213,21 +213,23 @@ class VacancyDescriptionFragment : Fragment() {
         experience?.text = experienceResponse.name
     }
 
-    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>) {
+    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>?) {
         var keySkillsFullString = ""
 
-        if (keySkillsResponse.isNotEmpty()) {
-            keySkillsContainer?.visibility = View.VISIBLE
+        if (keySkillsResponse != null) {
+            if (keySkillsResponse.isNotEmpty()) {
+                keySkillsContainer?.visibility = View.VISIBLE
 
-            keySkillsResponse.forEachIndexed { index, keySkill ->
-                if (index != keySkillsResponse.lastIndex) {
-                    keySkillsFullString += " •  ${keySkill.name}\n"
-                } else {
-                    keySkillsFullString += " •  ${keySkill.name}"
+                keySkillsResponse.forEachIndexed { index, keySkill ->
+                    if (index != keySkillsResponse.lastIndex) {
+                        keySkillsFullString += " •  ${keySkill.name}\n"
+                    } else {
+                        keySkillsFullString += " •  ${keySkill.name}"
+                    }
                 }
-            }
 
-            keySkills?.text = keySkillsFullString
+                keySkills?.text = keySkillsFullString
+            }
         }
     }
 

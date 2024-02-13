@@ -17,11 +17,11 @@ object KeySkillEntityConverter {
         )
     }
 
-    fun mapToEntity(listKeySkill: List<KeySkill>): List<KeySkillEntity> {
-        return listKeySkill.map { map(it) }
+    fun mapToEntity(listKeySkill: List<KeySkill>?): List<KeySkillEntity>? {
+        return listKeySkill?.map { map(it) }
     }
 
-    fun mapToModel(listKeySkillEntity: List<KeySkillEntity>): List<KeySkill> {
-        return listKeySkillEntity.map { map(it) }
+    fun mapToModel(listKeySkillEntity: List<KeySkillEntity>?): List<KeySkill>? {
+        return listKeySkillEntity?.map { map(it) }
     }
 }
