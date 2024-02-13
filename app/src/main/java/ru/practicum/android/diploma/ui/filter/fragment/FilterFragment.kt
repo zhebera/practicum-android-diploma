@@ -50,10 +50,10 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadSharedPrefsFilter()
         setButtonsListeners()
-        setVisibilityRemoveButton()
         setTextChangedListeners()
+        loadSharedPrefsFilter()
+        setVisibilityRemoveButton()
         setBackStackListeners()
     }
 
