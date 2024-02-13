@@ -19,8 +19,8 @@ import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
-import ru.practicum.android.diploma.ui.industry.fragment.FilterIndustryFragment
-import ru.practicum.android.diploma.ui.workplace.fragment.FilterWorkPlaceFragment
+import ru.practicum.android.diploma.ui.filter.industry.fragment.FilterIndustryFragment
+import ru.practicum.android.diploma.ui.filter.workplace.fragment.FilterWorkPlaceFragment
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
@@ -228,6 +228,7 @@ class FilterFragment : Fragment() {
         }
 
         binding.ivFilterBackButton.setOnClickListener {
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
             findNavController().popBackStack()
         }
 
@@ -271,6 +272,7 @@ class FilterFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                findNavController().currentBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
                 findNavController().popBackStack()
             }
         })

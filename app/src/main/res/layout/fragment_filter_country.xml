@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_black"
-    tools:context=".ui.countries.fragment.CountriesWorkPlaceFragment">
+    tools:context=".ui.filter.workplace.countries.fragment.CountriesWorkPlaceFragment">
 
     <LinearLayout
         android:id="@+id/ll_main_text"
