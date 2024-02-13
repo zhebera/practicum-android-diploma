@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white_black"
+    tools:context=".ui.workplace.fragment.FilterWorkPlaceFragment">
+
+    <LinearLayout
+        android:id="@+id/ll_main_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/fragment_filter_padding_vartical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_filter_place_of_work_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_filter_layout_margin_start_4dp"
+            android:padding="@dimen/fragment_filter_padding"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_filter_place_of_work_main_text"
+            style="@style/YsDisplayMedium.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/selection_place_of_work"
+            android:textColor="@color/black_white" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/country"
+        style="@style/WorkplaceTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/country"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_main_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_country"
+            style="@style/WorkplaceTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/region"
+        style="@style/WorkplaceTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/region"
+        app:endIconDrawable="@drawable/arrow_forward"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/country">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_region"
+            style="@style/WorkplaceTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_select"
+        style="@style/YsDisplayMedium.Medium"
+        android:layout_width="@dimen/fragment_filter_place_of_work_width"
+        android:layout_height="@dimen/fragment_filter_place_of_work_height"
+        android:layout_marginBottom="@dimen/fragment_filter_place_of_work_margin_bottom"
+        android:layout_marginHorizontal="@dimen/fragment_filter_place_of_work_margin_start"
+        android:background="@drawable/button_background_on"
+        android:gravity="center"
+        android:text="@string/select"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

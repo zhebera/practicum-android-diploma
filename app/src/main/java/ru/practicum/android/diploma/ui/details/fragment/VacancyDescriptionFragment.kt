@@ -28,7 +28,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDescription
 import ru.practicum.android.diploma.ui.details.adapter.PhoneAdapter
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
-import ru.practicum.android.diploma.util.glide
+import ru.practicum.android.diploma.util.loadImageIntoView
 import ru.practicum.android.diploma.util.parseSalary
 
 class VacancyDescriptionFragment : Fragment() {
@@ -121,7 +121,11 @@ class VacancyDescriptionFragment : Fragment() {
         placeholderContainer?.visibility = View.VISIBLE
 
         placeholderText?.text = message
-        placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
+        when (message) {
+            getString(R.string.no_internet) -> placeholderImage?.setImageResource(R.drawable.placeholder_no_internet)
+            getString(R.string.placeholder_details_error_message) ->
+                placeholderImage?.setImageResource(R.drawable.placeholder_error_server)
+        }
     }
 
     private fun showContent(vacancyDescription: VacancyDescription, viewModel: VacancyDescriptionViewModel) {
@@ -160,7 +164,7 @@ class VacancyDescriptionFragment : Fragment() {
 
     private fun setEmployerBlock(employer: Employer) {
         employer.logoUrls?.original?.let {
-            glide(requireContext(), it, employerLogo!!, RoundedCorners(roundedCorners))
+            loadImageIntoView(requireContext(), it, employerLogo!!, RoundedCorners(roundedCorners))
         }
 
         employer.name?.let {

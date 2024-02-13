@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    style="@style/CardFilterRwItem">
+
+    <CheckBox
+        android:id="@+id/sector_radio_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:button="@drawable/radio_button"
+        android:clickable="true"
+        android:layoutDirection="rtl"
+        style="@style/CardFilterText"
+        tool:text="@string/placeholder_details_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

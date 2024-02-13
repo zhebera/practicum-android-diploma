@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_black"
+    tools:context=".ui.countries.fragment.CountriesWorkPlaceFragment">
+
+    <LinearLayout
+        android:id="@+id/ll_main_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/fragment_filter_padding_vartical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_filter_layout_margin_start_4dp"
+            android:padding="@dimen/fragment_filter_padding"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_filter_select_country"
+            style="@style/YsDisplayMedium.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/select_country"
+            android:textColor="@color/black_white" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_filter_country"
+        android:layout_width="@dimen/fragment_filter_country_width"
+        android:layout_height="@dimen/fragment_filter_country_height"
+        android:layout_marginTop="@dimen/fragment_filter_country_margin_top_8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_main_text" />
+
+    <LinearLayout
+        android:id="@+id/ll_problem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_main_text">
+
+        <ImageView
+            android:id="@+id/iv_placeholders"
+            style="@style/ImageViewPlaceholderSearch"
+            tools:src="@drawable/placeholder_get_list" />
+
+        <TextView
+            android:id="@+id/tv_placeholders"
+            style="@style/TextViewPlaceholderSearch"
+            tools:text="@string/cant_get_list" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="@dimen/fragment_filter_country_width_and_height"
+        android:layout_height="@dimen/fragment_filter_country_width_and_height"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_main_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>

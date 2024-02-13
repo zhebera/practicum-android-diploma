@@ -1,3 +1,3 @@
 package ru.practicum.android.diploma.data.request
 
-data class SearchRequest(val vacancy: String)
+data class SearchRequest(val options: HashMap<String, String>)

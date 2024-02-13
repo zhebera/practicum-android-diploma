@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_black"
+    tools:context=".ui.regions.fragment.RegionsWorkPlaceFragment">
+
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/fragment_filter_padding_vartical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_filter_layout_margin_start_4dp"
+            android:padding="@dimen/fragment_filter_padding"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/YsDisplayMedium.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/select_region"
+            android:textColor="@color/black_white" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_text_input_layout"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:endIconDrawable="@drawable/search"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:placeholderText="@string/select_region">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rw_result"
+        android:layout_width="@dimen/fragment_filter_country_width"
+        android:layout_height="@dimen/fragment_filter_country_height"
+        android:layout_marginTop="@dimen/fragment_filter_country_margin_top_8dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_text_input_layout" />
+
+    <ProgressBar
+        android:id="@+id/pb_central_progress_bar"
+        android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
+        android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_text_input_layout" />
+
+    <LinearLayout
+        android:id="@+id/ll_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_text_input_layout">
+
+        <ImageView
+            android:id="@+id/iv_placeholders"
+            style="@style/ImageViewPlaceholderSearch"
+            tools:src="@drawable/placeholder_no_vacancy_and_region" />
+
+        <TextView
+            android:id="@+id/tv_placeholders"
+            style="@style/TextViewPlaceholderSearch"
+            tools:text="@string/no_such_region" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="@dimen/fragment_filter_country_width_and_height"
+        android:layout_height="@dimen/fragment_filter_country_width_and_height"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
