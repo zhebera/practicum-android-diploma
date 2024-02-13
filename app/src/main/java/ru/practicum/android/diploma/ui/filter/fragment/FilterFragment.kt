@@ -55,8 +55,6 @@ class FilterFragment : Fragment() {
         setVisibilityRemoveButton()
         setTextChangedListeners()
         setBackStackListeners()
-
-        Log.d("EPIC6", region?.id.toString())
     }
 
     private fun loadSharedPrefsFilter() {

@@ -207,26 +207,6 @@ class FilterWorkPlaceFragment : Fragment() {
 
     private fun setBackStackListeners() {
         with(findNavController().currentBackStackEntry?.savedStateHandle) {
-            this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { country ->
-                countryModel = country
-                val region = regionModel
-
-                if (country != null) {
-                    countryTextInput?.setText(country.name)
-                    submitButton?.visibility = View.VISIBLE
-                }
-
-                Log.d("EPIC7", "countryModelId: ${countryModel?.id}, parentCountryId: ${region?.parentCountry?.id}")
-
-                if (countryModel?.id != region?.parentCountry?.id) {
-                    regionTextInput?.text?.clear()
-                    regionModel = null
-                    findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                        REGION_BACKSTACK_KEY, null
-                    )
-                }
-            }
-
             this?.getLiveData<Region?>(REGION_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { region ->
                 regionModel = region
 
@@ -238,6 +218,24 @@ class FilterWorkPlaceFragment : Fragment() {
                 if (region != null) {
                     regionTextInput?.setText(region.name)
                     submitButton?.visibility = View.VISIBLE
+                }
+            }
+
+            this?.getLiveData<Country>(COUNTRY_BACKSTACK_KEY)?.observe(viewLifecycleOwner) { country ->
+                countryModel = country
+                regionModel = get(REGION_BACKSTACK_KEY)
+
+                if (country != null) {
+                    countryTextInput?.setText(country.name)
+                    submitButton?.visibility = View.VISIBLE
+
+                    if (countryModel?.id != regionModel?.parentCountry?.id) {
+                        regionTextInput?.text?.clear()
+                        regionModel = null
+                        findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                            REGION_BACKSTACK_KEY, null
+                        )
+                    }
                 }
             }
         }
