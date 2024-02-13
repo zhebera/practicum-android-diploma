@@ -19,9 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterIndustryBinding
-import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.Industry
-import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.ui.industry.adapter.IndustriesAdapter
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustriesState
 import ru.practicum.android.diploma.ui.industry.viewmodel.FilterIndustryViewModel

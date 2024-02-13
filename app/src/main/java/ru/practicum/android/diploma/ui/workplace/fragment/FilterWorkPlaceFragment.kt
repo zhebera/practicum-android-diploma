@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.ui.workplace.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -233,7 +232,8 @@ class FilterWorkPlaceFragment : Fragment() {
                         regionTextInput?.text?.clear()
                         regionModel = null
                         findNavController().currentBackStackEntry?.savedStateHandle?.set(
-                            REGION_BACKSTACK_KEY, null
+                            REGION_BACKSTACK_KEY,
+                            null
                         )
                     }
                 }
