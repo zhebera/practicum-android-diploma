@@ -198,7 +198,9 @@ class SearchFragment : Fragment() {
             pbCentralProgressBar.isVisible = false
             llProblem.isVisible = true
             tvPlaceholders.isVisible = true
-            binding.pbProgressBar.isVisible = false
+            pbProgressBar.isVisible = false
+            tvVacancyNumber.isVisible = true
+            tvVacancyNumber.text = getString(R.string.no_such_vacancy)
 
             ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
             tvPlaceholders.text = getString(R.string.no_vacancy)

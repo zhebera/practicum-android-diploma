@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@color/white_black"
-                                                   tools:context=".ui.search.fragment.SearchFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_black"
+    tools:context=".ui.search.fragment.SearchFragment">
 
     <LinearLayout
         android:id="@+id/top_bar"
@@ -26,7 +26,7 @@
             android:text="@string/searching_vacancies"
             android:textColor="@color/black_white"
             app:layout_constraintEnd_toStartOf="@+id/iv_filter"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/iv_filter"
@@ -36,7 +36,7 @@
             android:layout_margin="8dp"
             android:padding="12dp"
             android:src="@drawable/filter_off"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,16 +59,16 @@
             android:layout_height="56dp"
             android:inputType="text"
             android:maxLines="1"
-            android:padding="0dp"/>
+            android:padding="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/ll_problem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="invisible"
-        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,13 +77,14 @@
         <ImageView
             android:id="@+id/iv_placeholders"
             style="@style/ImageViewPlaceholderSearch"
-            tools:src="@drawable/placeholder_no_internet"/>
+            tools:src="@drawable/placeholder_no_internet" />
 
         <TextView
             android:id="@+id/tv_placeholders"
             style="@style/TextViewPlaceholderSearch"
+            android:textColor = "@color/black_white"
             android:textAlignment="center"
-            tools:text="@string/no_internet"/>
+            tools:text="@string/no_internet" />
     </LinearLayout>
 
     <FrameLayout
@@ -102,24 +103,24 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingTop="@dimen/fragment_search_filter_recycler_clip"
-                android:clipToPadding="false"
                 android:id="@+id/rw_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/fragment_search_filter_recycler_clip"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="4"
-                tools:listitem="@layout/card_vacancy_list"/>
+                tools:listitem="@layout/card_vacancy_list" />
 
             <ProgressBar
                 android:id="@+id/pb_progress_bar"
                 android:layout_width="@dimen/fragment_search_width_and_height_progress_bar"
                 android:layout_height="@dimen/fragment_search_width_and_height_progress_bar"
-                android:indeterminateTint="@color/blue"
                 android:layout_gravity="center_horizontal|bottom"
-                android:visibility="gone"/>
+                android:indeterminateTint="@color/blue"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -127,14 +128,14 @@
             style="@style/YsDisplayRegular.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/vacancy_background"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/fragment_search_filter_padding_horizontal"
+            android:background="@drawable/vacancy_background"
             android:paddingHorizontal="@dimen/fragment_search_filter_padding_horizontal"
             android:paddingVertical="@dimen/fragment_search_padding_vertical_4dp"
             android:textColor="@color/white"
             android:visibility="visible"
-            tools:text="@string/number_of_founded_vacancies"/>
+            tools:text="@string/number_of_founded_vacancies" />
 
     </FrameLayout>
 
@@ -147,6 +148,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/search_text_input_layout"/>
+        app:layout_constraintTop_toTopOf="@id/search_text_input_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
