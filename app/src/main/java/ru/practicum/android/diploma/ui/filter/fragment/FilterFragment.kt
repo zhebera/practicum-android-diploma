@@ -270,12 +270,6 @@ class FilterFragment : Fragment() {
             returnToSearchFragment()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().currentBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
-                findNavController().popBackStack()
-            }
-        })
     }
 
     private fun returnToSearchFragment() {
