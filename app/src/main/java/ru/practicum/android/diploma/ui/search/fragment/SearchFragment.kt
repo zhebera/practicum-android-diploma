@@ -120,15 +120,12 @@ class SearchFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy > 0) {
-                    val position = (binding.rwResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                    val itemsCount = vacancyAdapter.itemCount
-                    if (position >= itemsCount - 1) {
-                        if (!viewModel.checkLastPage()) {
-                            viewModel.getNextPageData()
-                            binding.pbProgressBar.isVisible = true
-                        }
-                    }
+                val position = (binding.rwResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                val itemsCount = vacancyAdapter.itemCount
+
+                if (dy > 0 && position >= itemsCount - 1 && !viewModel.checkLastPage()) {
+                    viewModel.getNextPageData()
+                    binding.pbProgressBar.isVisible = true
                 }
             }
         })

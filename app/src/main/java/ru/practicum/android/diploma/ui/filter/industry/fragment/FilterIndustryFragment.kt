@@ -63,12 +63,6 @@ class FilterIndustryFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        })
-
         binding.tvSetIndustry.setOnClickListener {
             if (binding.tvSetIndustry.isVisible) {
                 val industry = viewModel.getIndustriesList()?.filter { it.isChecked }?.first()

@@ -92,12 +92,6 @@ class FilterWorkPlaceFragment : Fragment() {
         backButton?.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        })
     }
 
     private fun regionClickListener() {
