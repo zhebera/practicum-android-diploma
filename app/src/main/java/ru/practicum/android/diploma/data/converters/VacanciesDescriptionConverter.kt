@@ -84,10 +84,10 @@ class VacanciesDescriptionConverter {
 
     fun convertAreaResponse(response: AreaResponse): Area {
         return Area(
-                id = response.id,
-                name = response.name,
-                url = response.url
-            )
+            id = response.id,
+            name = response.name,
+            url = response.url
+        )
     }
 
     fun convertAddressResponse(response: AddressResponse?): Address? {
