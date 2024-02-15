@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,8 +17,8 @@ import ru.practicum.android.diploma.domain.models.Country
 import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
-import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.ui.filter.industry.fragment.FilterIndustryFragment
+import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.ui.filter.workplace.fragment.FilterWorkPlaceFragment
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
