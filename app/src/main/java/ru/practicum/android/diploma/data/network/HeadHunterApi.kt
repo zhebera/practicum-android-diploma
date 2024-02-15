@@ -12,19 +12,11 @@ import ru.practicum.android.diploma.data.response.RegionResponse
 import ru.practicum.android.diploma.data.response.VacanciesResponse
 
 interface HeadHunterApi {
-    @Headers(
-        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
-        "HH-User-Agent: Career Key (averkieva10012017@yandex.ru)"
-    )
     @GET("/vacancies")
     suspend fun getVacancies(
         @QueryMap options: Map<String, String>
     ): VacanciesResponse
 
-    @Headers(
-        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
-        "HH-User-Agent: Career Key (averkieva10012017@yandex.ru)"
-    )
     @GET("/vacancies/{vacancy_id}")
     suspend fun getVacancyDescription(@Path("vacancy_id") vacancyId: String): VacancyDescriptionResponse
 
