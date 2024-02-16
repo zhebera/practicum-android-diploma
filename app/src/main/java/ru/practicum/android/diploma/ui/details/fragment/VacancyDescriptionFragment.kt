@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -29,6 +30,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDescription
 import ru.practicum.android.diploma.ui.details.adapter.PhoneAdapter
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.loadImageIntoView
 import ru.practicum.android.diploma.util.parseSalary
 
@@ -281,8 +283,16 @@ class VacancyDescriptionFragment : Fragment() {
 
     private fun setListeners() {
         binding.backButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
             findNavController().popBackStack()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
+                findNavController().popBackStack()
+            }
+        })
     }
 
     override fun onDestroyView() {
