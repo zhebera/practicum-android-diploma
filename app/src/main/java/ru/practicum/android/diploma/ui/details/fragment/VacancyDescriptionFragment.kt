@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,7 @@ import ru.practicum.android.diploma.domain.models.VacancyDescription
 import ru.practicum.android.diploma.ui.details.adapter.PhoneAdapter
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionState
 import ru.practicum.android.diploma.ui.details.viewmodel.VacancyDescriptionViewModel
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.loadImageIntoView
 import ru.practicum.android.diploma.util.parseSalary
 
@@ -64,7 +67,7 @@ class VacancyDescriptionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,15 +79,14 @@ class VacancyDescriptionFragment : Fragment() {
 
         viewModel.getVacancyDescription(vacancyId)
 
-        viewModel.vacancyDescriptionState.observe(viewLifecycleOwner) {
-            renderState(it, viewModel)
+        with(viewModel) {
+            vacancyDescriptionState.observe(viewLifecycleOwner, ::renderState)
+            isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
         }
 
         binding.favouriteButton.setOnClickListener {
             viewModel.changeFavourite()
         }
-
-        viewModel.isFavorite.observe(viewLifecycleOwner, ::renderFavorite)
 
         setViews()
         setListeners()
@@ -95,11 +97,11 @@ class VacancyDescriptionFragment : Fragment() {
         viewModel.checkFavorite()
     }
 
-    private fun renderState(vacancyDescriptionState: VacancyDescriptionState, viewModel: VacancyDescriptionViewModel) {
+    private fun renderState(vacancyDescriptionState: VacancyDescriptionState) {
         when (vacancyDescriptionState) {
             is VacancyDescriptionState.Loading -> showLoading()
             is VacancyDescriptionState.Error -> showError(vacancyDescriptionState.message)
-            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data, viewModel)
+            is VacancyDescriptionState.Content -> showContent(vacancyDescriptionState.data)
         }
     }
 
@@ -128,8 +130,9 @@ class VacancyDescriptionFragment : Fragment() {
         }
     }
 
-    private fun showContent(vacancyDescription: VacancyDescription, viewModel: VacancyDescriptionViewModel) {
+    private fun showContent(vacancyDescription: VacancyDescription) {
         progressBar?.visibility = View.GONE
+        placeholderContainer?.isVisible = false
         contentContainer?.visibility = View.VISIBLE
 
         title?.text = vacancyDescription.name
@@ -151,6 +154,8 @@ class VacancyDescriptionFragment : Fragment() {
         vacancyDescription.contacts?.let { setContactsBlock(it, viewModel) }
 
         binding.shareButton.setOnClickListener { viewModel.shareLink(vacancyDescription.url) }
+
+        viewModel.checkFavorite()
     }
 
     private fun setSalaryBlock(salaryResponse: Salary) {
@@ -210,13 +215,20 @@ class VacancyDescriptionFragment : Fragment() {
         experience?.text = experienceResponse.name
     }
 
-    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>) {
+    private fun setKeySkillsBlock(keySkillsResponse: List<KeySkill>?) {
         var keySkillsFullString = ""
 
-        if (keySkillsResponse.isNotEmpty()) {
+        if (!keySkillsResponse.isNullOrEmpty()) {
             keySkillsContainer?.visibility = View.VISIBLE
 
-            keySkillsResponse.forEach { skill -> keySkillsFullString += " •  ${skill.name}\n" }
+            keySkillsResponse.forEachIndexed { index, keySkill ->
+                if (index != keySkillsResponse.lastIndex) {
+                    keySkillsFullString += " •  ${keySkill.name}\n"
+                } else {
+                    keySkillsFullString += " •  ${keySkill.name}"
+                }
+            }
+
             keySkills?.text = keySkillsFullString
         }
     }
@@ -271,8 +283,16 @@ class VacancyDescriptionFragment : Fragment() {
 
     private fun setListeners() {
         binding.backButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
             findNavController().popBackStack()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
+                findNavController().popBackStack()
+            }
+        })
     }
 
     override fun onDestroyView() {

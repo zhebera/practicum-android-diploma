@@ -11,7 +11,7 @@ class RegionsConverter {
         }
     }
 
-    private fun convertRegion(region: RegionResponse): Region {
+    fun convertRegion(region: RegionResponse): Region {
         return Region(
             includedRegions = region.areas.map { convertRegion(it) },
             id = region.id?.let { region.id },

@@ -13,3 +13,5 @@ const val SEARCH_MAP_KEY_INDUSTRY = "industry"
 const val SEARCH_MAP_KEY_AREA = "area"
 const val SEARCH_MAP_KEY_SALARY = "salary"
 const val SEARCH_MAP_KEY_WITH_SALARY = "only_with_salary"
+const val FILTER_KEY_APLLIED = "filter_key_applied"
+

@@ -28,6 +28,12 @@ class VacancyAdapter(private val clickListener: VacancyClickListener) :
         notifyDataSetChanged()
     }
 
+    fun setNewPageData(data: List<Vacancy>) {
+        val lastPosition = itemCount
+        vacancies.addAll(data)
+        notifyItemInserted(lastPosition + 1)
+    }
+
     fun clear() {
         vacancies.clear()
         notifyDataSetChanged()

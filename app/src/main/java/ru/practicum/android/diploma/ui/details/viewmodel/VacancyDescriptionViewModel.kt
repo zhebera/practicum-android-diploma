@@ -18,8 +18,8 @@ class VacancyDescriptionViewModel(
 
     private var vacancy: VacancyDescription? = null
 
-    private var _vacancyDescriptionState = MutableLiveData<VacancyDescriptionState>()
-    val vacancyDescriptionState: LiveData<VacancyDescriptionState> get() = _vacancyDescriptionState
+    private val _vacancyDescriptionState = MutableLiveData<VacancyDescriptionState>()
+    val vacancyDescriptionState: LiveData<VacancyDescriptionState> = _vacancyDescriptionState
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
@@ -30,7 +30,7 @@ class VacancyDescriptionViewModel(
         viewModelScope.launch {
             interactor.getVacancyDescription(vacancyId)
                 .collect { pair ->
-                    processResult(pair.first, pair.second)
+                    processResult(vacancyId, pair.first, pair.second)
                 }
         }
     }
@@ -63,12 +63,22 @@ class VacancyDescriptionViewModel(
         }
     }
 
-    private fun processResult(data: VacancyDescription?, message: String?) {
+    private fun processResult(vacancyId: String, data: VacancyDescription?, message: String?) {
         if (data == null) {
             _vacancyDescriptionState.postValue(VacancyDescriptionState.Error(message = message ?: "Неизвестная ошибка"))
+            getVacancyById(vacancyId)
         } else {
             _vacancyDescriptionState.postValue(VacancyDescriptionState.Content(data))
             vacancy = data
+        }
+    }
+
+    private fun getVacancyById(vacancyId: String) {
+        viewModelScope.launch {
+            favouriteInteractor.getVacancyDescriptionById(vacancyId)
+                .collect { pair ->
+                    processResult(vacancyId, pair.first, pair.second)
+                }
         }
     }
 

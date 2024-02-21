@@ -7,13 +7,13 @@ import ru.practicum.android.diploma.data.converters.IndustriesConverter
 import ru.practicum.android.diploma.data.converters.RegionsConverter
 import ru.practicum.android.diploma.data.converters.VacanciesConverter
 import ru.practicum.android.diploma.data.converters.VacanciesDescriptionConverter
-import ru.practicum.android.diploma.data.converters.VacancyDbConverter
-import ru.practicum.android.diploma.data.countries.CountriesRepositoryImpl
-import ru.practicum.android.diploma.data.details.DetailsRepositoryImpl
-import ru.practicum.android.diploma.data.favourite.FavouriteRepositoryImpl
-import ru.practicum.android.diploma.data.industries.IndustriesRepositoryImpl
-import ru.practicum.android.diploma.data.search.SearchRepositoryImpl
-import ru.practicum.android.diploma.data.regions.RegionsRepositoryImpl
+import ru.practicum.android.diploma.data.converters.db.VacancyDbConverter
+import ru.practicum.android.diploma.data.impl.countries.CountriesRepositoryImpl
+import ru.practicum.android.diploma.data.impl.details.DetailsRepositoryImpl
+import ru.practicum.android.diploma.data.impl.favourite.FavouriteRepositoryImpl
+import ru.practicum.android.diploma.data.impl.industries.IndustriesRepositoryImpl
+import ru.practicum.android.diploma.data.impl.search.SearchRepositoryImpl
+import ru.practicum.android.diploma.data.impl.regions.RegionsRepositoryImpl
 import ru.practicum.android.diploma.data.sharedpreferences.SharedPreferencesRepositoryImpl
 import ru.practicum.android.diploma.domain.api.countries.CountriesRepository
 import ru.practicum.android.diploma.domain.api.details.DetailsRepository
@@ -51,7 +51,7 @@ val repositoryModule = module {
     }
 
     single<FavouriteRepository> {
-        FavouriteRepositoryImpl(get(), get())
+        FavouriteRepositoryImpl(get(), get(), androidContext())
     }
 
     single<RegionsRepository> {

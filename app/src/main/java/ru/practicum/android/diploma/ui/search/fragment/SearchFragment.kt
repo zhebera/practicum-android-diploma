@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -24,6 +25,7 @@ import ru.practicum.android.diploma.ui.details.fragment.VacancyDescriptionFragme
 import ru.practicum.android.diploma.ui.search.adapter.VacancyAdapter
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchState
 import ru.practicum.android.diploma.ui.search.viewmodel.SearchViewModel
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.getNumberString
 
 class SearchFragment : Fragment() {
@@ -39,30 +41,37 @@ class SearchFragment : Fragment() {
         }
     )
     private var isClickAllowed = true
-    private val searchViewModel by viewModel<SearchViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
     private var textWatcher: TextWatcher? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvTitle.text = getString(R.string.main)
+
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>(FILTER_KEY_APLLIED)?.observe(viewLifecycleOwner) { filterStatus ->
+                if (!binding.etSearch.text.isNullOrEmpty() && filterStatus) {
+                    viewModel.searchDebounce(changedText = binding.etSearch.text.toString(), newFilter = true)
+                }
+            }
+
+        viewModel.getFilterState()
 
         recyclerView = binding.rwResult
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.adapter = vacancyAdapter
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchState.observe(viewLifecycleOwner) { state ->
-                render(state)
-            }
+        with(viewModel) {
+            searchState.observe(viewLifecycleOwner, ::render)
+            filterState.observe(viewLifecycleOwner, ::renderFilter)
         }
 
         binding.ivFilter.setOnClickListener {
@@ -74,8 +83,9 @@ class SearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
                 if (!s.isNullOrEmpty()) {
-                    searchViewModel.searchDebounce(
-                        changedText = s.toString()
+                    viewModel.searchDebounce(
+                        changedText = s.toString(),
+                        newFilter = false
                     )
                 }
             }
@@ -97,7 +107,7 @@ class SearchFragment : Fragment() {
 
         binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && !binding.etSearch.text.toString().isNullOrEmpty()) {
-                searchViewModel.searchDebounce(binding.etSearch.text.toString())
+                viewModel.searchDebounce(binding.etSearch.text.toString(), false)
                 closeKeyboard()
                 binding.etSearch.clearFocus()
                 true
@@ -105,6 +115,20 @@ class SearchFragment : Fragment() {
                 false
             }
         }
+
+        binding.rwResult.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val position = (binding.rwResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                val itemsCount = vacancyAdapter.itemCount
+
+                if (dy > 0 && position >= itemsCount - 1 && !viewModel.checkLastPage()) {
+                    viewModel.getNextPageData()
+                    binding.pbProgressBar.isVisible = true
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -121,8 +145,10 @@ class SearchFragment : Fragment() {
 
     private fun render(state: SearchState) {
         when (state) {
+            is SearchState.Default -> showDefault()
+
             is SearchState.Content -> {
-                showContent(state.data.items)
+                showContent(state.data.items, state.currentPage)
             }
 
             is SearchState.Loading -> {
@@ -130,7 +156,7 @@ class SearchFragment : Fragment() {
             }
 
             is SearchState.Error -> {
-                showError()
+                showError(state.currentPage)
             }
 
             is SearchState.Empty -> {
@@ -139,15 +165,29 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun showContent(vacancies: List<Vacancy>) {
+    private fun renderFilter(isFiltered: Boolean) {
+        when (isFiltered) {
+            false -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_off))
+            true -> binding.ivFilter.setImageDrawable(requireContext().getDrawable(R.drawable.filter_on))
+        }
+    }
+
+    private fun showContent(vacancies: List<Vacancy>, currentPage: Int?) {
         with(binding) {
-            llProblem.visibility = View.GONE
-            tvVacancyNumber.visibility = View.VISIBLE
-            pbCentralProgressBar.visibility = View.GONE
-            vacancyAdapter.setData(vacancies)
+            llContent.isVisible = true
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = false
+            binding.pbProgressBar.isVisible = false
+
+            if (currentPage != null && currentPage > 0) {
+                vacancyAdapter.setNewPageData(vacancies)
+            } else {
+                vacancyAdapter.setData(vacancies)
+            }
+
             closeKeyboard()
             tvVacancyNumber.apply {
-                text = vacancies.count().getNumberString(requireContext())
+                text = viewModel.getCountVacancies()?.getNumberString(requireContext())
                 measure(0, 0)
             }
         }
@@ -155,26 +195,68 @@ class SearchFragment : Fragment() {
 
     private fun showEmpty() {
         with(binding) {
-            pbCentralProgressBar.visibility = View.GONE
-            llProblem.visibility = View.VISIBLE
-            ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
-            tvPlaceholders.visibility = View.GONE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = true
+            tvPlaceholders.isVisible = true
+            pbProgressBar.isVisible = false
+            tvVacancyNumber.isVisible = true
+            tvVacancyNumber.text = getString(R.string.no_such_vacancy)
+
+            ivPlaceholders.setImageResource(R.drawable.placeholder_no_vacancy_and_region)
+            tvPlaceholders.text = getString(R.string.no_vacancy)
         }
     }
 
-    // todo
-    private fun showError() {
+    private fun showDefault() {
         with(binding) {
-            pbCentralProgressBar.visibility = View.GONE
-            llProblem.visibility = View.VISIBLE
-            tvPlaceholders.visibility = View.VISIBLE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = false
+            llProblem.isVisible = true
+            tvPlaceholders.isVisible = false
+            binding.pbProgressBar.isVisible = false
+
+            ivPlaceholders.setImageResource(R.drawable.placeholder_before_search)
+            closeKeyboard()
+        }
+    }
+
+    private fun showError(currentPage: Int?) {
+        with(binding) {
+            if (currentPage != null) {
+                llContent.isVisible = true
+                pbCentralProgressBar.isVisible = false
+                llProblem.isVisible = false
+                binding.pbProgressBar.isVisible = false
+
+                val toast = Toast.makeText(requireContext(), getString(R.string.toast_message), Toast.LENGTH_LONG)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    val view = toast.view
+                    view!!.background = requireContext().getDrawable(R.drawable.card_vacancy_background)
+                    view.setBackgroundColor(requireContext().getColor(R.color.red))
+                }
+                toast.show()
+            } else {
+                llContent.isVisible = false
+                pbCentralProgressBar.isVisible = false
+                llProblem.isVisible = true
+                tvPlaceholders.isVisible = true
+                binding.pbProgressBar.isVisible = false
+
+                ivPlaceholders.setImageResource(R.drawable.placeholder_no_internet)
+                tvPlaceholders.text = getString(R.string.no_internet)
+                closeKeyboard()
+            }
         }
     }
 
     private fun showLoading() {
         with(binding) {
-            llProblem.visibility = View.GONE
-            pbCentralProgressBar.visibility = View.VISIBLE
+            llContent.isVisible = false
+            pbCentralProgressBar.isVisible = true
+            llProblem.isVisible = false
+            binding.pbProgressBar.isVisible = false
+            closeKeyboard()
         }
     }
 

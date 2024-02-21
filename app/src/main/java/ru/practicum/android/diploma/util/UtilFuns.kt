@@ -16,7 +16,6 @@ import ru.practicum.android.diploma.R
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
-import java.util.*
 
 fun loadImageIntoView(
     context: Context,
@@ -86,9 +85,9 @@ fun parseSalary(
     val usedCurrency = currency ?: ""
     return if (from == null || to == null) {
         if (from != null) {
-            itemView.resources.getString(R.string.salary_from, formatSalary(from), usedCurrency)
+            itemView.resources.getString(R.string.salary_from, formatSalary(from), getCurrencyIcon(usedCurrency))
         } else if (to != null) {
-            itemView.resources.getString(R.string.salary_to, formatSalary(to), usedCurrency)
+            itemView.resources.getString(R.string.salary_to, formatSalary(to), getCurrencyIcon(usedCurrency))
         } else {
             itemView.resources.getString(R.string.salary_not_specified)
         }
@@ -97,7 +96,21 @@ fun parseSalary(
             R.string.salary_from_to,
             formatSalary(from),
             formatSalary(to),
-            usedCurrency
+            getCurrencyIcon(usedCurrency)
         )
+    }
+}
+
+fun getCurrencyIcon(currency: String?): String? {
+    return when (currency) {
+        "RUR", "RUB" -> "\u20BD"
+        "BYR" -> "Br"
+        "USD" -> "\u0024"
+        "EUR" -> "\u20AC"
+        "KZT" -> "\u20B8"
+        "UAH" -> "\u20B4"
+        "AZN" -> "\u20BC"
+        "GEL" -> "\u20BE"
+        else -> currency
     }
 }

@@ -5,7 +5,7 @@
 
     <string name="about_team_fragment_toolbar_text">Команда</string>
     <string name="about_team_fragment_header">Над приложением работали</string>
-    <string name="about_team_fragment_team_list">Аверкиева Ксения\n\nШипицын Игорь\n\nПадчин Дмитрий\n\nБрусов Денис\n\nКомиссаров Андрей</string>
+    <string name="about_team_fragment_team_list">Аверкиева Ксения\n\nПадчин Дмитрий\n\nБрусов Денис\n\nКомиссаров Андрей</string>
 
     <string name="main">Главная</string>
     <string name="favourite">Избранное</string>
@@ -13,7 +13,7 @@
     <string name="input_hint">Введите запрос</string>
     <string name="searching_vacancies">Поиск вакансий</string>
     <string name="no_internet">Нет интернета</string>
-    <string name="no_vacancy">Не удалось получить список вакансий</string>
+    <string name="no_vacancy">Не удалось получить\n список вакансий</string>
     <string name="number_of_founded_vacancies">[найдено 286 вакансий]</string>
     <string name="placeholder_job_title_and_city">Android-разрабочик, Москва</string>
     <string name="placeholder_company">Еда</string>
@@ -80,5 +80,8 @@
     <string name="industry_tool_bar_header">Выбор отрасли</string>
     <string name="select_industry">Выберите отрасль</string>
     <string name="industries_placeholder_message">Не удается получить список отраслей</string>
+    <string name="no_email_toast">На устройстве нет приложения для отправки почты</string>
+    <string name="toast_message">Произошла ошибка</string>
 
+    <string name="no_such_vacancy">Таких вакансий нет</string>
 </resources>

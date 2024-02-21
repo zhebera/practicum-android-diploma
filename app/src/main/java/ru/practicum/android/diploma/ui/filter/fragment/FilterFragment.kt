@@ -6,8 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
@@ -15,10 +14,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.domain.models.Country
+import ru.practicum.android.diploma.domain.models.FilterModel
 import ru.practicum.android.diploma.domain.models.Industry
 import ru.practicum.android.diploma.domain.models.Region
+import ru.practicum.android.diploma.ui.filter.industry.fragment.FilterIndustryFragment
 import ru.practicum.android.diploma.ui.filter.viewmodel.FilterViewModel
+import ru.practicum.android.diploma.ui.filter.workplace.fragment.FilterWorkPlaceFragment
 import ru.practicum.android.diploma.util.COUNTRY_BACKSTACK_KEY
+import ru.practicum.android.diploma.util.FILTER_KEY_APLLIED
 import ru.practicum.android.diploma.util.INDUSTRY_BACKSTACK_KEY
 import ru.practicum.android.diploma.util.REGION_BACKSTACK_KEY
 
@@ -30,6 +33,7 @@ class FilterFragment : Fragment() {
     private var country: Country? = null
     private var region: Region? = null
     private var industry: Industry? = null
+    private var oldFilterModel: FilterModel? = null
     private val viewModel by viewModel<FilterViewModel>()
 
     override fun onCreateView(
@@ -44,24 +48,39 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBackStackListeners()
         setButtonsListeners()
         setTextChangedListeners()
+        loadSharedPrefsFilter()
+        setVisibilityRemoveButton()
+        setBackStackListeners()
+    }
 
-        viewModel.filterState.observe(viewLifecycleOwner) { filterModel ->
-            var placeOfWork = ""
+    private fun loadSharedPrefsFilter() {
+        val filterModel = viewModel.getFilter()
+        oldFilterModel = filterModel
+        var placeOfWork = ""
 
-            filterModel?.countryName?.let { placeOfWork += it }
-            filterModel?.regionName?.let { placeOfWork += ", $it" }
-
-            if (filterModel != null) {
-                binding.etPlaceOfWork.setText(placeOfWork)
-                filterModel.industryName?.let { binding.etIndustry.setText(it) }
-                filterModel.salary?.let { binding.textInputEditText.setText(it) }
-                filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+        if (filterModel != null) {
+            filterModel.country?.let {
+                placeOfWork += it.name
+                country = it
             }
-        }
 
+            filterModel.region?.let {
+                placeOfWork += ", ${it.name}"
+                region = it
+            }
+
+            binding.etPlaceOfWork.setText(placeOfWork)
+
+            filterModel.industry?.let {
+                binding.etIndustry.setText(it.name)
+                industry = it
+            }
+
+            filterModel.salary?.let { binding.textInputEditText.setText(it) }
+            filterModel.onlyWithSalary?.let { binding.cbFilter.isChecked = it }
+        }
     }
 
     private fun setTextChangedListeners() {
@@ -83,6 +102,7 @@ class FilterFragment : Fragment() {
                         setEndIconOnClickListener {
                             s.clear()
                             industry = null
+                            setVisibilityApplyButton()
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 INDUSTRY_BACKSTACK_KEY,
                                 industry
@@ -90,6 +110,8 @@ class FilterFragment : Fragment() {
                         }
                     }
                 }
+                setVisibilityApplyButton()
+                setVisibilityRemoveButton()
             }
         }
 
@@ -102,7 +124,10 @@ class FilterFragment : Fragment() {
                     if (s.isNullOrBlank()) {
                         setEndIconDrawable(R.drawable.arrow_forward)
                         setEndIconOnClickListener {
-                            findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
+                            findNavController().navigate(
+                                R.id.action_filterFragment_to_filterWorkPlaceFragment,
+                                FilterWorkPlaceFragment.createArgs(country, region)
+                            )
                         }
                     } else {
                         endIconMode = TextInputLayout.END_ICON_CUSTOM
@@ -112,22 +137,30 @@ class FilterFragment : Fragment() {
                             s.clear()
                             country = null
                             region = null
+                            setVisibilityApplyButton()
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 COUNTRY_BACKSTACK_KEY,
-                                country
+                                null
                             )
                             findNavController().currentBackStackEntry?.savedStateHandle?.set(
                                 REGION_BACKSTACK_KEY,
-                                region
+                                null
                             )
                         }
                     }
                 }
+                setVisibilityApplyButton()
+                setVisibilityRemoveButton()
             }
         }
 
         binding.etIndustry.addTextChangedListener(industryTextWatcher)
         binding.etPlaceOfWork.addTextChangedListener(workPlaceTextWatcher)
+
+        binding.textInputEditText.doAfterTextChanged {
+            setVisibilityApplyButton()
+            setVisibilityRemoveButton()
+        }
     }
 
     private fun setBackStackListeners() {
@@ -139,8 +172,6 @@ class FilterFragment : Fragment() {
                     industry = backStackIndustry
 
                     binding.etIndustry.setText(industry?.name)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
                 }
             }
 
@@ -151,53 +182,79 @@ class FilterFragment : Fragment() {
                     country = backStackCountry
 
                     binding.etPlaceOfWork.setText(country?.name)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
                 }
             }
 
             this?.getLiveData<Region>(REGION_BACKSTACK_KEY)?.observe(
                 viewLifecycleOwner
             ) { backStackRegion ->
+                region = backStackRegion
+                setVisibilityApplyButton()
                 if (backStackRegion != null) {
-                    region = backStackRegion
-
-                    val fullWorkPlace = "${country?.name}, ${region?.name}"
+                    val fullWorkPlace = getFullWorkPlace(country?.name, region?.name)
                     binding.etPlaceOfWork.setText(fullWorkPlace)
-                    binding.tvApply.isVisible = true
-                    binding.tvRemove.isVisible = true
                 }
             }
         }
     }
 
+    private fun getFullWorkPlace(country: String?, region: String?): String {
+        return "$country, $region"
+    }
+
     private fun setButtonsListeners() {
-        binding.placeOfWork.setEndIconOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_filterWorkPlaceFragment)
-            setVisibilityApplyButton()
+        binding.etPlaceOfWork.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_filterFragment_to_filterWorkPlaceFragment,
+                FilterWorkPlaceFragment.createArgs(country, region)
+            )
         }
 
-        binding.industry.setEndIconOnClickListener {
-            findNavController().navigate(R.id.action_filterFragment_to_filterIndustryFragment)
-            setVisibilityApplyButton()
+        binding.etIndustry.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_filterFragment_to_filterIndustryFragment,
+                FilterIndustryFragment.createArgs(industry)
+            )
         }
 
         binding.cbFilter.setOnCheckedChangeListener { _, isChecked ->
             setVisibilityApplyButton()
+            setVisibilityRemoveButton()
         }
 
-        binding.textInputEditText.setOnClickListener {
+        binding.textInputLayout.setOnClickListener {
             setVisibilityApplyButton()
         }
 
         binding.ivFilterBackButton.setOnClickListener {
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, false)
             findNavController().popBackStack()
-            setVisibilityApplyButton()
         }
 
         binding.tvRemove.setOnClickListener {
             viewModel.clearFilter()
-            setVisibilityApplyButton()
+
+            country = null
+            region = null
+            industry = null
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                COUNTRY_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                REGION_BACKSTACK_KEY,
+                null
+            )
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(
+                INDUSTRY_BACKSTACK_KEY,
+                null
+            )
+
+            binding.etIndustry.setText("")
+            binding.etPlaceOfWork.setText("")
+            binding.textInputEditText.setText("")
+            binding.cbFilter.isChecked = false
         }
 
         binding.tvApply.setOnClickListener {
@@ -208,34 +265,47 @@ class FilterFragment : Fragment() {
                 binding.textInputEditText.text.toString(),
                 binding.cbFilter.isChecked
             )
-        }
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        })
+            returnToSearchFragment()
+        }
+    }
+
+    private fun returnToSearchFragment() {
+        with(findNavController()) {
+            previousBackStackEntry?.savedStateHandle?.set(FILTER_KEY_APLLIED, isFilterChanged())
+            popBackStack()
+        }
     }
 
     private fun setVisibilityApplyButton() {
-        if (checkEmptyField()) {
-            binding.apply {
-                tvApply.visibility = View.VISIBLE
-                tvRemove.visibility = View.VISIBLE
-            }
+        if (isFilterChanged()) {
+            binding.tvApply.visibility = View.VISIBLE
         } else {
-            binding.apply {
-                tvApply.visibility = View.GONE
-                tvRemove.visibility = View.GONE
-            }
+            binding.tvApply.visibility = View.GONE
         }
     }
 
-    private fun checkEmptyField(): Boolean {
-        return binding.etPlaceOfWork.text.toString().isNotEmpty()
-            || binding.etIndustry.text.toString().isNotEmpty()
-            || binding.cbFilter.isChecked
-            || binding.textInputEditText.text.toString().isNotEmpty()
+    private fun setVisibilityRemoveButton() {
+        if (areThereAnyFilledFields()) {
+            binding.tvRemove.visibility = View.VISIBLE
+        } else {
+            binding.tvRemove.visibility = View.GONE
+        }
+    }
+
+    private fun areThereAnyFilledFields(): Boolean {
+        return !(binding.etPlaceOfWork.text.isNullOrBlank()
+            && binding.etIndustry.text.isNullOrBlank()
+            && binding.textInputEditText.text.isNullOrBlank()
+            && !binding.cbFilter.isChecked)
+    }
+
+    private fun isFilterChanged(): Boolean {
+        return !(oldFilterModel?.country?.id == country?.id
+            && oldFilterModel?.region?.id == region?.id
+            && oldFilterModel?.industry?.id == industry?.id
+            && oldFilterModel?.salary == binding.textInputEditText.text.toString()
+            && oldFilterModel?.onlyWithSalary == binding.cbFilter.isChecked)
     }
 
     override fun onDestroy() {

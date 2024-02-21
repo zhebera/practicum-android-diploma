@@ -9,4 +9,5 @@ interface FavouriteInteractor {
     suspend fun addVacancy(vacancy: VacancyDescription)
     suspend fun removeVacancy(vacancy: VacancyDescription)
     fun checkVacancy(id: String): Flow<Boolean>
+    suspend fun getVacancyDescriptionById(id: String): Flow<Pair<VacancyDescription?, String?>>
 }
